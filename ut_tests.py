@@ -4,7 +4,7 @@ import utils
 import mock
 
 import drive
-
+import shooter
 
 def seq(start, stop, step=1):
     n = int(round((stop - start)/float(step)))
@@ -13,6 +13,43 @@ def seq(start, stop, step=1):
     else:
         return([])
 
+class TestShooter(unittest.TestCase):
+
+    def setUp(self):
+        self.motors = [mock.Motor(), mock.Motor(), mock.Motor(), mock.Motor()]
+        self.shoot_button = mock.Button()
+       
+        class MockShooterConfig(object):
+            motors = self.motors
+            shoot_button = self.shoot_button
+
+        self.shooter = shooter.Shooter(MockShooterConfig)
+
+    def tearDown(self):
+         pass
+
+    def test_shooter(self): 
+
+        for motor in self.motors:
+           self.assertEquals(motor.speed, 0)
+
+        self.shooter.op_tick(1)
+
+        for motor in self.motors:
+            self.assertEquals(motor.speed, 0) 
+        
+        self.shoot_button.pressed = True
+        self.shooter.op_tick(2)
+        
+        for motor in self.motors:
+            self.assertEquals(motor.speed, 1)
+
+        self.shoot_button.pressed = False
+        
+        self.shooter.op_tick(2)
+
+        for motor in self.motors:
+            self.assertEquals(motor.speed, 0)
 
 class TestDrive(unittest.TestCase):
 
