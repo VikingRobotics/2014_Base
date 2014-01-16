@@ -18,16 +18,30 @@ class TestShooter(unittest.TestCase):
     def setUp(self):
         self.motors = [mock.Motor(), mock.Motor(), mock.Motor(), mock.Motor()]
         self.shoot_button = mock.Button()
-       
+        self.stop_input = mock.DigitalInput()
+             
         class MockShooterConfig(object):
             motors = self.motors
             shoot_button = self.shoot_button
-
+            stop_input = self.stop_input
+            
         self.shooter = shooter.Shooter(MockShooterConfig)
 
     def tearDown(self):
          pass
-
+    
+    def test_Stop_input(self):
+        self.shoot_button.pressed = True
+        self.shooter.op_tick(1)
+        
+        for motor in self.motors:
+            self.assertEquals(motor.speed, 1)
+        self.stop_input.state = True
+        
+        self.shooter.op_tick(2)
+        for motor in self.motors:
+            self.assertEquals(motor.speed, 0)
+        
     def test_shooter(self): 
 
         for motor in self.motors:
