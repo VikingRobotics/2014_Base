@@ -13,13 +13,14 @@ class Shooter(common.ComponentBase):
 
     def op_tick(self, time):
         if self.stop_input.Get():
-            for motor in self.motors:
-                motor.Set(0)
+            self.set_motors(0)
         else:
                
             if self.shoot_button.get():
-                for motor in self.motors:
-                    motor.Set(1.0)
+                self.set_motors(1.0)
             else:
-                for motor in self.motors:
-                    motor.Set(0)
+                self.set_motors(0)
+
+    def set_motors(self, speed):
+        for motor in self.motors:
+            motor.Set(speed)
