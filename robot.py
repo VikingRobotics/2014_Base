@@ -25,7 +25,7 @@ class MyRobot(wpilib.SimpleRobot):
             componet.disabled_init()
 
         while wpilib.IsDisabled():
-            self.dog.feed()
+            self.dog.Feed()
 
             for componet in self.components:
                 componet.disabled_tick(wpilib.Timer.GetFPGATimestamp())
@@ -41,7 +41,7 @@ class MyRobot(wpilib.SimpleRobot):
             componet.auto_init()
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
-            self.dog.feed()
+            self.dog.Feed()
 
             for componet in self.components:
                 componet.auto_tick(wpilib.Timer.GetFPGATimestamp())
@@ -57,7 +57,7 @@ class MyRobot(wpilib.SimpleRobot):
             componet.op_init()
 
         while self.IsOperatorControl() and self.IsEnabled():
-            self.dog.feed()
+            self.dog.Feed()
 
             for componet in self.components:
                 componet.op_tick(wpilib.Timer.GetFPGATimestamp())
