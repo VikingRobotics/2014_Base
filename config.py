@@ -22,7 +22,7 @@ class DriveConfig(object):
 
     # Buttons
     align_button = Button(rightJoy, 3)
-    hs_button = Button(leftJoy, 1)
+    sqrd_button = Button(leftJoy, 1)
 
 
 componets.append(drive.Drive(DriveConfig))
