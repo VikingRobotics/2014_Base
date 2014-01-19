@@ -19,11 +19,13 @@ class TestShooter(unittest.TestCase):
         self.motors = [mock.Motor(), mock.Motor(), mock.Motor(), mock.Motor()]
         self.shoot_button = mock.Button()
         self.stop_input = mock.DigitalInput()
+        self.reset_input = mock.DigitalInput()
              
         class MockShooterConfig(object):
             motors = self.motors
             shoot_button = self.shoot_button
             stop_input = self.stop_input
+            reset_input = self.reset_input
             
         self.shooter = shooter.Shooter(MockShooterConfig)
 
@@ -34,36 +36,42 @@ class TestShooter(unittest.TestCase):
         self.shoot_button.pressed = True
         self.shooter.op_tick(1)
         
-        for motor in self.motors:
-            self.assertEquals(motor.speed, 1)
+        self.check_motors(1.0)
         self.stop_input.state = True
         
         self.shooter.op_tick(2)
-        for motor in self.motors:
-            self.assertEquals(motor.speed, 0)
+        self.check_motors(-1.0)
         
+        self.stop_input.state = False
+        self.shooter.op_tick(3)
+        self.check_motors(-1.0)
+
+        self.reset_input.state = True
+        self.shooter.op_tick(4)
+        self.check_motors(0)
+
     def test_shooter(self): 
 
-        for motor in self.motors:
-           self.assertEquals(motor.speed, 0)
+        self.check_motors(0)
 
         self.shooter.op_tick(1)
 
-        for motor in self.motors:
-            self.assertEquals(motor.speed, 0) 
+        self.check_motors(0) 
         
         self.shoot_button.pressed = True
         self.shooter.op_tick(2)
         
-        for motor in self.motors:
-            self.assertEquals(motor.speed, 1)
+        self.check_motors(1.0)
 
         self.shoot_button.pressed = False
         
         self.shooter.op_tick(2)
 
+        self.check_motors(1.0)
+
+    def check_motors(self,speed):
         for motor in self.motors:
-            self.assertEquals(motor.speed, 0)
+            self.assertEquals(motor.speed, speed)
 
 class TestDrive(unittest.TestCase):
 
