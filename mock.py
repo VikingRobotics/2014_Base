@@ -49,17 +49,30 @@ class RobotDrive(object):
         self.speed = 0
         self.rotation = 0
 
-    def ArcadeDrive(self, speed, rotation):
+        self.left_speed = 0
+        self.right_speed = 0
+        self.squared = False
+
+    def ArcadeDrive(self, speed, rotation, squared=None):
         self.speed = speed
         self.rotation = rotation
+        self.squared = squared
 
     def StopMotor(self):
         self.speed = 0
         self.rotation = 0
 
-    def SetLeftRightMotorOutputs  (self, leftOutput,  rightOutput):
+    def SetLeftRightMotorOutputs(self, leftOutput,  rightOutput):
         return
         # Not really sure what we want to do with this, but it'll have to be something
+
+    def SetInvertedMotor(self, idx, invert_state):
+        pass
+
+    def TankDrive(self, left_speed, right_speed, squared):
+        self.left_speed = left_speed
+        self.right_speed = right_speed
+        self.squared = squared
 
 
 class Servo(object):

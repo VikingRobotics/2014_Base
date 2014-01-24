@@ -20,7 +20,7 @@ class Drive(common.ComponentBase):
     def op_init(self):
         self.robot_drive.StopMotor()
 
-    def op_tick(self):
+    def op_tick(self, timestamp):
         squared = False
         speed = self.right_joy.GetY()
         rot = self.right_joy.GetX()
@@ -32,7 +32,7 @@ class Drive(common.ComponentBase):
             self.robot_drive.TankDrive(self.right_joy.GetY(), -1*self.left_joy.GetY(), squared)
         else:
             self.robot_drive.ArcadeDrive(speed, rot, squared)
-    
+
     def check_tank(self):
         self.prev = self.pressed
         self.pressed = self.tank_button.get()
@@ -41,5 +41,5 @@ class Drive(common.ComponentBase):
             self.isTank = not self.isTank
             self.robot_drive.SetInvertedMotor(1, self.isTank)
             self.robot_drive.SetInvertedMotor(2, self.isTank)
-        
+
         return self.isTank

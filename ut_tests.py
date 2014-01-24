@@ -20,28 +20,28 @@ class TestShooter(unittest.TestCase):
         self.shoot_button = mock.Button()
         self.stop_input = mock.DigitalInput()
         self.reset_input = mock.DigitalInput()
-             
+
         class MockShooterConfig(object):
             motors = self.motors
             shoot_button = self.shoot_button
             stop_input = self.stop_input
             reset_input = self.reset_input
-            
+
         self.shooter = shooter.Shooter(MockShooterConfig)
 
     def tearDown(self):
          pass
-    
+
     def test_Stop_input(self):
         self.shoot_button.pressed = True
         self.shooter.op_tick(1)
-        
+
         self.check_motors(1.0)
         self.stop_input.state = True
-        
+
         self.shooter.op_tick(2)
         self.check_motors(-1.0)
-        
+
         self.stop_input.state = False
         self.shooter.op_tick(3)
         self.check_motors(-1.0)
@@ -50,21 +50,21 @@ class TestShooter(unittest.TestCase):
         self.shooter.op_tick(4)
         self.check_motors(0)
 
-    def test_shooter(self): 
+    def test_shooter(self):
 
         self.check_motors(0)
 
         self.shooter.op_tick(1)
 
-        self.check_motors(0) 
-        
+        self.check_motors(0)
+
         self.shoot_button.pressed = True
         self.shooter.op_tick(2)
-        
+
         self.check_motors(1.0)
 
         self.shoot_button.pressed = False
-        
+
         self.shooter.op_tick(2)
 
         self.check_motors(1.0)
@@ -73,119 +73,126 @@ class TestShooter(unittest.TestCase):
         for motor in self.motors:
             self.assertEquals(motor.speed, speed)
 
-class TestDrive(unittest.TestCase):
+class TestArcadeDrive(unittest.TestCase):
 
     def setUp(self):
         self.robot_drive = mock.RobotDrive()
 
-        self.joystick = mock.Joystick()
+        self.left_joy = mock.Joystick()
+        self.right_joy = mock.Joystick()
+
         self.photo_sensors = [ mock.DigitalInput() for x in range(5)]
-        self.hs_button = mock.Button()
-        self.align_button = mock.Button()
+        self.sqrd_button = mock.Button()
+        self.tank_button = mock.Button()
 
 
         class MockDriveConfig(object):
             # Motors & Drive System
             robot_drive = self.robot_drive
-            drive_joy = self.joystick
+            left_joy = self.right_joy
+            right_joy = self.left_joy
 
-            photo_sensors = self.photo_sensors
+            sqrd_button = self.sqrd_button
+            tank_button = self.tank_button
 
-            align_button = self.align_button
-            hs_button = self.hs_button
 
         self.drive = drive.Drive(MockDriveConfig)
+
+        self.tank_button.pressed = True
+        self.drive.op_tick(1)
+
+        self.tank_button.pressed = False
 
     def tearDown(self):
         pass
 
     def test_throttle(self):
-        self.joystick.x = 0.0
+        self.left_joy.x = 0.0
 
         # Sweep forward
         for y in seq(-1.0, 1.0, 0.1):
-            self.joystick.y = y
+            self.left_joy.y = y
 
             self.drive.op_tick(100)
 
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
+            self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+            self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
 
         # Sweep back
         for y in seq(1.0, -1.0, -0.1):
-            self.joystick.y = y
+            self.left_joy.y = y
 
             self.drive.op_tick(200)
 
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
+            self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+            self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
 
     def test_steering(self):
-        self.joystick.y = 0.0
+        self.left_joy.y = 0.0
 
         # Sweep forward
         for x in seq(-1.0, 1.0, 0.1):
-            self.joystick.x = x
+            self.left_joy.x = x
 
             self.drive.op_tick(100)
 
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
+            self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+            self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
 
         # Sweep back
         for x in seq(1.0, -1.0, -0.1):
-            self.joystick.x = x
+            self.left_joy.x = x
 
             self.drive.op_tick(200)
 
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
+            self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+            self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
 
-    def test_half_speed_throttle(self):
-        self.hs_button.pressed = True
+#    def test_half_speed_throttle(self):
+#        self.hs_button.pressed = True
+#
+#        self.left_joy.x = 0.0
+#
+#        # Sweep forward
+#        for y in seq(-1.0, 1.0, 0.1):
+#            self.left_joy.y = y
+#
+#            self.drive.op_tick(100)
+#
+#            self.assertEquals(self.robot_drive.speed, self.left_joy.y/2)
+#            self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
+#
+#       # Sweep back
+#       for y in seq(1.0, -1.0, -0.1):
+#           self.left_joy.y = y
+#
+#           self.drive.op_tick(200)
+#
+#           self.assertEquals(self.robot_drive.speed, self.left_joy.y/2)
+#           self.assertEquals(self.robot_drive.rotation, self.left_joy.x)
 
-        self.joystick.x = 0.0
-
-        # Sweep forward
-        for y in seq(-1.0, 1.0, 0.1):
-            self.joystick.y = y
-
-            self.drive.op_tick(100)
-
-            self.assertEquals(self.robot_drive.speed, self.joystick.y/2)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
-
-        # Sweep back
-        for y in seq(1.0, -1.0, -0.1):
-            self.joystick.y = y
-
-            self.drive.op_tick(200)
-
-            self.assertEquals(self.robot_drive.speed, self.joystick.y/2)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x)
-
-    def test_half_speed_steering(self):
-        self.hs_button.pressed = True
-
-        self.joystick.y = 0.0
-
-        # Sweep forward
-        for x in seq(-1.0, 1.0, 0.1):
-            self.joystick.x = x
-
-            self.drive.op_tick(1)
-
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x/2)
-
-        # Sweep back
-        for x in seq(1.0, -1.0, -0.1):
-            self.joystick.x = x
-
-            self.drive.op_tick(10)
-
-            self.assertEquals(self.robot_drive.speed, self.joystick.y)
-            self.assertEquals(self.robot_drive.rotation, self.joystick.x/2)
+#   def test_half_speed_steering(self):
+#       self.hs_button.pressed = True
+#
+#       self.left_joy.y = 0.0
+#
+#       # Sweep forward
+#       for x in seq(-1.0, 1.0, 0.1):
+#           self.left_joy.x = x
+#
+#           self.drive.op_tick(1)
+#
+#           self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+#           self.assertEquals(self.robot_drive.rotation, self.left_joy.x/2)
+#
+#       # Sweep back
+#       for x in seq(1.0, -1.0, -0.1):
+#           self.left_joy.x = x
+#
+#           self.drive.op_tick(10)
+#
+#           self.assertEquals(self.robot_drive.speed, self.left_joy.y)
+#           self.assertEquals(self.robot_drive.rotation, self.left_joy.x/2)
 
 
 class TestButtonControlledMotor(unittest.TestCase):
