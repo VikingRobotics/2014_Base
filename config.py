@@ -9,7 +9,7 @@ from utils import Button
 leftJoy = wpilib.Joystick(2)
 rightJoy = wpilib.Joystick(1)
 
-componets = []
+components = []
 
 
 class DriveConfig(object):
@@ -31,7 +31,7 @@ class DriveConfig(object):
     sqrd_button = Button(leftJoy, 1)
     shift_button = Button(leftJoy, 11)
 
-componets.append(drive.Drive(DriveConfig))
+components.append(drive.Drive(DriveConfig))
 
 
 class PickupConfig(object):
@@ -47,14 +47,14 @@ class PickupConfig(object):
     
     speed_axis = Axis(rightJoy, 1)
 
-componets.append(pickup.Pickup(PickupConfig))
+components.append(pickup.Pickup(PickupConfig))
 
 
 class UtilConfig(object):
     reset_button = Button(leftJoy, 8)
     compressor = wpilib.Compressor(1, 1)
 
-componets.append(utilComponent.UtilComponent(UtilConfig))
+components.append(utilComponent.UtilComponent(UtilConfig))
 
 
 # Core Functions
