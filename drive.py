@@ -51,3 +51,34 @@ class Drive(common.ComponentBase):
         else:
             self.left_shifter.Set(self.forward)
             self.right_shifter.Set(self.forward)
+
+
+    def align(self):
+
+        motorSpeed = .25
+
+        if self.frontLeft and self.backLeft:
+            self.left = 0
+        elif not self.frontLeft and self.backLeft
+            self.left = -motorSpeed
+        else:
+            self.left = motorSpeed
+
+
+        if self.frontRight and self.backRight:
+            self.right = 0
+        elif not self.frontRight and self.backRight
+            self.right = -motorSpeed
+        else:
+            self.right = motorSpeed 
+            
+            
+        # I think this should work....?
+        self.robot_drive.SetLeftRightMotorOutputs(self.left, self.right)
+
+
+
+            
+
+
+            
