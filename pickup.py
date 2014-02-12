@@ -1,8 +1,10 @@
 import common
 
-__all__ = ['Roller']
 
-class Roller(common.ComponentBase):
+__all__ = ['Pickup']
+
+
+class Pickup(common.ComponentBase):
 	
 	def __init__(self, config):
 		self.motor = config.pickup_motor

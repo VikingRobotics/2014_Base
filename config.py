@@ -1,6 +1,8 @@
 import wpilib
 import mock
 import drive
+import pickup
+import shooter
 import utilComponent
 
 from utils import Button
@@ -36,18 +38,29 @@ components.append(drive.Drive(DriveConfig))
 
 class PickupConfig(object):
     pickup_motor = wpilib.Talon(4)
+
     solenoid = wpilib.DoubleSolenoid(5, 6)
-    
     forward = wpilib.DoubleSolenoid.kForward
     reverse = wpilib.DoubleSolenoid.kReverse
     
-    out_button = Button(rightJoy, 1)
+    out_button = Button(rightJoy, 3)
     in_button = Button(rightJoy, 2)
-    motor_button = Button(rightJoy, 3)
+    motor_button = Button(rightJoy, 4)
     
     speed_axis = Axis(rightJoy, 1)
 
 components.append(pickup.Pickup(PickupConfig))
+
+class ShooterConfig(object):
+    motors = wpilib.Talon(1)
+    
+    shoot_button = Button(rightJoy, 1)
+    stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
+    
+    stop_inputs = [wpilib.DigitalInput(x) for x in range(6, 10)]
+    reset_input = wpilib.DigitalInput(10)
+
+components.append(shooter.Shooter(ShooterConfig))
 
 
 class UtilConfig(object):
@@ -55,9 +68,3 @@ class UtilConfig(object):
     compressor = wpilib.Compressor(1, 1)
 
 components.append(utilComponent.UtilComponent(UtilConfig))
-
-
-# Core Functions
-def CheckRestart():
-    return
-    # We need to do something about this at some point.....
