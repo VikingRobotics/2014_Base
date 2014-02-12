@@ -31,7 +31,7 @@ class DigitalInput(object): # Changed from PhotoSensor for limit switches
         return self.state
 
 
-class Motor(object):
+class Talon(object):
 
     def __init__(self):
         self.speed = 0

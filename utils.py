@@ -1,4 +1,5 @@
 import common
+import mock
 
 class Button(object):
 
@@ -31,3 +32,20 @@ class ButtonControlledMotor(common.ComponentBase):
         else:
             self.motor.Set(0)
 
+
+
+
+##    self.attributes = []
+##    self.input_stack = []
+
+##    def __init__(self, real_config):
+##        self.config = real_config()
+##        _attributes = dir(config)
+##        self.mocks = {}
+##        self.inputs = []
+##        for attribute in _attributes:
+##            _type = type(attribute)
+##            if attribute[0] != '_' and _type in input_dict:
+##                self.mocks[attribute] = input_dict[_type]()
+##                self.config.attribute = self.mocks[attribute]
+##                self.inputs.append(attribute)
