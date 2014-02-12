@@ -10,6 +10,15 @@ class Button(object):
     def get(self):
         return self.joy.GetRawButton(self.button)
 
+class Axis(object):
+
+    def __init__(self, joystick, axisNumber):
+        self.joy = joystick
+        self.axis = axisNumber
+
+    def get(self):
+        return self.joy.GetRawAxis(self.axis)
+
 
 class ButtonControlledMotor(common.ComponentBase):
 

@@ -31,8 +31,24 @@ class DriveConfig(object):
     sqrd_button = Button(leftJoy, 1)
     shift_button = Button(leftJoy, 11)
 
-
 componets.append(drive.Drive(DriveConfig))
+
+
+class PickupConfig(object):
+    pickup_motor = wpilib.Talon(4)
+    solenoid = wpilib.DoubleSolenoid(5, 6)
+    
+    forward = wpilib.DoubleSolenoid.kForward
+    reverse = wpilib.DoubleSolenoid.kReverse
+    
+    out_button = Button(rightJoy, 1)
+    in_button = Button(rightJoy, 2)
+    motor_button = Button(rightJoy, 3)
+    
+    speed_axis = Axis(rightJoy, 1)
+
+componets.append(pickup.Pickup(PickupConfig))
+
 
 class UtilConfig(object):
     reset_button = Button(leftJoy, 8)
