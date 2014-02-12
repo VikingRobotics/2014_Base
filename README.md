@@ -1,11 +1,14 @@
 # TODO
 
-* Use [pyfrc](https://github.com/robotpy/pyfrc)
 * Get vision processing working to detect when goal is hot
-* Write autonomous code
 * Write shooter code
 * Write picker upper code
 * Move line-aligning code to 2014 bot
+* Write autonomous code
+
+* Use [pyfrc](https://github.com/robotpy/pyfrc)
+* Add RuntimeError to Joystick 8 button
+* Check out the Robot.py netconsole in utilities/netconsole/netconsole.py
 
 # Getting Started
 
