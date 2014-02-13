@@ -49,17 +49,17 @@ class Shooter(common.ComponentBase):
                 else:
                     speed = -.1
 
-        print(speed)
+            print(speed)
 
-        """
-        When we are all in agreement that this code won't blow things up
-        uncomment the line below to enable actual movement of the Shooter
-        arm.
-        I would suggest pretty thoroughly testing this by manually moving
-        the arm along the sensors and editing until the desired behavior
-        is achieved.
-        """
-        #self.motors.Set(speed)
+            """
+            When we are all in agreement that this code won't blow things up
+            uncomment the line below to enable actual movement of the Shooter
+            arm.
+            I would suggest pretty thoroughly testing this by manually moving
+            the arm along the sensors and editing until the desired behavior
+            is achieved.
+            """
+            #self.motors.Set(speed)
 
 
 

@@ -13,8 +13,8 @@ from utils import Button
 from utils import Axis
 
 # Joysticks
-leftJoy = wpilib.Joystick(2)
-rightJoy = wpilib.Joystick(1)
+leftJoy = wpilib.Joystick(1)
+rightJoy = wpilib.Joystick(2)
 
 components = []
 
@@ -27,11 +27,11 @@ class DriveConfig(object):
 
     left_shifter = wpilib.DoubleSolenoid(1, 2)
     right_shifter = wpilib.DoubleSolenoid(3, 4)
-    #print(dir(right_shifter))
+    
     forward = wpilib.DoubleSolenoid.kForward
     reverse = wpilib.DoubleSolenoid.kReverse
     
-    right_joy = leftJoy
+    drive_joy = leftJoy
     
     # Buttons
     sqrd_button = Button(leftJoy, 1)
@@ -55,20 +55,22 @@ class PickupConfig(object):
 
 components.append(pickup.Pickup(PickupConfig))
 
+
 class ShooterConfig(object):
     # TODO: what channel is this guy actually on?
+        # Its on 3...? _Paul
     motors = wpilib.Talon(3)
     
     shoot_button = Button(rightJoy, 1)
     stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
     
     stop_inputs = [wpilib.DigitalInput(x) for x in range(6, 10)]
-    reset_input = wpilib.DigitalInput(10)
 
     # TODO: Matt through these in there to make the Shooter
     # component work. What should these be mapped to?
-    reset_stop = Button(rightJoy, 5)
-    max_throw_time = Axis(rightJoy, 2)
+        # That should be fixed now. _Paul
+    reset_stop = wpilib.DigitalInput(10)
+    max_throw_time = .3
 
 components.append(shooter.Shooter(ShooterConfig))
 

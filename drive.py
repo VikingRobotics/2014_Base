@@ -12,7 +12,7 @@ class Drive(common.ComponentBase):
         self.left_motors = config.left_motors
         self.right_motors = config.right_motors
 
-        self.right_joy = config.right_joy
+        self.joy = config.drive_joy
 
         self.sqrd_button = config.sqrd_button
 
@@ -26,12 +26,14 @@ class Drive(common.ComponentBase):
         self.prev = False
         #print(dir(self))
 
+
     def op_init(self):
         self.robot_drive.StopMotor()
 
+
     def op_tick(self, bs):
-        speed = self.right_joy.GetY()
-        rot = self.right_joy.GetX()
+        speed = self.joy.GetY()
+        rot = self.joy.GetX()
 
         squared = False
         if self.sqrd_button.get():
@@ -42,6 +44,7 @@ class Drive(common.ComponentBase):
         self.pressed = self.shift_button.get()
         if self.pressed and not self.prev:
             self.shift()
+
 
     def shift(self):
         val = self.left_shifter.Get()
@@ -72,8 +75,7 @@ class Drive(common.ComponentBase):
         else:
             self.right = motorSpeed 
             
-            
-        # I think this should work....?
+
         self.robot_drive.SetLeftRightMotorOutputs(self.left, self.right)
 
 

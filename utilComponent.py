@@ -11,6 +11,7 @@ class UtilComponent(common.ComponentBase):
 		self.compressor = config.compressor
 		self.compressor.Start()
 
+
 	def disabled_tick(self, timestamp):
 		if self.reset_button.get():
 			raise SystemExit
