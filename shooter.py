@@ -29,7 +29,6 @@ class Shooter(common.ComponentBase):
         speed = 0
 
         if not throw_time >= self.max_throw_time:
-
             prev = self.pressed
             self.pressed = self.shoot_button.get()
 
@@ -39,7 +38,6 @@ class Shooter(common.ComponentBase):
                 self.throw_start_time = time
 
             if not self.should_stop(self.current_stop) and not self.reseting:
-
                 speed = 1
             else:
                 self.reseting = True
