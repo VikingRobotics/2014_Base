@@ -1,21 +1,32 @@
-# TODO
-
-* Get vision processing working to detect when goal is hot
-* Write shooter code
-* Write picker upper code
-* Move line-aligning code to 2014 bot
-* Write autonomous code
-
-* Use [pyfrc](https://github.com/robotpy/pyfrc)
-* Add RuntimeError to Joystick 8 button
-* Check out the Robot.py netconsole in utilities/netconsole/netconsole.py
-
 # Getting Started
 
 We use python (Yay!)
 
-Python is not officially supported by FRC, so we use [RobotPy](http://firstforge.wpi.edu/sf/projects/robotpy). RobotPy runs a python interpreter on the cRio and provides
-python bindings to *most* of the wpilib.
+Python is not officially supported by FRC, so we use [RobotPy](http://firstforge.wpi.edu/sf/projects/robotpy). 
+RobotPy runs a python interpreter on the cRio and provides python bindings to *most* of the wpilib.
+
+## Learn Python
+
+* Finish the [Python Codecademy course](http://www.codecademy.com/tracks/python). *Almost* everything covered 
+  there is used in our Python code. You should finish the course before coding the robot.
+* If you want to get better, try solving the [beginners problems on CodeAbbey](http://codeabbey.com/index/task_list/beginners-problems). 
+  This is not necessary to program the robot.
+
+## Learn how to program an FRC Robot with Python
+
+* You should have a thorough understanding of the [WPILib Documentation](http://wpilib.screenstepslive.com/s/3120/m/7912)
+  . This will give you an understanding of what's possible with the Robot. There are also step-by-step 
+  guides for coding some things, such as mecanum drive.
+* There is [example Python code in the RobotPy code base](https://github.com/robotpy/robotpy/tree/2014/samples).
+* RobotPy wraps the C++ implementation of WPILib, therefore we have to use the C++ documentation. For detailed 
+  C++ documentation, see [Virtual Roadside](http://www.virtualroadside.com/WPILib/annotated.html).
+
+## Install PyFRC on Your Computer
+
+* Download the [latest PyFRC package](https://github.com/robotpy/pyfrc/releases)
+* Unzip the contents
+* cd into the directory
+* Run `python setup.py install`
 
 ## Setting up a cRio for this codebase
 
@@ -35,9 +46,11 @@ THIS NEEDS TO BE FILLED OUT
 10.29.28.1   - FMS
 10.29.28.2   - cRio
 10.29.28.5   - Computer
-10.29.28.11 - Axis
+10.29.28.11  - Axis
 
-# Shooting strategies
+# Planning
+
+## Shooting strategies
 
 * Jam robot against corner goal, shoot low goal
 * Jam robot against corner goal, shoot high goal
@@ -47,8 +60,6 @@ THIS NEEDS TO BE FILLED OUT
 * Square up on goal line, fire at fixed speed at high goal (can use line sensors to square)
 * Shoot whenever you want at whatever speed you want
 
-# Planning
-
 ## Autonomous Mode Plan
 
 * With humans, square up robot to wall at consistent distance from wall
@@ -56,7 +67,7 @@ THIS NEEDS TO BE FILLED OUT
 * Shoot ball 
 * Drive forward with dead reckoning into zone area
 
-## Robot Commands
+## Functions we want the robot to do
 
 shoot(shootingSpeed)
   - extend picker upper
@@ -87,4 +98,15 @@ alignOnLine()
 alignOnWall()
   - square robot against wall using sonars 
 
+# TODO
 
+* Get vision processing working to detect when goal is hot
+* Comment the code
+* Write shooter code
+* Write picker upper code
+* Write autonomous code
+* Add [motor safety feature to shooter](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
+* Add SmartDashboard stuff
+
+* Use [pyfrc](https://github.com/robotpy/pyfrc)
+* Check out the Robot.py netconsole in utilities/netconsole/netconsole.py
