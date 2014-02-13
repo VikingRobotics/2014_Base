@@ -1,4 +1,8 @@
-import wpilib
+try:
+    import wpilib
+except ImportError:
+    from pyfrc import wpilib
+
 import mock
 import drive
 import pickup
@@ -6,6 +10,7 @@ import shooter
 import utilComponent
 
 from utils import Button
+from utils import Axis
 
 # Joysticks
 leftJoy = wpilib.Joystick(2)
@@ -28,7 +33,6 @@ class DriveConfig(object):
     
     right_joy = leftJoy
     
-
     # Buttons
     sqrd_button = Button(leftJoy, 1)
     shift_button = Button(leftJoy, 11)
@@ -52,13 +56,19 @@ class PickupConfig(object):
 components.append(pickup.Pickup(PickupConfig))
 
 class ShooterConfig(object):
-    motors = wpilib.Talon(1)
+    # TODO: what channel is this guy actually on?
+    motors = wpilib.Talon(3)
     
     shoot_button = Button(rightJoy, 1)
     stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
     
     stop_inputs = [wpilib.DigitalInput(x) for x in range(6, 10)]
     reset_input = wpilib.DigitalInput(10)
+
+    # TODO: Matt through these in there to make the Shooter
+    # component work. What should these be mapped to?
+    reset_stop = Button(rightJoy, 5)
+    max_throw_time = Axis(rightJoy, 2)
 
 components.append(shooter.Shooter(ShooterConfig))
 

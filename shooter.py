@@ -42,7 +42,7 @@ class Shooter(common.ComponentBase):
             else:
                 self.reseting = True
 
-            if self.reseting
+            if self.reseting:
                 self.throw_start_time = time
                 if self.reset_stop.Get():
                     speed = 0

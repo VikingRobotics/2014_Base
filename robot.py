@@ -14,7 +14,7 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog = self.GetWatchdog()
         self.dog.SetExpiration(0.25)
 
-        self.components = config.componets
+        self.components = config.components
 
     def RobotInit(self):
 

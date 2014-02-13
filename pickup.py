@@ -8,7 +8,7 @@ class Pickup(common.ComponentBase):
 	
 	def __init__(self, config):
 		self.motor = config.pickup_motor
-		self.solenoid = config.pickup_solenoid
+		self.solenoid = config.solenoid
 
 		self.forward = config.forward
 		self.reverse = config.reverse

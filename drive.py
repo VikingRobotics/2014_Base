@@ -59,7 +59,7 @@ class Drive(common.ComponentBase):
 
         if self.frontLeft and self.backLeft:
             self.left = 0
-        elif not self.frontLeft and self.backLeft
+        elif not self.frontLeft and self.backLeft:
             self.left = -motorSpeed
         else:
             self.left = motorSpeed
@@ -67,7 +67,7 @@ class Drive(common.ComponentBase):
 
         if self.frontRight and self.backRight:
             self.right = 0
-        elif not self.frontRight and self.backRight
+        elif not self.frontRight and self.backRight:
             self.right = -motorSpeed
         else:
             self.right = motorSpeed 
