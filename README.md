@@ -100,6 +100,13 @@ alignOnWall()
 
 # TODO
 
+* Go over pyfrc
+* Go over changes that fixed errors in the code
+* Fix the code (try `python3 robot.py sim` and teleop it. It crashes)
+* Move declarations in config.py to all be in one spot at the top, then use named arguments in component constructors instead of config objects
+* rename variables to be more descriptive
+* Make sure Paul's code works
+
 * Get vision processing working to detect when goal is hot
 * Comment the code
 * Write shooter code
