@@ -23,7 +23,7 @@ RobotPy runs a python interpreter on the cRio and provides python bindings to *m
 
 ## Install PyFRC on Your Computer
 
-* Download the [latest PyFRC package](https://github.com/robotpy/pyfrc/releases)
+* Download the [latest PyFRC package](https://github.com/VikingRobotics/pyfrc)
 * Unzip the contents
 * cd into the directory
 * Run `python setup.py install`
@@ -43,10 +43,10 @@ THIS NEEDS TO BE FILLED OUT
 
 ## IP Addresses
 
-10.29.28.1   - FMS
-10.29.28.2   - cRio
-10.29.28.5   - Computer
-10.29.28.11  - Axis
+10.29.28.1     - Router
+10.29.28.2     - cRio
+10.29.28.5/6   - Computer
+10.29.28.11    - Axis
 
 # Planning
 
