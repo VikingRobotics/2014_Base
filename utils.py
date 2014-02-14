@@ -1,5 +1,5 @@
 import common
-import mock
+
 
 class Button(object):
 
@@ -18,6 +18,15 @@ class Axis(object):
 
     def get(self):
         return self.joy.GetRawAxis(self.axis)
+
+
+class HallEffect(object):
+
+    def __init__(self, hallEffect):
+        self.hallEffect = hallEffect
+
+    def Get(self):
+        return not self.hallEffect.Get()
 
 
 class ButtonControlledMotor(common.ComponentBase):

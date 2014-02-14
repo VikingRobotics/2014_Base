@@ -75,7 +75,7 @@ class Drive(common.ComponentBase):
         else:
             self.right = motorSpeed 
             
-
+            
         self.robot_drive.SetLeftRightMotorOutputs(self.left, self.right)
 
 

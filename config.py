@@ -11,6 +11,7 @@ import utilComponent
 
 from utils import Button
 from utils import Axis
+from utils import HallEffect
 
 # Joysticks
 leftJoy = wpilib.Joystick(1)
@@ -57,20 +58,14 @@ components.append(pickup.Pickup(PickupConfig))
 
 
 class ShooterConfig(object):
-    # TODO: what channel is this guy actually on?
-        # Its on 3...? _Paul
     motors = wpilib.Talon(3)
     
     shoot_button = Button(rightJoy, 1)
-    stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
-    
-    stop_inputs = [wpilib.DigitalInput(x) for x in range(6, 10)]
 
-    # TODO: Matt through these in there to make the Shooter
-    # component work. What should these be mapped to?
-        # That should be fixed now. _Paul
-    reset_stop = wpilib.DigitalInput(10)
-    max_throw_time = .3
+    stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
+
+    reset_stop = HallEffect(wpilib.DigitalInput(6))
+    stop_inputs = [HallEffect(wpilib.DigitalInput(x)) for x in range(7, 10)]
 
 components.append(shooter.Shooter(ShooterConfig))
 
