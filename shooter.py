@@ -4,10 +4,15 @@ import common
 __all__ = ['Shooter']
 
 
-class Shooter(object):
+class Shooter(common.ComponentBase):
 
-	def __init__(self, config):
-		self.motors = config.motors
+    SHOOTING = 0
+    RESET = 1 
+    RESETTING = 2
+
+
+    def __init__(self, config):
+        self.motors = config.motors
 
         self.shoot_button = config.shoot_button
 
@@ -16,33 +21,33 @@ class Shooter(object):
         self.stop_inputs = config.stop_inputs
         self.reset_stop = config.reset_stop
 
-        self.state = 'reseting'
+        self.state = self.RESETTING
 
         self.stop_pos = -1
 
     def op_tick(self, time):
-    	if self.state == 'reset':
-    		speed = 0
-    		if shoot_button.get():
-    			self.state = 'shooting'
-    			self.stop_pos = self.get_current_stop()
+        if self.state == self.RESET:
+            speed = 0
+            if self.shoot_button.get():
+                self.state = self.SHOOTING
+                self.stop_pos = self.get_current_stop()
 
-    	if self.state == 'shooting':
-    		speed = 1
-    		if self.should_stop(self.stop_pos):
-    			speed = 0
-    			self.state = 'reseting'
-    			self.stop_pos = -1
+        if self.state == self.SHOOTING:
+            speed = 1
+            if self.should_stop(self.stop_pos):
+                speed = 0
+                self.state = self.RESETTING
+                self.stop_pos = -1
 
-    	if self.state == 'reseting':
-    		speed = -.1
-    		if self.should_stop(self.stop_pos):
-    			speed = 0
-    			self.state = 'reset'
+        if self.state == self.RESETTING:
+            speed = -.1
+            if self.should_stop(self.stop_pos):
+                speed = 0
+                self.state = self.RESET
 
 
     def get_current_stop(self):
-    	for idx, button in enumerate(self.stop_buttons):
+        for idx, button in enumerate(self.stop_buttons):
             if button.get():
                 return idx
 
@@ -52,11 +57,11 @@ class Shooter(object):
         return 0
 
     def should_stop(self, stop_pos):
-    	if stop_pos == -1 and self.reset_stop.Get():
-    		return True
+        if stop_pos == -1 and self.reset_stop.Get():
+            return True
 
-    	for idx, hall in enumerate(self.stop_inputs):
-    		if idx >= stop_pos and hall.Get():
-    			return True
+        for idx, hall in enumerate(self.stop_inputs):
+            if idx >= stop_pos and hall.Get():
+                return True
 
-    	return False
+        return False
