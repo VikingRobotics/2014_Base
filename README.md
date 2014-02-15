@@ -100,20 +100,14 @@ alignOnWall()
 
 # TODO
 
-* Go over pyfrc
-* Go over changes that fixed errors in the code
-* Fix the code (try `python3 robot.py sim` and teleop it. It crashes)
-* Move declarations in config.py to all be in one spot at the top, then use named arguments in component constructors instead of config objects
-* rename variables to be more descriptive
-* Make sure Paul's code works
-
+* Enable the drivers to practice, i.e. make sure all basic functions work: shooter, loader, etc.
+* Modify shooter code to cover all shooting strategies (see above). Some might not make sense, but we need to cover all the ones that do make sense.
+* Operator station/board/thing! Finish making that so operators get real practice
 * Get vision processing working to detect when goal is hot
+* Add SmartDashboard code to instrument all input/output. This will help with debugging.
 * Comment the code
-* Write shooter code
-* Write picker upper code
 * Write autonomous code
 * Add [motor safety feature to shooter](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
-* Add SmartDashboard stuff
 
-* Use [pyfrc](https://github.com/robotpy/pyfrc)
+
 * Check out the Robot.py netconsole in utilities/netconsole/netconsole.py
