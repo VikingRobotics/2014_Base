@@ -4,7 +4,7 @@ _________________________________________
 |            Digital Side Car           |
 |                                       |
 |       PWM             DIO             |
-|  1 Left Drive     1 Presure Switch    |
+|  1 Left Drive     1 Pressure Switch   |
 |                   2 Left Encoder - A  |
 |  2 Right Drive    3 Left Encoder - B  |
 |                   4 Right Encoder - A |
