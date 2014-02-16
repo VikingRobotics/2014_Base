@@ -10,11 +10,10 @@ class MyRobot(wpilib.SimpleRobot):
 
     def __init__(self):
         super().__init__()
-
+        
         self.dog = self.GetWatchdog()
         self.dog.SetExpiration(0.25)
-
-        self.components = config.components
+        self.components = config.components()
 
     def RobotInit(self):
 
@@ -61,7 +60,6 @@ class MyRobot(wpilib.SimpleRobot):
 
         while self.IsOperatorControl() and self.IsEnabled():
             self.dog.Feed()
-
             for componet in self.components:
                 componet.op_tick(wpilib.Timer.GetFPGATimestamp())
 
