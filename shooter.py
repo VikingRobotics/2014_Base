@@ -1,8 +1,3 @@
-try:
-    import wpilib
-except ImportError:
-    from pyfrc import wpilib
-
 import common
 
 try:
