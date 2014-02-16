@@ -6,6 +6,10 @@ __all__ = ['Shooter']
 
 class Shooter(common.ComponentBase):
 
+    SHOOTING = 0
+    RESET = 1 
+    RESETTING = 2
+
     def __init__(self, config):
         self.motors = config.motors
 
@@ -16,36 +20,35 @@ class Shooter(common.ComponentBase):
         self.stop_inputs = config.stop_inputs
         self.reset_stop = config.reset_stop
 
-        self.state = 'reseting'
+        self.state = self.RESETTING
 
         self.stop_pos = -1
 
     def op_tick(self, time):
-        wpilib.SmartDashboard.PutString("shooter state", self.state)
-        wpilib.SmartDashboard.PutNumber("current preset", self.get_current_stop())
-         for idx, hall in enumerate(self.stop_inputs):
-            wpilib.SmartDashboard.PutBoolean("hall effect %d" % idx , hall.Get())
-                return True
 
-        if self.state == 'reset':
+        wpilib.SmartDashboard.PutNumber("shooter state", self.state)
+        wpilib.SmartDashboard.PutNumber("current preset", self.get_current_stop())
+        for idx, hall in enumerate(self.stop_inputs):
+            wpilib.SmartDashboard.PutBoolean("hall effect %d" % idx , hall.Get())
+
+        if self.state == self.RESET:
             speed = 0
-            if shoot_button.get():
-                self.state = 'shooting'
+            if self.shoot_button.get():
+                self.state = self.SHOOTING
                 self.stop_pos = self.get_current_stop()
 
-        if self.state == 'shooting':
+        if self.state == self.SHOOTING:
             speed = 1
             if self.should_stop(self.stop_pos):
                 speed = 0
-                self.state = 'reseting'
+                self.state = self.RESETTING
                 self.stop_pos = -1
 
-        if self.state == 'reseting':
+        if self.state == self.RESETTING:
             speed = -.1
             if self.should_stop(self.stop_pos):
                 speed = 0
-                self.state = 'reset'
-
+                self.state = self.RESET
 
     def get_current_stop(self):
         for idx, button in enumerate(self.stop_buttons):
