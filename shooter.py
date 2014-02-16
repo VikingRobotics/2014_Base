@@ -40,11 +40,6 @@ class Shooter(common.ComponentBase):
 
     def op_tick(self, time):
 
-        wpilib.SmartDashboard.PutNumber("shooter state", self.state)
-        wpilib.SmartDashboard.PutNumber("current preset", self.get_current_stop())
-        for idx, counter in enumerate(self.stop_counters):
-            wpilib.SmartDashboard.PutBoolean("hall effect counter %d" % idx , counter.Get())
-
         if self.state == self.RESET:
             speed = 0
             if self.shoot_button.get():

@@ -80,6 +80,6 @@ def components():
         compressor = wpilib.Compressor(1, 1)
 
     components.append(utilComponent.UtilComponent(UtilConfig))
-    #components.append(reporter.Reporter(ShooterConfig, PickupConfig, UtilConfig, DriveConfig))
+    components.append(reporter.Reporter(DriveConfig, PickupConfig, ShooterConfig, UtilConfig))
 
     return components
