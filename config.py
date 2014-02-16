@@ -65,7 +65,7 @@ class ShooterConfig(object):
     stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
 
     reset_stop = HallEffect(wpilib.DigitalInput(6))
-    stop_inputs = [HallEffect(wpilib.DigitalInput(x)) for x in range(7, 10)]
+    stop_inputs = [ x for x in range(7, 10)]
 
 components.append(shooter.Shooter(ShooterConfig))
 

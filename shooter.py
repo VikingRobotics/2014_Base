@@ -1,3 +1,8 @@
+try:
+    import wpilib
+except ImportError:
+    from pyfrc import wpilib
+
 import common
 
 
@@ -18,11 +23,27 @@ class Shooter(common.ComponentBase):
         self.stop_buttons = config.stop_buttons
         
         self.stop_inputs = config.stop_inputs
-        self.reset_stop = config.reset_stop
+        self.stop_counters = []
 
+        for stop_input in self.stop_inputs:
+            stop_counter = wpilib.Counter()
+            stop_counter.SetUpSource(stop_input)
+            stop_counter.SetUpSourceEdge(False, True)
+            stop_counter.Start()
+            self.stop_counters.append(stop_counter)
+
+        self.reset_stop = config.reset_stop
+    
         self.state = self.RESETTING
 
         self.stop_pos = -1
+
+
+    def op_init(self):
+        for counter in self.stop_counters:
+            counter.Reset()
+
+        self.state = self.RESETTING 
 
     def op_tick(self, time):
 
@@ -36,6 +57,8 @@ class Shooter(common.ComponentBase):
             if self.shoot_button.get():
                 self.state = self.SHOOTING
                 self.stop_pos = self.get_current_stop()
+                for counter in self.stop_counters:
+                    counter.Reset()
 
         if self.state == self.SHOOTING:
             speed = 1
@@ -60,12 +83,14 @@ class Shooter(common.ComponentBase):
         # stop.
         return 0
 
+
     def should_stop(self, stop_pos):
         if stop_pos == -1 and self.reset_stop.Get():
             return True
 
-        for idx, hall in enumerate(self.stop_inputs):
-            if idx >= stop_pos and hall.Get():
+        for idx, counter in enumerate(self.stop_counters):
+            # 0 is False and positve is True
+            if idx >= stop_pos and counter.Get(): 
                 return True
 
         return False
