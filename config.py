@@ -3,11 +3,11 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
-import mock
 import drive
 import pickup
 import shooter
 import utilComponent
+import reporter
 
 from utils import Button
 from utils import Axis
@@ -63,7 +63,15 @@ def components():
         stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
 
         reset_stop = HallEffect(wpilib.DigitalInput(6))
-        stop_inputs = [x for x in range(7, 10)]
+
+        stop_counters = []
+
+        for digital_input in range(7, 10):
+            stop_counter = wpilib.Counter()
+            stop_counter.SetUpSource(digital_input)
+            stop_counter.SetUpSourceEdge(False, True)
+            stop_counter.Start()
+            stop_counters.append(stop_counter)
 
     components.append(shooter.Shooter(ShooterConfig))
 
@@ -72,5 +80,6 @@ def components():
         compressor = wpilib.Compressor(1, 1)
 
     components.append(utilComponent.UtilComponent(UtilConfig))
+    #components.append(reporter.Reporter(ShooterConfig, PickupConfig, UtilConfig, DriveConfig))
 
     return components

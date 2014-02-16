@@ -22,15 +22,8 @@ class Shooter(common.ComponentBase):
 
         self.stop_buttons = config.stop_buttons
         
-        self.stop_inputs = config.stop_inputs
-        self.stop_counters = []
+        self.stop_counters = config.stop_counters
 
-        for stop_input in self.stop_inputs:
-            stop_counter = wpilib.Counter()
-            stop_counter.SetUpSource(stop_input)
-            stop_counter.SetUpSourceEdge(False, True)
-            stop_counter.Start()
-            self.stop_counters.append(stop_counter)
 
         self.reset_stop = config.reset_stop
     
