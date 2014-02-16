@@ -67,7 +67,6 @@ def components():
 
     components.append(shooter.Shooter(ShooterConfig))
 
-
     class UtilConfig(object):
         reset_button = Button(leftJoy, 8)
         compressor = wpilib.Compressor(1, 1)
