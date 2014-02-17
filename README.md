@@ -100,14 +100,17 @@ alignOnWall()
 
 # TODO
 
-* Enable the drivers to practice, i.e. make sure all basic functions work: shooter, loader, etc.
-* Modify shooter code to cover all shooting strategies (see above). Some might not make sense, but we need to cover all the ones that do make sense.
-* Operator station/board/thing! Finish making that so operators get real practice
+
+* Setup and *document* driver station backup. That includes all software 
+  that needs to be installed, how to get code, etc. We should have flash
+  drives with all the installers and stuff that we need. 
+* Figure out how to structure autonomous mode, then write it
+* Document how to make the Arduino work as a joystick
+* Operator station/board/thing! Finish making that so operators get 
+  real practice.
 * Get vision processing working to detect when goal is hot
-* Add SmartDashboard code to instrument all input/output. This will help with debugging.
-* Comment the code
-* Write autonomous code
-* Add [motor safety feature to shooter](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
+* Modify SmartDashboard code and template to be helpful for debugging. 
+  Do we want two SmartDashboard templates? One for drivers, one for 
+  debugging
 
-
-* Check out the Robot.py netconsole in utilities/netconsole/netconsole.py
+* Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
