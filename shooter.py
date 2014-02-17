@@ -14,6 +14,7 @@ class Shooter(common.ComponentBase):
     SHOOTING = 'shooting'
     RESET = 'reset'
     RESETTING = 'resetting'
+    AUTO_SHOOT_DONE = 'auto_shoot_done'
 
     def __init__(self, config):
         self.motors = config.motors
@@ -27,39 +28,71 @@ class Shooter(common.ComponentBase):
 
         self.reset_stop = config.reset_stop
     
-        self.state = self.RESETTING
+        self.op_state = self.RESETTING
 
         self.stop_pos = -1
+
+        self.auto_state = self.RESET
+
+        self.RESETTING_SPEED = -.1
+
+        self.SHOOTING_SPEED = 1
 
 
     def op_init(self):
         for counter in self.stop_counters:
             counter.Reset()
 
-        self.state = self.RESETTING 
+        self.op_state = self.RESETTING 
 
     def op_tick(self, time):
 
-        if self.state == self.RESET:
+        if self.op_state == self.RESET:
             speed = 0
             if self.shoot_button.get():
-                self.state = self.SHOOTING
+                self.op_state = self.SHOOTING
                 self.stop_pos = self.get_current_stop()
                 for counter in self.stop_counters:
                     counter.Reset()
 
-        if self.state == self.SHOOTING:
-            speed = 1
+        if self.op_state == self.SHOOTING:
+            speed = self.SHOOTING_SPEED
             if self.should_stop(self.stop_pos):
                 speed = 0
-                self.state = self.RESETTING
+                self.op_state = self.RESETTING
                 self.stop_pos = -1
 
-        if self.state == self.RESETTING:
-            speed = -.1
+        if self.op_state == self.RESETTING:
+            speed = self.RESETTING_SPEED
             if self.should_stop(self.stop_pos):
                 speed = 0
-                self.state = self.RESET
+                self.op_state = self.RESET
+
+    def auto_shoot_tick(self, time):
+
+        speed = 0
+        if self.auto_state == self.RESET:
+            self.auto_state = self.SHOOTING
+
+        elif self.auto_state == self.SHOOTING:
+            speed = self.SHOOTING_SPEED
+            if self.stop_counters[-1].Get():
+                self.auto_state = self.RESETTING
+
+        elif self.auto_state == self.RESETTING:
+            speed = self.RESETTING_SPEED
+            if self.reset_stop.Get():
+                self.auto_state = self.AUTO_SHOOT_DONE
+
+        elif self.auto_state == self.AUTO_SHOOT_DONE:
+            speed = 0
+
+        self.motors.Set(speed)
+        
+        wpilib.SmartDashboard.PutString('auto shooter state', self.auto_state)
+
+    def is_auto_shoot_done(self):
+        return self.auto_state == self.AUTO_SHOOT_DONE
 
     def get_current_stop(self):
         for idx, button in enumerate(self.stop_buttons):

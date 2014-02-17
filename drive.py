@@ -1,10 +1,18 @@
 import common
 
+try:
+    import wpilib
+except ImportError:
+    from pyfrc import wpilib
 
 __all__ = ['Drive']
 
 
 class Drive(common.ComponentBase):
+
+    START = 'start'
+    DRIVE_FORWARD = 'drive_forward'
+    STOP = 'stop'
 
     def __init__(self, config):
         self.robot_drive = config.robot_drive
@@ -26,6 +34,11 @@ class Drive(common.ComponentBase):
         self.prev = False
         #print(dir(self))
 
+        self.auto_state = self.START
+        self.auto_drive_start_time = 0
+
+        self.AUTO_DRIVE_FORWARD_TIME = 1
+
 
     def op_init(self):
         self.robot_drive.StopMotor()
@@ -45,6 +58,30 @@ class Drive(common.ComponentBase):
         if self.pressed and not self.prev:
             self.shift()
 
+    def auto_drive_forward_tick(self, time):
+
+        speed = 0
+
+        if self.auto_state == self.START:
+            self.auto_drive_start_time = time
+            self.auto_state = self.DRIVE_FORWARD
+
+        elif self.auto_state == self.DRIVE_FORWARD:
+            speed = 1
+            elapsed_time = time - self.auto_drive_start_time
+            if elapsed_time > self.AUTO_DRIVE_FORWARD_TIME:
+                self.auto_state = self.STOP
+
+        elif self.auto_state == self.STOP:
+            speed = 0
+        
+        self.left_motors.Set(speed)
+        self.right_motors.Set(speed)
+
+        wpilib.SmartDashboard.PutString('auto drive state', self.auto_state)
+
+    def is_auto_drive_done(self):
+        return self.auto_state == self.STOP
 
     def shift(self):
         val = self.left_shifter.Get()

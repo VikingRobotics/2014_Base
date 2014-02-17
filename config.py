@@ -16,7 +16,7 @@ from utils import HallEffect
 def components():
     leftJoy = wpilib.Joystick(1)
     rightJoy = wpilib.Joystick(2)
-    components = []
+    components = {}
 
     class DriveConfig(object):
         left_motors = wpilib.Talon(1)
@@ -36,7 +36,7 @@ def components():
         sqrd_button = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 11)
 
-    components.append(drive.Drive(DriveConfig))
+    components['drive'] = drive.Drive(DriveConfig)
 
 
     class PickupConfig(object):
@@ -52,7 +52,7 @@ def components():
         
         speed_axis = Axis(rightJoy, 1)
 
-    components.append(pickup.Pickup(PickupConfig))
+    components['pickup'] = pickup.Pickup(PickupConfig)
 
 
     class ShooterConfig(object):
@@ -73,13 +73,13 @@ def components():
             stop_counter.Start()
             stop_counters.append(stop_counter)
 
-    components.append(shooter.Shooter(ShooterConfig))
+    components['shooter'] = shooter.Shooter(ShooterConfig)
 
     class UtilConfig(object):
         reset_button = Button(leftJoy, 8)
         compressor = wpilib.Compressor(1, 1)
 
-    components.append(utilComponent.UtilComponent(UtilConfig))
-    components.append(reporter.Reporter(DriveConfig, PickupConfig, ShooterConfig, UtilConfig))
+    components['util'] = utilComponent.UtilComponent(UtilConfig)
+    components['reporter'] = reporter.Reporter(DriveConfig, PickupConfig, ShooterConfig, UtilConfig)
 
     return components
