@@ -11,9 +11,9 @@ __all__ = ['Shooter']
 
 class Shooter(common.ComponentBase):
 
-    SHOOTING = 0
-    RESET = 1 
-    RESETTING = 2
+    SHOOTING = 'shooting'
+    RESET = 'reset'
+    RESETTING = 'resetting'
 
     def __init__(self, config):
         self.motors = config.motors
