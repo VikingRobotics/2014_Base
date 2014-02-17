@@ -56,9 +56,9 @@ class Reporter(common.ComponentBase):
 
     def solenoid_value(self, val):
         if val == wpilib.DoubleSolenoid.kForward:
-            return "forward"
+            return "low gear"
         elif val == wpilib.DoubleSolenoid.kReverse:
-            return "reverse"
+            return "high gear"
         else:
             return "not used yet"
 
