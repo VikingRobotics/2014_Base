@@ -100,17 +100,15 @@ alignOnWall()
 
 # TODO
 
-
-* Setup and *document* driver station backup. That includes all software 
-  that needs to be installed, how to get code, etc. We should have flash
-  drives with all the installers and stuff that we need. 
-* Figure out how to structure autonomous mode, then write it
+* Get java on Viking3
 * Document how to make the Arduino work as a joystick
 * Operator station/board/thing! Finish making that so operators get 
   real practice.
-* Get vision processing working to detect when goal is hot
+* Get vision processing working to detect when goal is hot. Need to make 
+  vision processing talk to pynetworktables
 * Modify SmartDashboard code and template to be helpful for debugging. 
   Do we want two SmartDashboard templates? One for drivers, one for 
   debugging
+* Figure out LiveWindow. This could help a lot with debugging. 
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
