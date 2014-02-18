@@ -65,7 +65,6 @@ class MyRobot(wpilib.SimpleRobot):
             elif current_state == SHOOTING:
                 self.components['shooter'].auto_shoot_tick(current_time)
                 if self.components['shooter'].is_auto_shoot_done():
-                    print('transitioning to drive forward')
                     current_state = DRIVE_FORWARD
 
             elif current_state == DRIVE_FORWARD:
@@ -96,6 +95,11 @@ class MyRobot(wpilib.SimpleRobot):
             wpilib.Wait(0.01)
 
         self.dog.SetEnabled(False)
+
+    def Test():
+        while self.IsTest() and self.IsEnabled():
+            wpilib.LiveWindow.Run()
+            wpilib.Wait(0.01)
 
     def goal_is_hot(self):
         return True
