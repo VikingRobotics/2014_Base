@@ -27,13 +27,15 @@ def components():
         left_shifter = wpilib.DoubleSolenoid(1, 2)
         right_shifter = wpilib.DoubleSolenoid(3, 4)
         
+        # TODO: figure out which one is which. Is forward high gear or low gear? Once we know
+        #       let's change the variable names to high_gear and low_gear instead of forward/reverse
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
         
         drive_joy = leftJoy
         
         # Buttons
-        sqrd_button = Button(leftJoy, 1)
+        squared_drive_stick = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)
 
     components['drive'] = drive.Drive(DriveConfig)
@@ -43,13 +45,19 @@ def components():
         pickup_motor = wpilib.Talon(4)
 
         solenoid = wpilib.DoubleSolenoid(5, 6)
+
+        # TODO: figure out if forward is pickup-up or pickup-down. Rename these variables once we know
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
 
         pickup_switch = Button(rightJoy, 3)
         motor_button = Button(rightJoy, 2)
         
-        speed_array = [Button(rightJoy, x+10) for x in range(4)]
+        pass_slow_preset = Button(rightJoy, 10)
+        pass_fast_preset = Button(rightJoy, 11)
+        pickup_slow_preset = Button(rightJoy, 12)
+        pickup_fast_preset = Button(rightJoy, 13)
+
 
     components['pickup'] = pickup.Pickup(PickupConfig)
 
@@ -59,23 +67,23 @@ def components():
         
         shoot_button = Button(rightJoy, 1)
 
-        stop_buttons = [Button(rightJoy, x+5) for x in range(2)]
+        shooter_preset_buttons = [Button(rightJoy, x+5) for x in range(2)]
 
-        reset_stop = HallEffect(wpilib.DigitalInput(6))
+        reset_hall_effect = HallEffect(wpilib.DigitalInput(6))
 
-        stop_counters = []
+        preset_hall_effect_counters = []
 
         for digital_input in range(7, 10):
-            stop_counter = wpilib.Counter()
-            stop_counter.SetUpSource(digital_input)
-            stop_counter.SetUpSourceEdge(False, True)
-            stop_counter.Start()
-            stop_counters.append(stop_counter)
+            counter = wpilib.Counter()
+            counter.SetUpSource(digital_input)
+            counter.SetUpSourceEdge(False, True)
+            counter.Start()
+            preset_hall_effect_counters.append(counter)
 
     components['shooter'] = shooter.Shooter(ShooterConfig)
 
     class UtilConfig(object):
-        reset_button = Button(leftJoy, 8)
+        reload_code_button = Button(leftJoy, 8)
         compressor = wpilib.Compressor(1, 1)
 
     components['util'] = utilComponent.UtilComponent(UtilConfig)

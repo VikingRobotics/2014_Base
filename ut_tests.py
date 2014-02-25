@@ -82,7 +82,7 @@ class TestArcadeDrive(unittest.TestCase):
         self.right_joy = mock.Joystick()
 
         self.photo_sensors = [ mock.DigitalInput() for x in range(5)]
-        self.sqrd_button = mock.Button()
+        self.squared_drive_stick = mock.Button()
         self.tank_button = mock.Button()
 
 
@@ -92,7 +92,7 @@ class TestArcadeDrive(unittest.TestCase):
             left_joy = self.right_joy
             right_joy = self.left_joy
 
-            sqrd_button = self.sqrd_button
+            squared_drive_stick = self.squared_drive_stick
             tank_button = self.tank_button
 
 

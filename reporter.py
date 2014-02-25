@@ -45,9 +45,9 @@ class Reporter(common.ComponentBase):
 
         #shooter config
         wpilib.SmartDashboard.PutNumber("shooter motor speed", self.shooter_config.motors.Get())
-        wpilib.SmartDashboard.PutNumber("reset stop hall effect", self.shooter_config.reset_stop.Get())
+        wpilib.SmartDashboard.PutNumber("reset stop hall effect", self.shooter_config.reset_hall_effect.Get())
 
-        for idx, stop_counter in enumerate(self.shooter_config.stop_counters):
+        for idx, stop_counter in enumerate(self.shooter_config.preset_hall_effect_counters):
             wpilib.SmartDashboard.PutNumber("stop counter %d" % idx, stop_counter.Get())
 
         #util config

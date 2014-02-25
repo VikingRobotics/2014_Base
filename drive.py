@@ -22,7 +22,7 @@ class Drive(common.ComponentBase):
 
         self.joy = config.drive_joy
 
-        self.sqrd_button = config.sqrd_button
+        self.squared_drive_stick = config.squared_drive_stick
 
         self.shift_button = config.shift_button
         self.left_shifter = config.left_shifter
@@ -38,17 +38,15 @@ class Drive(common.ComponentBase):
 
         self.AUTO_DRIVE_FORWARD_TIME = 1
 
-
     def op_init(self):
         self.robot_drive.StopMotor()
-
 
     def op_tick(self, bs):
         speed = self.joy.GetY()
         rot = self.joy.GetX()
 
         squared = False
-        if self.sqrd_button.get():
+        if self.squared_drive_stick.get():
             squared = True
         self.robot_drive.ArcadeDrive(speed, rot, squared)
 

@@ -21,11 +21,11 @@ class Shooter(common.ComponentBase):
 
         self.shoot_button = config.shoot_button
 
-        self.stop_buttons = config.stop_buttons
+        self.shooter_preset_buttons = config.shooter_preset_buttons
         
-        self.stop_counters = config.stop_counters
+        self.preset_hall_effect_counters = config.preset_hall_effect_counters
 
-        self.reset_stop = config.reset_stop
+        self.reset_hall_effect = config.reset_hall_effect
     
         self.op_state = self.RESETTING
 
@@ -39,10 +39,10 @@ class Shooter(common.ComponentBase):
 
 
     def op_init(self):
-        for counter in self.stop_counters:
+        for counter in self.preset_hall_effect_counters:
             counter.Reset()
 
-        self.op_state = self.RESETTING 
+        self.op_state = self.RESET
 
     def op_tick(self, time):
 
@@ -51,7 +51,7 @@ class Shooter(common.ComponentBase):
             if self.shoot_button.get():
                 self.op_state = self.SHOOTING
                 self.stop_pos = self.get_current_stop()
-                for counter in self.stop_counters:
+                for counter in self.preset_hall_effect_counters:
                     counter.Reset()
 
         if self.op_state == self.SHOOTING:
@@ -63,7 +63,7 @@ class Shooter(common.ComponentBase):
 
         if self.op_state == self.RESETTING:
             speed = self.RESETTING_SPEED
-            if self.reset_stop.Get():
+            if self.reset_hall_effect.Get():
                 speed = 0
                 self.op_state = self.RESET
                 self.stop_pos = -1
@@ -78,12 +78,12 @@ class Shooter(common.ComponentBase):
 
         elif self.auto_state == self.SHOOTING:
             speed = self.SHOOTING_SPEED
-            if self.stop_counters[-1].Get():
+            if self.preset_hall_effect_counters[-1].Get():
                 self.auto_state = self.RESETTING
 
         elif self.auto_state == self.RESETTING:
             speed = self.RESETTING_SPEED
-            if self.reset_stop.Get():
+            if self.reset_hall_effect.Get():
                 self.auto_state = self.AUTO_SHOOT_DONE
 
         elif self.auto_state == self.AUTO_SHOOT_DONE:
@@ -97,7 +97,7 @@ class Shooter(common.ComponentBase):
         return self.auto_state == self.AUTO_SHOOT_DONE
 
     def get_current_stop(self):
-        # for idx, button in enumerate(self.stop_buttons):
+        # for idx, button in enumerate(self.shooter_preset_buttons):
         #     if button.get():
         #         return idx
 
@@ -108,7 +108,7 @@ class Shooter(common.ComponentBase):
 
 
     def should_stop(self, stop_pos):
-        for idx, counter in enumerate(self.stop_counters):
+        for idx, counter in enumerate(self.preset_hall_effect_counters):
             # 0 is False and positve is True
             if idx >= stop_pos and counter.Get(): 
                 return True

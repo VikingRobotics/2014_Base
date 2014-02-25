@@ -101,7 +101,6 @@ alignOnWall()
 # TODO
 
 * Programming team meetings! 630 every night.
-* Sync the code that Paul had with Github code
 * Add photoswitch config code. The align function is there, but the sensors aren't hooked up
 * Test/tune autonomous. Encoders! Can we use em?
 * Figure out LiveWindow. This could help a lot with debugging. 

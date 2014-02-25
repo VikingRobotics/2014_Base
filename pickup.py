@@ -16,7 +16,10 @@ class Pickup(common.ComponentBase):
         self.pickup_switch = config.pickup_switch
         self.motor_button = config.motor_button
 
-        self.speed_array = config.speed_array
+        self.pass_slow_preset = config.pass_slow_preset
+        self.pass_fast_preset = config.pass_fast_preset
+        self.pickup_slow_preset = config.pickup_slow_preset
+        self.pickup_fast_preset = config.pickup_fast_preset
 
     def op_init(self):
         pass
@@ -27,15 +30,14 @@ class Pickup(common.ComponentBase):
     def op_tick(self, time):
         speed = 0
         if self.motor_button.get():
-            speed = -1
-            for idx, button in enumerate(self.speed_array):
-                if button.get():
-                    speed_num = idx
-                    speed += speed_num * .5
-
-                    # TODO: fix this guy. It's temporary
-                    if idx == 2:
-                        speed = 1
+            if self.pass_slow_preset.get():
+                speed = -.5
+            elif self.pass_fast_preset.get():
+                speed = -1
+            elif self.pickup_slow_preset.get():
+                speed = .5
+            elif self.pickup_fast_preset.get():
+                speed = 1
 
         self.motor.Set(speed)
     
