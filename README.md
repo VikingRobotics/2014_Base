@@ -100,15 +100,14 @@ alignOnWall()
 
 # TODO
 
-* Get java on Viking3
-* Document how to make the Arduino work as a joystick
-* Operator station/board/thing! Finish making that so operators get 
-  real practice.
-* Get vision processing working to detect when goal is hot. Need to make 
-  vision processing talk to pynetworktables
-* Modify SmartDashboard code and template to be helpful for debugging. 
-  Do we want two SmartDashboard templates? One for drivers, one for 
-  debugging
+* Programming team meetings! 630 every night.
+* Sync the code that Paul had with Github code
+* Add photoswitch config code. The align function is there, but the sensors aren't hooked up
+* Test/tune autonomous. Encoders! Can we use em?
 * Figure out LiveWindow. This could help a lot with debugging. 
+* Get vision processing working to detect when goal is hot.
+* Simplify the code: rename variables, make sure it's understandable
+* Ensure arduino joystick stuff is documented
+* Modify SmartDashboard code and template to be helpful for drivers
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
