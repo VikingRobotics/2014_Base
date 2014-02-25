@@ -46,7 +46,8 @@ def components():
 
         solenoid = wpilib.DoubleSolenoid(5, 6)
 
-        # TODO: figure out if forward is pickup-up or pickup-down. Rename these variables once we know
+        # TODO: figure out if forward is pickup-up or pickup-down. 
+        # Rename these variables once we know
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
 
@@ -67,18 +68,23 @@ def components():
         
         shoot_button = Button(rightJoy, 1)
 
-        shooter_preset_buttons = [Button(rightJoy, x+5) for x in range(2)]
+        low_shot_preset_button = Button(rightJoy, 5)
+        high_shot_preset_button = Button(rightJoy, 6)
 
         reset_hall_effect = HallEffect(wpilib.DigitalInput(6))
 
         preset_hall_effect_counters = []
 
-        for digital_input in range(7, 10):
-            counter = wpilib.Counter()
-            counter.SetUpSource(digital_input)
-            counter.SetUpSourceEdge(False, True)
-            counter.Start()
-            preset_hall_effect_counters.append(counter)
+        low_shot_hall_effect_counter = wpilib.Counter()
+        low_shot_hall_effect_counter.SetUpSource(7)
+        low_shot_hall_effect_counter.SetUpSourceEdge(False, True)
+        low_shot_hall_effect_counter.Start()        
+
+        high_shot_hall_effect_counter = wpilib.Counter()
+        high_shot_hall_effect_counter.SetUpSource(8)
+        high_shot_hall_effect_counter.SetUpSourceEdge(False, True)
+        high_shot_hall_effect_counter.Start()
+
 
     components['shooter'] = shooter.Shooter(ShooterConfig)
 
