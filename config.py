@@ -19,8 +19,8 @@ def components():
     components = {}
 
     class DriveConfig(object):
-        left_motors = wpilib.Talon(1)
-        right_motors = wpilib.Talon(2)
+        right_motors = wpilib.Talon(1)
+        left_motors = wpilib.Talon(2)
 
         robot_drive = wpilib.RobotDrive(left_motors, right_motors)
 
