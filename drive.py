@@ -30,8 +30,7 @@ class Drive(common.ComponentBase):
         self.forward = config.forward
         self.reverse = config.reverse
 
-        self.pressed = False
-        self.prev = False
+        self.prev_shift_button_val = False
         #print(dir(self))
 
         self.auto_state = self.START
@@ -53,9 +52,8 @@ class Drive(common.ComponentBase):
             squared = True
         self.robot_drive.ArcadeDrive(speed, rot, squared)
 
-        self.prev = self.pressed
-        self.pressed = self.shift_button.get()
-        if self.pressed and not self.prev:
+        if self.shift_button.get() != self.prev_shift_button_val:
+            self.prev_shift_button_val = self.shift_button.get()
             self.shift()
 
     def auto_drive_forward_tick(self, time):

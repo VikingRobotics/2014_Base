@@ -34,7 +34,7 @@ def components():
         
         # Buttons
         sqrd_button = Button(leftJoy, 1)
-        shift_button = Button(leftJoy, 11)
+        shift_button = Button(leftJoy, 9)
 
     components['drive'] = drive.Drive(DriveConfig)
 
@@ -45,12 +45,11 @@ def components():
         solenoid = wpilib.DoubleSolenoid(5, 6)
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
+
+        pickup_switch = Button(rightJoy, 3)
+        motor_button = Button(rightJoy, 2)
         
-        out_button = Button(rightJoy, 3)
-        in_button = Button(rightJoy, 2)
-        motor_button = Button(rightJoy, 4)
-        
-        speed_axis = Axis(rightJoy, 1)
+        speed_array = [Button(rightJoy, x+10) for x in range(4)]
 
     components['pickup'] = pickup.Pickup(PickupConfig)
 

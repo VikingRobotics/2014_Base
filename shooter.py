@@ -25,7 +25,6 @@ class Shooter(common.ComponentBase):
         
         self.stop_counters = config.stop_counters
 
-
         self.reset_stop = config.reset_stop
     
         self.op_state = self.RESETTING
@@ -34,7 +33,7 @@ class Shooter(common.ComponentBase):
 
         self.auto_state = self.RESET
 
-        self.RESETTING_SPEED = -.1
+        self.RESETTING_SPEED = -.25
 
         self.SHOOTING_SPEED = 1
 
@@ -64,9 +63,12 @@ class Shooter(common.ComponentBase):
 
         if self.op_state == self.RESETTING:
             speed = self.RESETTING_SPEED
-            if self.should_stop(self.stop_pos):
+            if self.reset_stop.Get():
                 speed = 0
                 self.op_state = self.RESET
+                self.stop_pos = -1
+
+        self.motors.Set(speed)
 
     def auto_shoot_tick(self, time):
 
@@ -95,9 +97,9 @@ class Shooter(common.ComponentBase):
         return self.auto_state == self.AUTO_SHOOT_DONE
 
     def get_current_stop(self):
-        for idx, button in enumerate(self.stop_buttons):
-            if button.get():
-                return idx
+        # for idx, button in enumerate(self.stop_buttons):
+        #     if button.get():
+        #         return idx
 
         # If we don't detect any buttons go for the most restrictive.
         # That way if the switch malfunctions or we don't read it, we just
@@ -106,9 +108,6 @@ class Shooter(common.ComponentBase):
 
 
     def should_stop(self, stop_pos):
-        if stop_pos == -1 and self.reset_stop.Get():
-            return True
-
         for idx, counter in enumerate(self.stop_counters):
             # 0 is False and positve is True
             if idx >= stop_pos and counter.Get(): 
