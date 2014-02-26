@@ -33,7 +33,16 @@ def components():
         reverse = wpilib.DoubleSolenoid.kReverse
         
         drive_joy = leftJoy
+
+        align_button = Button(leftJoy, 6)
         
+        front_left_photo_switch = wpilib.DigitalInput(11)
+        front_right_photo_switch = wpilib.DigitalInput(12)
+        
+        back_left_photo_switch = wpilib.DigitalInput(13)
+        back_right_photo_switch = wpilib.DigitalInput(14)
+
+     
         # Buttons
         squared_drive_stick = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)

@@ -29,6 +29,14 @@ class Drive(common.ComponentBase):
         self.right_shifter = config.right_shifter
         self.forward = config.forward
         self.reverse = config.reverse
+        self.align_button = config.align_button
+
+        self.front_left_photo_switch = config.front_left_photo_switch
+        self.front_right_photo_switch = config.front_right_photo_switch
+        self.back_left_photo_switch = config.back_left_photo_switch
+        self.back_right_photo_switch = config.back_right_photo_switch
+
+
 
         self.prev_shift_button_val = False
         #print(dir(self))
@@ -52,7 +60,10 @@ class Drive(common.ComponentBase):
 
         if self.shift_button.get() != self.prev_shift_button_val:
             self.prev_shift_button_val = self.shift_button.get()
-            self.shift()
+            self.shift() 
+
+        if self.align_button.get():
+            self.align()
 
     def auto_drive_forward_tick(self, time):
 
@@ -91,25 +102,31 @@ class Drive(common.ComponentBase):
 
     def align(self):
 
-        motorSpeed = .25
+        motor_speed = .25
 
-        if self.frontLeft and self.backLeft:
+        if self.front_left_photo_switch and self.back_left_photo_switch:
             self.left = 0
-        elif not self.frontLeft and self.backLeft:
-            self.left = -motorSpeed
+        elif not self.front_left_photo_switch and self.back_left_photo_switch
+            self.left = -motor_speed
         else:
-            self.left = motorSpeed
+            self.left = motor_speed
 
 
-        if self.frontRight and self.backRight:
+        if self.front_right_photo_switch and self.back_right_photo_switch:
             self.right = 0
-        elif not self.frontRight and self.backRight:
-            self.right = -motorSpeed
+        elif not self.front_right_photo_switch and self.back_right_photo_switch:
+            self.right = -motor_speed
         else:
-            self.right = motorSpeed 
+            self.right = motor_speed 
             
             
         self.robot_drive.SetLeftRightMotorOutputs(self.left, self.right)
+
+
+
+            
+            
+       
 
 
 
