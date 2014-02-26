@@ -98,7 +98,8 @@ class Shooter(common.ComponentBase):
         # This could be compacted down, but it's understandable as is
         if self.low_shot_preset_button.get() and self.low_shot_hall_effect_counter.Get():
             return True
-        elif self.high_shot_preset_button.get() and self.high_shot_hall_effect_counter.Get():
+        # Always stop if the high shot hall effect is triggered
+        elif self.high_shot_hall_effect_counter.Get(): 
             return True
 
         return False

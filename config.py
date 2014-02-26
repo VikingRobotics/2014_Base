@@ -20,6 +20,8 @@ def components():
 
     class DriveConfig(object):
         right_motors = wpilib.Talon(1)
+        # lw = wpilib.LiveWindow.GetInstance()
+        # lw.AddActuator('Drive', 'right motors', right_motors)
         left_motors = wpilib.Talon(2)
 
         robot_drive = wpilib.RobotDrive(left_motors, right_motors)
@@ -54,10 +56,10 @@ def components():
         pickup_switch = Button(rightJoy, 3)
         motor_button = Button(rightJoy, 2)
         
-        pass_slow_preset = Button(rightJoy, 10)
-        pass_fast_preset = Button(rightJoy, 11)
-        pickup_slow_preset = Button(rightJoy, 12)
-        pickup_fast_preset = Button(rightJoy, 13)
+        pickup_fast_preset = Button(rightJoy, 10)
+        pickup_slow_preset = Button(rightJoy, 11)
+        pass_slow_preset = Button(rightJoy, 12)
+        pass_fast_preset = Button(rightJoy, 13)
 
 
     components['pickup'] = pickup.Pickup(PickupConfig)
@@ -68,8 +70,8 @@ def components():
         
         shoot_button = Button(rightJoy, 1)
 
-        low_shot_preset_button = Button(rightJoy, 5)
-        high_shot_preset_button = Button(rightJoy, 6)
+        low_shot_preset_button = Button(rightJoy, 8)
+        high_shot_preset_button = Button(rightJoy, 7)
 
         reset_hall_effect = HallEffect(wpilib.DigitalInput(6))
 
