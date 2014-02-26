@@ -103,24 +103,25 @@ class Drive(common.ComponentBase):
     def align(self):
 
         motor_speed = .25
+        left = 0
+        right = 0
 
-        if self.front_left_photo_switch and self.back_left_photo_switch:
-            self.left = 0
-        elif not self.front_left_photo_switch and self.back_left_photo_switch
-            self.left = -motor_speed
+        if self.front_left_photo_switch.Get() and self.back_left_photo_switch.Get():
+            left = 0
+        elif not self.front_left_photo_switch.Get() and self.back_left_photo_switch.Get():
+            left = -motor_speed
         else:
-            self.left = motor_speed
+            left = motor_speed
 
 
-        if self.front_right_photo_switch and self.back_right_photo_switch:
-            self.right = 0
-        elif not self.front_right_photo_switch and self.back_right_photo_switch:
-            self.right = -motor_speed
+        if self.front_right_photo_switch.Get() and self.back_right_photo_switch.Get():
+            right = 0
+        elif not self.front_right_photo_switch.Get() and self.back_right_photo_switch.Get():
+            right = -motor_speed
         else:
-            self.right = motor_speed 
-            
-            
-        self.robot_drive.SetLeftRightMotorOutputs(self.left, self.right)
+            right = motor_speed 
+        
+        self.robot_drive.SetLeftRightMotorOutputs(left, right)
 
 
 
