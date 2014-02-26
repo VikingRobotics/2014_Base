@@ -35,9 +35,9 @@ class Pickup(common.ComponentBase):
             elif self.pass_fast_preset.get():
                 speed = -1
             elif self.pickup_slow_preset.get():
-                speed = .5
+                speed = .25
             elif self.pickup_fast_preset.get():
-                speed = 1
+                speed = .5
 
         self.motor.Set(speed)
     
