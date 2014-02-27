@@ -20,6 +20,7 @@ class Shooter(common.ComponentBase):
         self.motors = config.motors
 
         self.shoot_button = config.shoot_button
+        self.manual_reset_button = config.manual_reset_button
 
         self.low_shot_preset_button = config.low_shot_preset_button
         self.high_shot_preset_button = config.high_shot_preset_button
@@ -62,6 +63,13 @@ class Shooter(common.ComponentBase):
         if self.op_state == self.RESETTING:
             speed = self.RESETTING_SPEED
             if self.reset_hall_effect.Get():
+                speed = 0
+                self.op_state = self.RESET
+                #This is not part of the normal state machine,
+                #this is for manual reset.
+        if self.manual_reset_button.get()
+            speed = self.RESETTING_SPEED
+            if self.reset_hall_effect.Get()
                 speed = 0
                 self.op_state = self.RESET
 

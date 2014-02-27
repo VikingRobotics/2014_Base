@@ -78,6 +78,7 @@ def components():
         motors = wpilib.Talon(3)
         
         shoot_button = Button(rightJoy, 1)
+        manual_reset_button = Button(rightJoy, 4)
 
         low_shot_preset_button = Button(rightJoy, 8)
         high_shot_preset_button = Button(rightJoy, 7)
