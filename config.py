@@ -75,7 +75,7 @@ def components():
 
 
     class ShooterConfig(object):
-        motors = wpilib.Talon(3)
+        motors = wpilib.Jaguar(3)
         
         shoot_button = Button(rightJoy, 1)
         manual_reset_button = Button(rightJoy, 4)
