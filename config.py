@@ -37,12 +37,12 @@ def components():
         drive_joy = leftJoy
 
         align_button = Button(leftJoy, 6)
-        
-        front_left_photo_switch = wpilib.DigitalInput(11)
+
+        front_left_photo_switch = wpilib.DigitalInput(14)
         front_right_photo_switch = wpilib.DigitalInput(12)
         
         back_left_photo_switch = wpilib.DigitalInput(13)
-        back_right_photo_switch = wpilib.DigitalInput(14)
+        back_right_photo_switch = wpilib.DigitalInput(11)
 
      
         # Buttons

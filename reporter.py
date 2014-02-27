@@ -31,27 +31,32 @@ class Reporter(common.ComponentBase):
         #       they can say "high gear", "low gear"
 
         # drive_config
-        wpilib.SmartDashboard.PutNumber("left motor speed", self.drive_config.left_motors.Get())
-        wpilib.SmartDashboard.PutNumber("right motor speed", self.drive_config.right_motors.Get())
+        # wpilib.SmartDashboard.PutNumber("left motor speed", self.drive_config.left_motors.Get())
+        # wpilib.SmartDashboard.PutNumber("right motor speed", self.drive_config.right_motors.Get())
 
-        wpilib.SmartDashboard.PutString("left shifter", self.solenoid_value(self.drive_config.left_shifter.Get()))
+        # wpilib.SmartDashboard.PutString("left shifter", self.solenoid_value(self.drive_config.left_shifter.Get()))
         
-        right_shifter_state = self.solenoid_value(self.drive_config.right_shifter.Get())
-        wpilib.SmartDashboard.PutString("right shifter", right_shifter_state)
+        # right_shifter_state = self.solenoid_value(self.drive_config.right_shifter.Get())
+        # wpilib.SmartDashboard.PutString("right shifter", right_shifter_state)
 
-        #pickup config        
-        wpilib.SmartDashboard.PutNumber("pickup motor speed", self.pickup_config.pickup_motor.Get())
-        wpilib.SmartDashboard.PutString("pickup solenoid", self.solenoid_value(self.pickup_config.solenoid.Get()))
+        # #pickup config        
+        # wpilib.SmartDashboard.PutNumber("pickup motor speed", self.pickup_config.pickup_motor.Get())
+        # wpilib.SmartDashboard.PutString("pickup solenoid", self.solenoid_value(self.pickup_config.solenoid.Get()))
 
-        #shooter config
-        wpilib.SmartDashboard.PutNumber("shooter motor speed", self.shooter_config.motors.Get())
-        wpilib.SmartDashboard.PutNumber("reset stop hall effect", self.shooter_config.reset_hall_effect.Get())
+        # #shooter config
+        # wpilib.SmartDashboard.PutNumber("shooter motor speed", self.shooter_config.motors.Get())
+        # wpilib.SmartDashboard.PutNumber("reset stop hall effect", self.shooter_config.reset_hall_effect.Get())
 
-        for idx, stop_counter in enumerate(self.shooter_config.preset_hall_effect_counters):
-            wpilib.SmartDashboard.PutNumber("stop counter %d" % idx, stop_counter.Get())
+        # for idx, stop_counter in enumerate(self.shooter_config.preset_hall_effect_counters):
+        #     wpilib.SmartDashboard.PutNumber("stop counter %d" % idx, stop_counter.Get())
 
-        #util config
-        wpilib.SmartDashboard.PutNumber("pressure switch val", self.util_config.compressor.GetPressureSwitchValue())
+        # #util config
+        # wpilib.SmartDashboard.PutNumber("pressure switch val", self.util_config.compressor.GetPressureSwitchValue())
+        # wpilib.SmartDashboard.PutBoolean('front left', self.drive_config.front_left_photo_switch.Get())
+        # wpilib.SmartDashboard.PutBoolean('back left', self.drive_config.back_left_photo_switch.Get())
+        # wpilib.SmartDashboard.PutBoolean('front right', self.drive_config.front_right_photo_switch.Get())
+        # wpilib.SmartDashboard.PutBoolean('back right', self.drive_config.back_right_photo_switch.Get())
+
 
 
     def solenoid_value(self, val):

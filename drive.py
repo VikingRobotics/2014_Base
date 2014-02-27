@@ -121,7 +121,9 @@ class Drive(common.ComponentBase):
         else:
             right = motor_speed 
         
-        self.robot_drive.SetLeftRightMotorOutputs(left, right)
+        # DANGER! Right and left are inverted here. This is because morgan flipped
+        # forward and back
+        self.robot_drive.SetLeftRightMotorOutputs(right, left)
 
 
 
