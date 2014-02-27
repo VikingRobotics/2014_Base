@@ -65,11 +65,12 @@ class Shooter(common.ComponentBase):
             if self.reset_hall_effect.Get():
                 speed = 0
                 self.op_state = self.RESET
-                #This is not part of the normal state machine,
-                #this is for manual reset.
-        if self.manual_reset_button.get()
+        
+        #This is not part of the normal state machine,
+        #this is for manual reset.
+        if self.manual_reset_button.get():
             speed = self.RESETTING_SPEED
-            if self.reset_hall_effect.Get()
+            if self.reset_hall_effect.Get():
                 speed = 0
                 self.op_state = self.RESET
 

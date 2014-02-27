@@ -56,7 +56,7 @@ class Reporter(common.ComponentBase):
         # wpilib.SmartDashboard.PutBoolean('back left', self.drive_config.back_left_photo_switch.Get())
         # wpilib.SmartDashboard.PutBoolean('front right', self.drive_config.front_right_photo_switch.Get())
         # wpilib.SmartDashboard.PutBoolean('back right', self.drive_config.back_right_photo_switch.Get())
-
+        pass
 
 
     def solenoid_value(self, val):
