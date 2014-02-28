@@ -13,24 +13,35 @@ from utils import Button
 from utils import Axis
 from utils import HallEffect
 
+from driveBase import DriveBase
+from PIDEncoder import DistanceEncoder
+
 def components():
     leftJoy = wpilib.Joystick(1)
     rightJoy = wpilib.Joystick(2)
     components = {}
 
     class DriveConfig(object):
-        right_motors = wpilib.Talon(1)
-        # lw = wpilib.LiveWindow.GetInstance()
-        # lw.AddActuator('Drive', 'right motors', right_motors)
-        left_motors = wpilib.Talon(2)
+        left_motors = wpilib.Talon(1)
+        right_motors = wpilib.Talon(2)
 
-        robot_drive = wpilib.RobotDrive(left_motors, right_motors)
+        left_encoder = wpilib.Encoder(2, 3)
+        left_PID_encoder = DistanceEncoder(left_encoder)
+        left_PID_controller = wpilib.PIDController(0, 0, 0, left_PID_encoder, left_motors)
+
+        right_encoder = wpilib.Encoder(4, 5)
+        right_PID_encoder = DistanceEncoder(right_encoder)
+        right_PID_controller = wpilib.PIDController(0, 0, 0, right_PID_encoder, right_motors)
+        
+        robot_drive = DriveBase(left_motors, right_motors, True,
+                                left_encoder, right_encoder,
+                                left_PID_controller, right_PID_controller)
+
+        #robot_drive = wpilib.RobotDrive(left_motors, right_motors)
 
         left_shifter = wpilib.DoubleSolenoid(1, 2)
         right_shifter = wpilib.DoubleSolenoid(3, 4)
         
-        # TODO: figure out which one is which. Is forward high gear or low gear? Once we know
-        #       let's change the variable names to high_gear and low_gear instead of forward/reverse
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
         

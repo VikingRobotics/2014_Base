@@ -37,7 +37,6 @@ class Drive(common.ComponentBase):
         self.back_right_photo_switch = config.back_right_photo_switch
 
 
-
         self.prev_shift_button_val = False
         #print(dir(self))
 
@@ -53,10 +52,7 @@ class Drive(common.ComponentBase):
         speed = self.joy.GetY()
         rot = self.joy.GetX()
 
-        squared = False
-        if self.squared_drive_stick.get():
-            squared = True
-        self.robot_drive.ArcadeDrive(speed, rot, squared)
+        self.robot_drive.ArcadeDrive(speed, rot)
 
         if self.shift_button.get() != self.prev_shift_button_val:
             self.prev_shift_button_val = self.shift_button.get()
@@ -66,7 +62,6 @@ class Drive(common.ComponentBase):
             self.align()
 
     def auto_drive_forward_tick(self, time):
-
         speed = 0
 
         if self.auto_state == self.START:
@@ -101,7 +96,6 @@ class Drive(common.ComponentBase):
 
 
     def align(self):
-
         motor_speed = .25
         left = 0
         right = 0
@@ -121,19 +115,6 @@ class Drive(common.ComponentBase):
         else:
             right = motor_speed 
         
-        # DANGER! Right and left are inverted here. This is because morgan flipped
+        # DANGER! Right and left are inverted here. This is because Morgan flipped
         # forward and back
         self.robot_drive.SetLeftRightMotorOutputs(right, left)
-
-
-
-            
-            
-       
-
-
-
-            
-
-
-            
