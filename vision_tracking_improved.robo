@@ -207,5 +207,4 @@ end if
   <variables_to_send>HOT_GOAL</variables_to_send>
   <variable_type_index>1</variable_type_index>
 </NetworkTables>
-<Watch_Variables/>
 </function>
