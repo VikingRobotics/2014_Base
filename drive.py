@@ -22,15 +22,16 @@ class Drive(common.ComponentBase):
 
         self.joy = config.drive_joy
 
-        self.squared_drive_stick = config.squared_drive_stick
+        self.pid_button = config.squared_drive_stick
 
-        self.shift_button = config.shift_button
+        self.shift_switch = config.shift_button
         self.left_shifter = config.left_shifter
         self.right_shifter = config.right_shifter
-        self.forward = config.forward
-        self.reverse = config.reverse
-        self.align_button = config.align_button
+        self.high = config.reverse
+        self.low = config.forward
+        self.gear = None
 
+        self.align_button = config.align_button
         self.front_left_photo_switch = config.front_left_photo_switch
         self.front_right_photo_switch = config.front_right_photo_switch
         self.back_left_photo_switch = config.back_left_photo_switch
@@ -52,11 +53,16 @@ class Drive(common.ComponentBase):
         speed = self.joy.GetY()
         rot = self.joy.GetX()
 
+        self.robot_drive.dissable_pid()
+        if self.pid_button.get():
+            self.robot_drive.enable_pid()
+
         self.robot_drive.ArcadeDrive(speed, rot)
 
-        if self.shift_button.get() != self.prev_shift_button_val:
-            self.prev_shift_button_val = self.shift_button.get()
-            self.shift() 
+        if self.shift_switch.get():
+            self.shift(self.high)
+        elif not self.shift_switch.get():
+            self.shift(self.low)
 
         if self.align_button.get():
             self.align()
@@ -85,15 +91,15 @@ class Drive(common.ComponentBase):
     def is_auto_drive_done(self):
         return self.auto_state == self.STOP
 
-    def shift(self):
-        val = self.left_shifter.Get()
-        if val == self.forward:
-            self.left_shifter.Set(self.reverse)
-            self.right_shifter.Set(self.reverse)
+    def shift(self, gear):
+        if gear == self.high:
+            self.left_shifter.Set(self.high)
+            self.right_shifter.Set(self.high)
+            self.gear = self.high
         else:
-            self.left_shifter.Set(self.forward)
-            self.right_shifter.Set(self.forward)
-
+            self.left_shifter.Set(self.low)
+            self.right_shifter.Set(self.low)
+            self.gear = self.low
 
     def align(self):
         motor_speed = .25

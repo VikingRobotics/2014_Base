@@ -46,7 +46,7 @@ class DriveBase:
         self.left_motor.Set(0)
         self.right_motor.Set(0)
 
-    def drive_speed(self, speed, rot):
+    def drive_speed(self, l_speed, r_speed):
         self.left_PID_controller.SetSetpoint(l_speed)
         self.right_PID_controller.SetSetpoint(r_speed)
 
@@ -85,5 +85,8 @@ class DriveBase:
             l_speed = r_speed
             r_speed = temp
 
-        self.left_motor.Set(l_speed)
-        self.right_motor.Set(r_speed)
+        if self.pid_enabled:
+            self.drive_speed(l_speed, r_speed)
+        else:
+            self.left_motor.Set(l_speed)
+            self.right_motor.Set(r_speed)
