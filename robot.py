@@ -16,7 +16,7 @@ class MyRobot(wpilib.SimpleRobot):
         self.components = config.components()
 
     def RobotInit(self):
-
+        self.smartdashboardNT = wpilib.NetworkTable.GetTable("SmartDashboard")
         for type, component in self.components.items():
             component.robot_init()
 
@@ -28,6 +28,7 @@ class MyRobot(wpilib.SimpleRobot):
 
         while wpilib.IsDisabled():
             self.dog.Feed()
+            print(self.goal_is_hot())
 
             for type, component in self.components.items():
                 component.disabled_tick(wpilib.Timer.GetFPGATimestamp())
@@ -96,13 +97,17 @@ class MyRobot(wpilib.SimpleRobot):
 
         self.dog.SetEnabled(False)
 
-    def Test():
+    def Test(self):
         while self.IsTest() and self.IsEnabled():
             wpilib.LiveWindow.Run()
             wpilib.Wait(0.01)
 
     def goal_is_hot(self):
-        return True
+        try:
+            hot_goal = self.smartdashboardNT.GetBoolean("HOT_GOAL")
+            return hot_goal
+        except:
+            return False
 
 def run():
     robot = MyRobot()
