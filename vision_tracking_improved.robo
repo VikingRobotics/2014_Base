@@ -110,6 +110,20 @@
 <function>
 <function_name>Tab2</function_name>
 <function_always_run>0</function_always_run>
+<Axis_Internet_Camera>
+  <auto_back_light>TRUE</auto_back_light>
+  <auto_exposure>FALSE</auto_exposure>
+  <auto_white_balance>TRUE</auto_white_balance>
+  <color_level_value>50</color_level_value>
+  <compression_index>5</compression_index>
+  <contrast_value>50</contrast_value>
+  <ip_address>10.29.28.11</ip_address>
+  <is_active>TRUE</is_active>
+  <password>FRC</password>
+  <port>80</port>
+  <sharpness_value>50</sharpness_value>
+  <username>FRC</username>
+</Axis_Internet_Camera>
 <RGB_Filter>
   <channel>3</channel>
   <hue_value>50</hue_value>
@@ -143,7 +157,7 @@
         <invert_count>0</invert_count>
         <invert_threshold>0</invert_threshold>
         <ratio>8</ratio>
-        <weight_threshold>0</weight_threshold>
+        <weight_threshold>.4</weight_threshold>
       </filter:2>
     </tab>
     <tab:2/>
@@ -178,9 +192,7 @@
 <VBScript_Program>
   <script>list = GetArrayVariable("BOUNDING_COORDINATES")
 if isArray(list) then
-  if ubound(list) &gt; 0 then
-		SetVariable "HOT_GOAL", ubound(list) &gt; 8 
-  end if
+  SetVariable "HOT_GOAL", ubound(list) &gt; 1 
 end if
 </script>
   <source_mode>gui</source_mode>
@@ -195,4 +207,5 @@ end if
   <variables_to_send>HOT_GOAL</variables_to_send>
   <variable_type_index>1</variable_type_index>
 </NetworkTables>
+<Watch_Variables/>
 </function>
