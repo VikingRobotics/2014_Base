@@ -102,15 +102,15 @@ alignOnWall()
 
 * Programming team meetings! 615 every night.
 * Ensure photoswitches get set to 4 inches apart.
-* Add a manual reset. This is in case the hall effects get 
-  disconnected for some reason. Should add to sunshine preset
-  (button 4)
+* Test manual reset. We wrote code, but never tested it on the
+  robot. This is in case the hall effects get disconnected
+  for some reason. Should add to sunshine preset
+  (button 4). 
+* Put in software lock on pickup so shooter won't shoot
 * Develop autonomous plans. We should have multiple
 * Test/tune autonomous. Encoders! Can we use em?
 * Figure out LiveWindow. This could help a lot with debugging. RobotPy doesn't like the C++ style calls. 
   Not sure how to make this work.
-* Get vision processing working to detect when goal is hot. We have the processing. Now we need to make
-  the communication to the robot work
 * Modify SmartDashboard code and template to be helpful for drivers
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
