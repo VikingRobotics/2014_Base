@@ -57,11 +57,11 @@ class Drive(common.ComponentBase):
         if self.pid_button.get():
             self.robot_drive.enable_pid()
 
-        self.robot_drive.ArcadeDrive(speed, rot)
+        self.robot_drive.arcade_drive(speed, rot)
 
         if self.shift_switch.get():
             self.shift(self.high)
-        elif not self.shift_switch.get():
+        else:
             self.shift(self.low)
 
         if self.align_button.get():
@@ -92,14 +92,8 @@ class Drive(common.ComponentBase):
         return self.auto_state == self.STOP
 
     def shift(self, gear):
-        if gear == self.high:
-            self.left_shifter.Set(self.high)
-            self.right_shifter.Set(self.high)
-            self.gear = self.high
-        else:
-            self.left_shifter.Set(self.low)
-            self.right_shifter.Set(self.low)
-            self.gear = self.low
+        self.left_shifter.Set(gear)
+        self.right_shifter.Set(gear)
 
     def align(self):
         motor_speed = .25

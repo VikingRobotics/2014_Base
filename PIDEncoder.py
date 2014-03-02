@@ -5,7 +5,9 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
+
 class DistanceEncoder(wpilib.PIDSource):
+
     def __init__(self, encoder):
         super(DistanceEncoder, self).__init__()
         self.encoder = encoder
@@ -15,6 +17,7 @@ class DistanceEncoder(wpilib.PIDSource):
 
 
 class RateEncoder(wpilib.PIDSource):
+    
     def __init__(self, encoder):
         super.__init__(self)
         self.encoder = encoder

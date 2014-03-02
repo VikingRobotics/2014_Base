@@ -21,6 +21,7 @@ def components():
     rightJoy = wpilib.Joystick(2)
     components = {}
 
+
     class DriveConfig(object):
         left_motors = wpilib.Talon(1)
         right_motors = wpilib.Talon(2)
@@ -81,7 +82,6 @@ def components():
         pass_slow_preset = Button(rightJoy, 12)
         pass_fast_preset = Button(rightJoy, 13)
 
-
     components['pickup'] = pickup.Pickup(PickupConfig)
 
 
@@ -108,8 +108,8 @@ def components():
         high_shot_hall_effect_counter.SetUpSourceEdge(False, True)
         high_shot_hall_effect_counter.Start()
 
-
     components['shooter'] = shooter.Shooter(ShooterConfig)
+
 
     class UtilConfig(object):
         reload_code_button = Button(leftJoy, 8)

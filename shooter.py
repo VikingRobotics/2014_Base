@@ -38,7 +38,6 @@ class Shooter(common.ComponentBase):
 
         self.SHOOTING_SPEED = 1
 
-
     def op_init(self):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
@@ -46,7 +45,6 @@ class Shooter(common.ComponentBase):
         self.op_state = self.RESET
 
     def op_tick(self, time):
-
         if self.op_state == self.RESET:
             speed = 0
             if self.shoot_button.get():
@@ -77,7 +75,6 @@ class Shooter(common.ComponentBase):
         self.motors.Set(speed)
 
     def auto_shoot_tick(self, time):
-
         speed = 0
         if self.auto_state == self.RESET:
             self.auto_state = self.SHOOTING
@@ -101,7 +98,6 @@ class Shooter(common.ComponentBase):
 
     def is_auto_shoot_done(self):
         return self.auto_state == self.AUTO_SHOOT_DONE
-
 
     def should_stop(self):
         # This could be compacted down, but it's understandable as is
