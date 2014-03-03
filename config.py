@@ -51,7 +51,14 @@ def components():
         squared_drive_stick = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)
 
-    components['drive'] = drive.Drive(DriveConfig)
+    class PIDDriveConfig(object):
+        pass
+
+    use_pid = False
+    if(use_pid):
+        components['drive'] = drive.PIDDrive(PIDDriveConfig)
+    else:
+        components['drive'] = drive.Drive(DriveConfig)
 
 
     class PickupConfig(object):
