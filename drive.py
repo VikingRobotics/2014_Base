@@ -27,18 +27,14 @@ class Drive(common.ComponentBase):
         self.shift_button = config.shift_button
         self.left_shifter = config.left_shifter
         self.right_shifter = config.right_shifter
-        self.forward = config.forward
-        self.reverse = config.reverse
+        self.low = config.forward
+        self.high = config.reverse
         self.align_button = config.align_button
 
         self.front_left_photo_switch = config.front_left_photo_switch
         self.front_right_photo_switch = config.front_right_photo_switch
         self.back_left_photo_switch = config.back_left_photo_switch
         self.back_right_photo_switch = config.back_right_photo_switch
-
-
-        self.prev_shift_button_val = False
-        #print(dir(self))
 
         self.auto_state = self.START
         self.auto_drive_start_time = 0
@@ -57,9 +53,10 @@ class Drive(common.ComponentBase):
             squared = True
         self.robot_drive.ArcadeDrive(speed, rot, squared)
 
-        if self.shift_button.get() != self.prev_shift_button_val:
-            self.prev_shift_button_val = self.shift_button.get()
-            self.shift() 
+        if self.shift_button.get():
+            self.shift(self.low) 
+        else:
+            self.shift(self.high)
 
         if self.align_button.get():
             self.align()
@@ -92,15 +89,12 @@ class Drive(common.ComponentBase):
     def is_auto_drive_done(self):
         return self.auto_state == self.STOP
 
-    def shift(self):
-        val = self.left_shifter.Get()
-        if val == self.forward:
-            self.left_shifter.Set(self.reverse)
-            self.right_shifter.Set(self.reverse)
-        else:
-            self.left_shifter.Set(self.forward)
-            self.right_shifter.Set(self.forward)
+    def shift(self, gear):
+        self.left_shifter.Set(gear)
+        self.right_shifter.Set(gear)
 
+    def downshift(self):
+        self.shift(self.low)
 
     def align(self):
 
