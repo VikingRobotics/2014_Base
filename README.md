@@ -67,36 +67,11 @@ THIS NEEDS TO BE FILLED OUT
 * Shoot ball 
 * Drive forward with dead reckoning into zone area
 
-## Functions we want the robot to do
+# Autonomous Plans
 
-shoot(shootingSpeed)
-  - extend picker upper
-  - set speed of motor for x seconds to shootingSpeed
-  - reset() (Q: auto or manual reset for shooting?)
-
-reset()
-  - arm moves in reverse at fixed speed
-  - stop arm moving once hall effect detected
-  - retract picker upper
-
-pickupExtend()
-  - extend picker upper
-
-enableRollers(speed)
-  - turn on rollers to given speed
-
-pickupRetract()
-  - retract picker upper
-
-spitOut(speed)
-  - reverse rollers to given speed
-
-alignOnLine() 
-  - robot starts behind line
-  - orient robot perpendicular to line using light sensors
-
-alignOnWall()
-  - square robot against wall using sonars 
+* Get one ball working
+* Get two ball working. If two ball is working well, even with one ball,
+  we'll always use it and never choose.
 
 # TODO
 
