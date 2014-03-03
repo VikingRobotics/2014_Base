@@ -3,10 +3,14 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
+
 import config
 
 
 class MyRobot(wpilib.SimpleRobot):
+
+    ONE_BALL_AUTO = "one ball auto"
+    TWO_BALL_AUTO = "two ball auto"
 
     def __init__(self):
         super().__init__()
@@ -15,11 +19,22 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog.SetExpiration(0.25)
         self.components = config.components()
 
+
+    # Called once when the robot is initialized
     def RobotInit(self):
         self.smartdashboardNT = wpilib.NetworkTable.GetTable("SmartDashboard")
+
+        # Smartdashboard code to choose autonomous mode
+        self.auto_chooser = wpilib.SendableChooser()
+        self.auto_chooser.AddDefault("One ball autonomous", self.ONE_BALL_AUTO)
+        self.auto_chooser.AddObject("Two ball autonomous", self.TWO_BALL_AUTO)
+        wpilib.SmartDashboard.PutData("Autonomous mode chooser", self.auto_chooser)
+
+        # Initialize all robot components
         for type, component in self.components.items():
             component.robot_init()
 
+    # Called once whenever the robot enters the disabled state
     def Disabled(self):
         self.dog.SetEnabled(True)
 
@@ -36,8 +51,18 @@ class MyRobot(wpilib.SimpleRobot):
 
         self.dog.SetEnabled(False)
 
+    # Called once when the robot enters autonomous state
     def Autonomous(self):
+        auto_mode = self.auto_chooser.GetSelected()
+        if auto_mode == self.ONE_BALL_AUTO:
+            self.one_ball_autonomous()
+        else:
+            self.two_ball_autonomous()
+
+    def one_ball_autonomous(self):
+
         self.dog.SetEnabled(True)
+
         for type, component in self.components.items():
             component.auto_init()
 
@@ -85,12 +110,8 @@ class MyRobot(wpilib.SimpleRobot):
 
         self.dog.SetEnabled(False)
 
-    def wait(self, wait_time):
-        start_time = wpilib.Timer.GetFPGATimestamp()
-        elapsed_time = start_time
-        while(elapsed_time < wait_time):
-            self.dog.Feed()
-            wpilib.Wait(0.01)
+    def two_ball_autonomous(self):
+        pass
 
     def OperatorControl(self):
         self.dog.SetEnabled(True)
@@ -114,6 +135,16 @@ class MyRobot(wpilib.SimpleRobot):
             wpilib.LiveWindow.Run()
             wpilib.Wait(0.01)
 
+    # Wait function used to pause code execution while continuing to
+    # feed the dog
+    def wait(self, wait_time):
+        start_time = wpilib.Timer.GetFPGATimestamp()
+        elapsed_time = start_time
+        while(elapsed_time < wait_time):
+            self.dog.Feed()
+            wpilib.Wait(0.01)
+
+    # Return whether or not the goal is hot
     def goal_is_hot(self):
         return True
         # try:
