@@ -69,23 +69,22 @@ THIS NEEDS TO BE FILLED OUT
 
 # Autonomous Plans
 
-* Get one ball working
-* Get two ball working. If two ball is working well, even with one ball,
-  we'll always use it and never choose.
+* One ball mode: Drive forward, extend pickup, shoot when goal is hot
+* Two ball mode: Extend pickup, start rollers, drive forward while dragging ball,
+                 shoot first ball, shoot second ball
+
+Get em working without PIDControl, then add PID
+                  
 
 # TODO
 
 * Programming team meetings! 615 every night.
-* Ensure photoswitches get set to 4 inches apart.
-* Test manual reset. We wrote code, but never tested it on the
-  robot. This is in case the hall effects get disconnected
-  for some reason. Should add to sunshine preset
-  (button 4). 
+* Change manual shooter reset so it sets the state to resetting
 * Put in software lock on pickup so shooter won't shoot
-* Develop autonomous plans. We should have multiple
-* Test/tune autonomous. Encoders! Can we use em?
-* Figure out LiveWindow. This could help a lot with debugging. RobotPy doesn't like the C++ style calls. 
-  Not sure how to make this work.
+* Image the cRio on the practice robot
+* After imaging the cRio, put LiveWindow code on the robot
+* Make autonomous modes configurable: 1 ball or two balls
+* Ensure photoswitches get set to 4 inches apart.
 * Modify SmartDashboard code and template to be helpful for drivers
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
