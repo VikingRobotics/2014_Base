@@ -37,6 +37,9 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog.SetEnabled(False)
 
     def Autonomous(self):
+        # TODO: add downshift to the initialization
+        # TODO: does the ball fall out when there's only one?
+        # TODO: add a pause state between every state
         self.dog.SetEnabled(True)
         for type, component in self.components.items():
             component.auto_init()
@@ -45,11 +48,12 @@ class MyRobot(wpilib.SimpleRobot):
         SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
         STOP = 'stop'
+        EXTENDED_PICKUP_PAUSE = 'extended_pickup_pause'
 
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
 
-        self.components['pickup'].extend()
+        
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
@@ -61,12 +65,17 @@ class MyRobot(wpilib.SimpleRobot):
 
             if current_state == START:
                 if self.goal_is_hot() or elapsed_seconds > 5:
+                    wpilib.Wait(3)
                     current_state = DRIVE_FORWARD
+                    
 
             elif current_state == DRIVE_FORWARD:
                 self.components['drive'].auto_drive_forward_tick(current_time)
                 if self.components['drive'].is_auto_drive_done():
+                    self.components['pickup'].extend()
+                    wpilib.Wait(3)
                     current_state = SHOOTING
+                    
 
             elif current_state == SHOOTING:
                 self.components['shooter'].auto_shoot_tick(current_time)

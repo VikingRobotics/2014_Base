@@ -87,6 +87,7 @@ class Shooter(common.ComponentBase):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
         self.reset_hall_effect_counter.Reset()
+        wpilib.SmartDashboard.PutString('auto shooter state', self.auto_state)
 
     def auto_shoot_tick(self, time):
 
@@ -97,12 +98,16 @@ class Shooter(common.ComponentBase):
         elif self.auto_state == self.SHOOTING:
             speed = self.SHOOTING_SPEED
             if self.high_shot_hall_effect_counter.Get():
+                self.reset_hall_effect_counter.Reset()
                 self.auto_state = self.RESETTING
+                # wpilib.Wait(3)
 
         elif self.auto_state == self.RESETTING:
             speed = self.RESETTING_SPEED
             if self.reset_hall_effect_counter.Get():
+                speed = 0
                 self.auto_state = self.AUTO_SHOOT_DONE
+                # wpilib.Wait(3)
 
         elif self.auto_state == self.AUTO_SHOOT_DONE:
             speed = 0
