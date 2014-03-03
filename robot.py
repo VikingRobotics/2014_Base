@@ -38,7 +38,6 @@ class MyRobot(wpilib.SimpleRobot):
 
     def Autonomous(self):
         self.dog.SetEnabled(True)
-
         for type, component in self.components.items():
             component.auto_init()
 
@@ -50,6 +49,8 @@ class MyRobot(wpilib.SimpleRobot):
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
 
+        self.components['pickup'].extend()
+
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
 
@@ -60,16 +61,16 @@ class MyRobot(wpilib.SimpleRobot):
 
             if current_state == START:
                 if self.goal_is_hot() or elapsed_seconds > 5:
-                    current_state = SHOOTING
-
-            elif current_state == SHOOTING:
-                self.components['shooter'].auto_shoot_tick(current_time)
-                if self.components['shooter'].is_auto_shoot_done():
                     current_state = DRIVE_FORWARD
 
             elif current_state == DRIVE_FORWARD:
                 self.components['drive'].auto_drive_forward_tick(current_time)
                 if self.components['drive'].is_auto_drive_done():
+                    current_state = SHOOTING
+
+            elif current_state == SHOOTING:
+                self.components['shooter'].auto_shoot_tick(current_time)
+                if self.components['shooter'].is_auto_shoot_done():
                     current_state = STOP
 
             # for type, component in self.components.items():
@@ -102,11 +103,12 @@ class MyRobot(wpilib.SimpleRobot):
             wpilib.Wait(0.01)
 
     def goal_is_hot(self):
-        try:
-            hot_goal = self.smartdashboardNT.GetBoolean("HOT_GOAL")
-            return hot_goal
-        except:
-            return False
+        return True
+        # try:
+        #     hot_goal = self.smartdashboardNT.GetBoolean("HOT_GOAL")
+        #     return hot_goal
+        # except:
+        #     return False
 
 def run():
     robot = MyRobot()

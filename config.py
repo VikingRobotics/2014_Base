@@ -18,9 +18,11 @@ def components():
     rightJoy = wpilib.Joystick(2)
     components = {}
 
+    lw = wpilib.LiveWindow.GetInstance()
+
     class DriveConfig(object):
         right_motors = wpilib.Talon(1)
-        # lw = wpilib.LiveWindow.GetInstance()
+        # 
         # lw.AddActuator('Drive', 'right motors', right_motors)
         left_motors = wpilib.Talon(2)
 
@@ -83,9 +85,10 @@ def components():
         low_shot_preset_button = Button(rightJoy, 8)
         high_shot_preset_button = Button(rightJoy, 7)
 
-        reset_hall_effect = HallEffect(wpilib.DigitalInput(6))
-
-        preset_hall_effect_counters = []
+        reset_hall_effect_counter = wpilib.Counter()
+        reset_hall_effect_counter.SetUpSource(6)
+        reset_hall_effect_counter.SetUpSourceEdge(False, True)
+        reset_hall_effect_counter.Start()           
 
         low_shot_hall_effect_counter = wpilib.Counter()
         low_shot_hall_effect_counter.SetUpSource(7)
@@ -96,6 +99,8 @@ def components():
         high_shot_hall_effect_counter.SetUpSource(8)
         high_shot_hall_effect_counter.SetUpSourceEdge(False, True)
         high_shot_hall_effect_counter.Start()
+
+        # lw.AddSensor('Drive', reset_hall_effect_DI)
 
 
     components['shooter'] = shooter.Shooter(ShooterConfig)

@@ -44,7 +44,7 @@ class Drive(common.ComponentBase):
         self.auto_state = self.START
         self.auto_drive_start_time = 0
 
-        self.AUTO_DRIVE_FORWARD_TIME = 1
+        self.AUTO_DRIVE_FORWARD_TIME = 0.3
 
     def op_init(self):
         self.robot_drive.StopMotor()
@@ -65,6 +65,9 @@ class Drive(common.ComponentBase):
         if self.align_button.get():
             self.align()
 
+    def auto_init(self):
+        self.auto_state = self.START
+
     def auto_drive_forward_tick(self, time):
 
         speed = 0
@@ -83,7 +86,7 @@ class Drive(common.ComponentBase):
             speed = 0
         
         self.left_motors.Set(speed)
-        self.right_motors.Set(speed)
+        self.right_motors.Set(-speed)
 
         wpilib.SmartDashboard.PutString('auto drive state', self.auto_state)
 

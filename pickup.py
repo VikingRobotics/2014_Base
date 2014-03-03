@@ -10,8 +10,8 @@ class Pickup(common.ComponentBase):
         self.motor = config.pickup_motor
         
         self.solenoid = config.solenoid
-        self.forward = config.forward
-        self.reverse = config.reverse
+        self.OUT = config.forward
+        self.IN = config.reverse
 
         self.pickup_switch = config.pickup_switch
         self.motor_button = config.motor_button
@@ -42,9 +42,12 @@ class Pickup(common.ComponentBase):
         self.motor.Set(speed)
     
         if self.pickup_switch.get():
-            self.solenoid.Set(self.forward)
+            self.solenoid.Set(self.OUT)
         else:
-            self.solenoid.Set(self.reverse)
+            self.solenoid.Set(self.IN)    
+
+    def extend(self):
+        self.solenoid.Set(self.OUT)
 
 
 

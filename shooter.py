@@ -28,7 +28,7 @@ class Shooter(common.ComponentBase):
         self.low_shot_hall_effect_counter = config.low_shot_hall_effect_counter
         self.high_shot_hall_effect_counter = config.high_shot_hall_effect_counter
 
-        self.reset_hall_effect = config.reset_hall_effect
+        self.reset_hall_effect_counter = config.reset_hall_effect_counter
     
         self.op_state = self.RESETTING
 
@@ -42,6 +42,7 @@ class Shooter(common.ComponentBase):
     def op_init(self):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
+        self.reset_hall_effect_counter.Reset()
 
         self.op_state = self.RESET
 
@@ -53,28 +54,39 @@ class Shooter(common.ComponentBase):
                 self.op_state = self.SHOOTING
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
+                self.reset_hall_effect_counter.Reset()
 
         if self.op_state == self.SHOOTING:
             speed = self.SHOOTING_SPEED
             if self.should_stop():
                 speed = 0
+                self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESETTING
 
         if self.op_state == self.RESETTING:
             speed = self.RESETTING_SPEED
-            if self.reset_hall_effect.Get():
+            if self.reset_hall_effect_counter.Get():
                 speed = 0
+                self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESET
         
         #This is not part of the normal state machine,
         #this is for manual reset.
         if self.manual_reset_button.get():
             speed = self.RESETTING_SPEED
-            if self.reset_hall_effect.Get():
+            if self.reset_hall_effect_counter.Get():
                 speed = 0
                 self.op_state = self.RESET
 
+        wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
+
         self.motors.Set(speed)
+
+    def auto_init(self):
+        self.auto_state = self.RESET
+        self.low_shot_hall_effect_counter.Reset()
+        self.high_shot_hall_effect_counter.Reset()
+        self.reset_hall_effect_counter.Reset()
 
     def auto_shoot_tick(self, time):
 
@@ -89,7 +101,7 @@ class Shooter(common.ComponentBase):
 
         elif self.auto_state == self.RESETTING:
             speed = self.RESETTING_SPEED
-            if self.reset_hall_effect.Get():
+            if self.reset_hall_effect_counter.Get():
                 self.auto_state = self.AUTO_SHOOT_DONE
 
         elif self.auto_state == self.AUTO_SHOOT_DONE:
