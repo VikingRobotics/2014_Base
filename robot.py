@@ -28,7 +28,6 @@ class MyRobot(wpilib.SimpleRobot):
 
         while wpilib.IsDisabled():
             self.dog.Feed()
-            print(self.goal_is_hot())
 
             for type, component in self.components.items():
                 component.disabled_tick(wpilib.Timer.GetFPGATimestamp())
@@ -57,10 +56,10 @@ class MyRobot(wpilib.SimpleRobot):
             wpilib.SmartDashboard.PutString('auto robot state', current_state)
 
             current_time = wpilib.Timer.GetFPGATimestamp()
-            elapsed_time = current_time - start_time
+            elapsed_seconds = current_time - start_time
 
             if current_state == START:
-                if self.goal_is_hot() or elapsed_time > 5:
+                if self.goal_is_hot() or elapsed_seconds > 5:
                     current_state = SHOOTING
 
             elif current_state == SHOOTING:
