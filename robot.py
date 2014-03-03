@@ -37,23 +37,22 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog.SetEnabled(False)
 
     def Autonomous(self):
-        # TODO: add downshift to the initialization
-        # TODO: does the ball fall out when there's only one?
-        # TODO: add a pause state between every state
         self.dog.SetEnabled(True)
         for type, component in self.components.items():
             component.auto_init()
 
+        # autonomous states
         START = 'start'
         SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
         STOP = 'stop'
-        EXTENDED_PICKUP_PAUSE = 'extended_pickup_pause'
 
+        AFTER_DRIVE_PAUSE = 3
+
+        # Initialization
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
-
-        
+        self.components['drive'].downshift()
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
@@ -64,19 +63,16 @@ class MyRobot(wpilib.SimpleRobot):
             elapsed_seconds = current_time - start_time
 
             if current_state == START:
-                if self.goal_is_hot() or elapsed_seconds > 5:
-                    wpilib.Wait(3)
-                    current_state = DRIVE_FORWARD
-                    
-
+                current_state = DRIVE_FORWARD
+            
             elif current_state == DRIVE_FORWARD:
                 self.components['drive'].auto_drive_forward_tick(current_time)
-                if self.components['drive'].is_auto_drive_done():
+
+                if self.components['drive'].is_auto_drive_done() and (self.goal_is_hot() or elapsed_seconds > 5):
                     self.components['pickup'].extend()
-                    wpilib.Wait(3)
+                    self.wait(AFTER_DRIVE_PAUSE)
                     current_state = SHOOTING
                     
-
             elif current_state == SHOOTING:
                 self.components['shooter'].auto_shoot_tick(current_time)
                 if self.components['shooter'].is_auto_shoot_done():
@@ -88,6 +84,13 @@ class MyRobot(wpilib.SimpleRobot):
             wpilib.Wait(0.01)
 
         self.dog.SetEnabled(False)
+
+    def wait(self, wait_time):
+        start_time = wpilib.Timer.GetFPGATimestamp()
+        elapsed_time = start_time
+        while(elapsed_time < wait_time):
+            self.dog.Feed()
+            wpilib.Wait(0.01)
 
     def OperatorControl(self):
         self.dog.SetEnabled(True)

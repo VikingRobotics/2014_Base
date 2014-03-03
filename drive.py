@@ -39,7 +39,7 @@ class Drive(common.ComponentBase):
         self.auto_state = self.START
         self.auto_drive_start_time = 0
 
-        self.AUTO_DRIVE_FORWARD_TIME = 0.8
+        self.AUTO_DRIVE_FORWARD_TIME = 1.2
 
     def op_init(self):
         self.robot_drive.StopMotor()
