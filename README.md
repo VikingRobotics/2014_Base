@@ -74,16 +74,19 @@ THIS NEEDS TO BE FILLED OUT
                  shoot first ball, shoot second ball
 
 Get em working without PIDControl, then add PID
-                  
 
 # TODO
 
 * Programming team meetings! 615 every night.
 * Change manual shooter reset so it sets the state to resetting
 * Put in software lock on pickup so shooter won't shoot
+* When shot ends, reverse motors for a few frames so we don't beast mode Beast Mode
+* Create software lag so drivers get practice with it
 * Image the cRio on the practice robot
 * After imaging the cRio, put LiveWindow code on the robot
+* Test autonomous with camera
 * Make autonomous modes configurable: 1 ball or two balls
+* Make automous mode paramters easily configurable - through smartdashboard?
 * Ensure photoswitches get set to 4 inches apart.
 * Modify SmartDashboard code and template to be helpful for drivers
 
