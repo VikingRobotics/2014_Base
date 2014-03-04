@@ -23,6 +23,7 @@ class MyRobot(wpilib.SimpleRobot):
     # Called once when the robot is initialized
     def RobotInit(self):
         self.smartdashboardNT = wpilib.NetworkTable.GetTable("SmartDashboard")
+        self.autonomous_config = AutonomousConfig()
 
         # Smartdashboard code to choose autonomous mode
         self.auto_chooser = wpilib.SendableChooser()

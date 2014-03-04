@@ -13,6 +13,9 @@ from utils import Button
 from utils import Axis
 from utils import HallEffect
 
+def autonomous_config():
+    
+
 def components():
     leftJoy = wpilib.Joystick(1)
     rightJoy = wpilib.Joystick(2)
