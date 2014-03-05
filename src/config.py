@@ -13,15 +13,12 @@ from utils import Button
 from utils import Axis
 from utils import HallEffect
 
-def autonomous_config():
-    
-
 def components():
     leftJoy = wpilib.Joystick(1)
     rightJoy = wpilib.Joystick(2)
     components = {}
 
-    lw = wpilib.LiveWindow.GetInstance()
+    # lw = wpilib.LiveWindow.GetInstance()
 
     class DriveConfig(object):
         right_motors = wpilib.Talon(1)
@@ -51,7 +48,7 @@ def components():
 
      
         # Buttons
-        squared_drive_stick = Button(leftJoy, 1)
+        squared_drive_button = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)
 
     class PIDDriveConfig(object):

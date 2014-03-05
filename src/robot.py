@@ -3,14 +3,13 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
+from auto_config import *
 
 import config
 
 
-class MyRobot(wpilib.SimpleRobot):
 
-    ONE_BALL_AUTO = "one ball auto"
-    TWO_BALL_AUTO = "two ball auto"
+class MyRobot(wpilib.SimpleRobot):
 
     def __init__(self):
         super().__init__()
@@ -18,18 +17,12 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog = self.GetWatchdog()
         self.dog.SetExpiration(0.25)
         self.components = config.components()
+        self.auto_config = AutoConfig()
 
 
     # Called once when the robot is initialized
     def RobotInit(self):
-        self.smartdashboardNT = wpilib.NetworkTable.GetTable("SmartDashboard")
-        self.autonomous_config = AutonomousConfig()
-
-        # Smartdashboard code to choose autonomous mode
-        self.auto_chooser = wpilib.SendableChooser()
-        self.auto_chooser.AddDefault("One ball autonomous", self.ONE_BALL_AUTO)
-        self.auto_chooser.AddObject("Two ball autonomous", self.TWO_BALL_AUTO)
-        wpilib.SmartDashboard.PutData("Autonomous mode chooser", self.auto_chooser)
+        self.auto_config = AutoConfig()
 
         # Initialize all robot components
         for type, component in self.components.items():
@@ -54,8 +47,8 @@ class MyRobot(wpilib.SimpleRobot):
 
     # Called once when the robot enters autonomous state
     def Autonomous(self):
-        auto_mode = self.auto_chooser.GetSelected()
-        if auto_mode == self.ONE_BALL_AUTO:
+
+        if self.auto_config.get_autonomous_mode() == AutoConfig.ONE_BALL_AUTO:
             self.one_ball_autonomous()
         else:
             self.two_ball_autonomous()
@@ -65,15 +58,13 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog.SetEnabled(True)
 
         for type, component in self.components.items():
-            component.auto_init()
+            component.auto_init(self.auto_config)
 
         # autonomous states
         START = 'start'
         SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
         STOP = 'stop'
-
-        AFTER_DRIVE_PAUSE = 3
 
         # Initialization
         current_state = START
@@ -96,7 +87,7 @@ class MyRobot(wpilib.SimpleRobot):
 
                 if self.components['drive'].is_auto_drive_done() and (self.goal_is_hot() or elapsed_seconds > 5):
                     self.components['pickup'].extend()
-                    self.wait(AFTER_DRIVE_PAUSE)
+                    self.wait(self.auto_config.after_drive_pause_seconds)
                     current_state = SHOOTING
                     
             elif current_state == SHOOTING:
