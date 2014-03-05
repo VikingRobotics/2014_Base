@@ -38,8 +38,6 @@ class Shooter(common.ComponentBase):
 
         self.SHOOTING_SPEED = 1
 
-
-
     def op_init(self):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
@@ -58,7 +56,7 @@ class Shooter(common.ComponentBase):
                 self.reset_hall_effect_counter.Reset()
 
         if self.op_state == self.SHOOTING:
-            components.pickup.is_extended
+            components.pickup.is_extended()
             speed = self.SHOOTING_SPEED
             if self.should_stop():
                 speed = 0
@@ -74,14 +72,9 @@ class Shooter(common.ComponentBase):
         
         #This is not part of the normal state machine,
         #this is for manual reset.
-        if self.manual_reset_button.get() and self.shoot_button.get():
-           self.op_state = self.RESETTING                    
-           speed = self.RESETTING_SPEED
-            if self.reset_hall_effect_counter.Get():
-                speed = 0
-                self.reset_hall_effect_counter.Reset()
-                self.op_state = self.RESET
-        
+        if self.op_state != self.RESET and self.manual_reset_button.get() and self.shoot_button.get():
+            self.op_state = self.RESETTING
+
 
         wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
 
