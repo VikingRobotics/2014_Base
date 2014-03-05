@@ -77,14 +77,18 @@ Get em working without PIDControl, then add PID
 
 # TODO
 
-* Programming team meetings! 615 every night.
-* When shot ends, reverse motors for a few frames so we don't beast mode Beast Mode
-* Create software lag so drivers get practice with it
-* Get RobotPy on practice robot
+today:
+
 * After imaging the cRio, put LiveWindow code on the robot
+* Add two ball autonomous
+* Change align code so front photoswitches on, back photoswitches off.
+
+later:
+
+* Create software lag so drivers get practice with it - use Fiddler!!!!
+* Get RobotPy on practice robot
 * Test autonomous with camera
-* Make automous mode paramters easily configurable - through smartdashboard?
-* Ensure photoswitches get set to 4 inches apart.
-* Modify SmartDashboard code and template to be helpful for drivers
+
+
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
