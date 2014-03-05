@@ -22,19 +22,24 @@ class Drive(common.ComponentBase):
 
         self.joy = config.drive_joy
 
-        self.squared_drive_button = config.squared_drive_button
+        self.pid_button = config.pid_button
 
-        self.shift_button = config.shift_button
+        self.shift_switch = config.shift_button
         self.left_shifter = config.left_shifter
         self.right_shifter = config.right_shifter
+
         self.low = config.forward
         self.high = config.reverse
         self.align_button = config.align_button
+        self.gear = None
 
+        self.align_button = config.align_button
         self.front_left_photo_switch = config.front_left_photo_switch
         self.front_right_photo_switch = config.front_right_photo_switch
         self.back_left_photo_switch = config.back_left_photo_switch
         self.back_right_photo_switch = config.back_right_photo_switch
+
+        self.prev_shift_button_val = False
 
         self.auto_state = self.START
         self.auto_drive_start_time = 0
@@ -47,15 +52,16 @@ class Drive(common.ComponentBase):
         speed = self.joy.GetY()
         rot = self.joy.GetX()
 
-        squared = False
-        if self.squared_drive_button.get():
-            squared = True
-        self.robot_drive.ArcadeDrive(speed, rot, squared)
+        self.robot_drive.dissable_pid()
+        if self.pid_button.get():
+            self.robot_drive.enable_pid()
 
-        if self.shift_button.get():
-            self.shift(self.low) 
-        else:
+        self.robot_drive.arcade_drive(speed, rot)
+
+        if self.shift_switch.get():
             self.shift(self.high)
+        else:
+            self.shift(self.low)
 
         if self.align_button.get():
             self.align()
@@ -65,7 +71,6 @@ class Drive(common.ComponentBase):
         self.auto_config = auto_config
 
     def auto_drive_forward_tick(self, time):
-
         speed = 0
 
         if self.auto_state == self.START:
@@ -97,7 +102,6 @@ class Drive(common.ComponentBase):
         self.shift(self.low)
 
     def align(self):
-
         motor_speed = .25
         reverse_speed = -.1
         left = 0
@@ -117,19 +121,4 @@ class Drive(common.ComponentBase):
         else:
             right = motor_speed 
 
-        # DANGER! Right and left are inverted here. This is because morgan flipped
-        # forward and back
-        self.robot_drive.SetLeftRightMotorOutputs(right, left)
-
-
-
-            
-            
-       
-
-
-
-            
-
-
-            
+        self.robot_drive.SetLeftRightMotorOutputs(left, right)

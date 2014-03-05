@@ -21,40 +21,48 @@ class Pickup(common.ComponentBase):
         self.pickup_slow_preset = config.pickup_slow_preset
         self.pickup_fast_preset = config.pickup_fast_preset
 
+        self.pickup_state = -1
+        self.start_time = 0
+
+        self.EXTEND_SPIN_TIME = .3
+        self.EXTEND_SPIN_SPEED = .5
+
     def op_init(self):
         pass
 
-    # TODO: Make the pickup spin while dropping or upping the loader
-    # How do we do this since the pneumatics can't tell if they're 
-    # operating or not? Timeout!
     def op_tick(self, time):
         speed = 0
+
+        prev_state = self.pickup_state
+        self.pickup_state = self.solenoid.Get()
+
+        if prev_state != self.pickup_state and self.pickup_state == self.OUT:
+            self.start_time = time
+        if self.start_time < self.EXTEND_SPIN_TIME:
+            speed = self.EXTEND_SPIN_SPEED
+
         if self.motor_button.get():
-            if self.pass_slow_preset.get():
-                speed = -.5
-            elif self.pass_fast_preset.get():
+            if self.pass_fast_preset.get():
                 speed = -1
+            elif self.pass_slow_preset.get():
+                speed = -.5
             elif self.pickup_slow_preset.get():
                 speed = .25
             elif self.pickup_fast_preset.get():
-                speed = .75
+                speed = .8
 
         self.motor.Set(speed)
-    
+        
         if self.pickup_switch.get():
-            self.solenoid.Set(self.OUT)
+            self.extend()
         else:
-            self.solenoid.Set(self.IN)    
+            self.retract()
 
     def extend(self):
         self.solenoid.Set(self.OUT)
 
+    def retract(self):
+        self.solenoid.Set(self.IN)
+
     def is_extended(self):
-        return self.solenoid.Get() == self.pickup_down 
-
-    def extend(self):
-        self.solenoid.Set(self.OUT)    
-
-
-
-
+        return self.solenoid.Get() == self.self.OUT 

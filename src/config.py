@@ -22,7 +22,6 @@ def components():
 
     class DriveConfig(object):
         right_motors = wpilib.Talon(1)
-        # 
         lw.AddActuator('Drive', 'right motors', right_motors)
         left_motors = wpilib.Talon(2)
         lw.AddActuator("Drive", "left motors", left_motors)
@@ -60,9 +59,36 @@ def components():
         # Buttons
         squared_drive_button = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)
+        pid_button = Button(leftJoy, 6)
+
 
     class PIDDriveConfig(object):
-        pass
+        drive_joy = leftJoy
+        # Buttons
+        pid_button = Button(leftJoy, 6)
+        shift_button = Button(leftJoy, 9)
+        
+        left_motors = wpilib.Talon(1)
+        right_motors = wpilib.Talon(2)
+
+        left_encoder = wpilib.Encoder(2, 3)
+        left_PID_encoder = DistanceEncoder(left_encoder)
+        left_PID_controller = wpilib.PIDController(0, 0, 0, left_PID_encoder, left_motors)
+
+        right_encoder = wpilib.Encoder(4, 5)
+        right_PID_encoder = DistanceEncoder(right_encoder)
+        right_PID_controller = wpilib.PIDController(0, 0, 0, right_PID_encoder, right_motors)
+        
+        robot_drive = DriveBase(left_motors, right_motors, True,
+                                left_encoder, right_encoder,
+                                left_PID_controller, right_PID_controller)
+
+        left_shifter = wpilib.DoubleSolenoid(1, 2)
+        right_shifter = wpilib.DoubleSolenoid(3, 4)
+        
+        forward = wpilib.DoubleSolenoid.kForward
+        reverse = wpilib.DoubleSolenoid.kReverse
+        
 
     use_pid = False
     if(use_pid):
