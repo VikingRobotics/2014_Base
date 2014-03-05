@@ -50,12 +50,7 @@ class Pickup(common.ComponentBase):
         self.solenoid.Set(self.OUT)
 
     def is_extended(self):
-        return self.solenoid.Get() == self.pickup_down
-          
-
-            self.solenoid.Set(self.OUT)
-        else:
-            self.solenoid.Set(self.IN)    
+        return self.solenoid.Get() == self.pickup_down 
 
     def extend(self):
         self.solenoid.Set(self.OUT)    

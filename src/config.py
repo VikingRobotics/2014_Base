@@ -111,7 +111,6 @@ def components():
 
 
     components['shooter'] = shooter.Shooter(ShooterConfig)
-    pickup = components['pickup']
 
     class UtilConfig(object):
         reload_code_button = Button(leftJoy, 8)
