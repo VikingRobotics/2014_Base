@@ -148,6 +148,8 @@ def components():
         high_shot_hall_effect_counter.Start()
         lw.AddSensor("Shooter" "high shot hall effect", high_shot_hall_effect_counter)
 
+        pickup = components['pickup']
+
         # lw.AddSensor('Drive', reset_hall_effect_DI)
 
 

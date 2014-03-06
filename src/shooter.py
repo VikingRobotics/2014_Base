@@ -29,6 +29,8 @@ class Shooter(common.ComponentBase):
         self.high_shot_hall_effect_counter = config.high_shot_hall_effect_counter
 
         self.reset_hall_effect_counter = config.reset_hall_effect_counter
+
+        self.pickup = config.pickup
     
         self.op_state = self.RESETTING
 
@@ -48,14 +50,13 @@ class Shooter(common.ComponentBase):
     def op_tick(self, time):
         if self.op_state == self.RESET:
             speed = 0
-            if self.shoot_button.get():
+            if self.shoot_button.get() and components.pickup.is_extended():
                 self.op_state = self.SHOOTING
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
                 self.reset_hall_effect_counter.Reset()
 
         if self.op_state == self.SHOOTING:
-            components.pickup.is_extended()
             speed = self.SHOOTING_SPEED
             if self.should_stop():
                 speed = 0
