@@ -50,7 +50,7 @@ class DriveBase:
         self.left_PID_controller.SetSetpoint(l_speed)
         self.right_PID_controller.SetSetpoint(r_speed)
 
-    def drive_distance(self, distance, speed):
+    def drive_distance(self, distance):
         self.left_PID_controller.SetSetpoint(distance)
         self.right_PID_controller.SetSetpoint(distance)
 
