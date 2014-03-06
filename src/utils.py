@@ -1,3 +1,8 @@
+try:
+    import wpilib
+except ImportError:
+    from pyfrc import wpilib
+
 import common
 
 
@@ -28,6 +33,26 @@ class HallEffect(object):
 
     def Get(self):
         return not self.hallEffect.Get()
+
+class DistanceEncoder(wpilib.PIDSource):
+
+    def __init__(self, encoder):
+        super(DistanceEncoder, self).__init__()
+        self.encoder = encoder
+
+    def PIDGet(self):
+        return self.encoder.GetDistance()
+
+
+class RateEncoder(wpilib.PIDSource):
+    
+    def __init__(self, encoder):
+        super.__init__(self)
+        self.encoder = encoder
+
+    def PIDGet(self):
+        return self.encoder.GetRate()
+
 
 
 class ButtonControlledMotor(common.ComponentBase):
