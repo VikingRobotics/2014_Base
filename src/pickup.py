@@ -17,7 +17,6 @@ class Pickup(common.ComponentBase):
         self.motor_button = config.motor_button
 
         self.pass_slow_preset = config.pass_slow_preset
-        self.pass_fast_preset = config.pass_fast_preset
         self.pickup_slow_preset = config.pickup_slow_preset
         self.pickup_fast_preset = config.pickup_fast_preset
 
@@ -51,9 +50,7 @@ class Pickup(common.ComponentBase):
                 self.is_extending = False
 
         if self.motor_button.get():
-            if self.pass_fast_preset.get():
-                speed = -1
-            elif self.pass_slow_preset.get():
+            if self.pass_slow_preset.get():
                 speed = -.5
             elif self.pickup_slow_preset.get():
                 speed = .25
