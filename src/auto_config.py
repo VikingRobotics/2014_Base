@@ -9,7 +9,10 @@ class AutoConfig(object):
     TWO_BALL_AUTO = "two_ball_auto"
 
     after_drive_pause_seconds = 3
-    drive_forward_time = 1.2
+    drive_forward_seconds = 1.2
+    extending_seconds = .5
+    after_shoot_seconds = .1
+    pickup_seconds = .5
 
     def __init__(self):
         super().__init__()

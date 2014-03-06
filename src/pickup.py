@@ -23,6 +23,7 @@ class Pickup(common.ComponentBase):
 
         self.pickup_state = -1
         self.start_time = 0
+        self.is_extending = False
 
         self.EXTEND_SPIN_TIME = .3
         self.EXTEND_SPIN_SPEED = .5
@@ -35,11 +36,19 @@ class Pickup(common.ComponentBase):
 
         prev_state = self.pickup_state
         self.pickup_state = self.solenoid.Get()
-
-        if prev_state != self.pickup_state and self.pickup_state == self.OUT:
+        
+        # If the pickup is extending
+        if prev_state == self.IN and self.pickup_state == self.OUT:
+            self.is_extending = True
             self.start_time = time
-        if self.start_time < self.EXTEND_SPIN_TIME:
-            speed = self.EXTEND_SPIN_SPEED
+
+        elapsed_time = time - self.start_time
+        if self.is_extending 
+            if elapsed_time < self.EXTEND_SPIN_TIME:
+                speed = self.EXTEND_SPIN_SPEED
+            else: 
+                # we're done extending
+                self.is_extending = False
 
         if self.motor_button.get():
             if self.pass_fast_preset.get():
@@ -66,3 +75,11 @@ class Pickup(common.ComponentBase):
 
     def is_extended(self):
         return self.solenoid.Get() == self.self.OUT 
+
+    def pickup_slow(self):
+        # TODO: make this value configurable
+        self.motor.Set(.25)
+
+    def pickup_fast(self):
+        # TODO: make this value configurable
+        self.motor.Set(.8)

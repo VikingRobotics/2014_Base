@@ -116,6 +116,9 @@ class Shooter(common.ComponentBase):
     def is_auto_shoot_done(self):
         return self.auto_state == self.AUTO_SHOOT_DONE
 
+    def reset(self):
+        self.auto_state = self.RESET
+
     def should_stop(self):
         # This could be compacted down, but it's understandable as is
         if self.low_shot_preset_button.get() and self.low_shot_hall_effect_counter.Get():

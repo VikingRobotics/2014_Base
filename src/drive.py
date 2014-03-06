@@ -80,7 +80,7 @@ class Drive(common.ComponentBase):
         elif self.auto_state == self.DRIVE_FORWARD:
             speed = 1
             elapsed_time = time - self.auto_drive_start_time
-            if elapsed_time > self.auto_config.drive_forward_time:
+            if elapsed_time > self.auto_config.drive_forward_seconds:
                 self.auto_state = self.STOP
 
         elif self.auto_state == self.STOP:
