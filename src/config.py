@@ -56,10 +56,8 @@ def components():
 
         back_right_photo_switch = wpilib.DigitalInput(11)
         # lw.AddSensor("Drive," "back right photo switch", back_right_photo_switch)
-
      
         # Buttons
-        squared_drive_button = Button(leftJoy, 1)
         shift_button = Button(leftJoy, 9)
         pid_button = Button(leftJoy, 6)
 
@@ -73,11 +71,13 @@ def components():
 
         left_motors = DriveConfig.left_motors
         right_motors = DriveConfig.right_motors
-
         # left_motors = wpilib.Talon(1)
         # right_motors = wpilib.Talon(2)
 
         left_encoder = wpilib.Encoder(2, 3)
+        # TODO: Is it better to use 
+        # left_encoder.SetPIDSourceParameter(wpilib.PIDSourceParameter.kDistance)?
+        # Should have the exact same effect, but less complicated code > more complicated code
         left_PID_encoder = DistanceEncoder(left_encoder)
         left_PID_controller = wpilib.PIDController(0, 0, 0, left_PID_encoder, left_motors)
 
