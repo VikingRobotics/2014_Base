@@ -15,6 +15,8 @@ from utils import HallEffect
 from utils import DistanceEncoder
 from utils import RateEncoder
 
+from driveBase import DriveBase
+
 def components():
     leftJoy = wpilib.Joystick(1)
     rightJoy = wpilib.Joystick(2)
@@ -89,23 +91,23 @@ def components():
                                 left_encoder, right_encoder,
                                 left_PID_controller, right_PID_controller)
 
-        left_shifter = wpilib.DoubleSolenoid(1, 2)
-        right_shifter = wpilib.DoubleSolenoid(3, 4)
+        left_shifter = DriveConfig.left_shifter
+        right_shifter = DriveConfig.right_shifter
+        # left_shifter = wpilib.DoubleSolenoid(1, 2)
+        # right_shifter = wpilib.DoubleSolenoid(3, 4)
         
         forward = wpilib.DoubleSolenoid.kForward
         reverse = wpilib.DoubleSolenoid.kReverse
         
-
     use_pid = False
     if(use_pid):
         components['drive'] = drive.PIDDrive(PIDDriveConfig)
     else:
         components['drive'] = drive.Drive(DriveConfig)
 
-
     class PickupConfig(object):
         pickup_motor = wpilib.Talon(4)
-        wpilib.AddActuator("Pickup", "pickup motor", pickup_motor)
+        # self.lw.AddActuator("Pickup", "pickup motor", pickup_motor)
 
         solenoid = wpilib.DoubleSolenoid(5, 6)
         # lw.AddActuator("Pickup", "pickup solenoid", solenoid)

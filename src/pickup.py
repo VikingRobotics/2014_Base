@@ -42,7 +42,7 @@ class Pickup(common.ComponentBase):
             self.start_time = time
 
         elapsed_time = time - self.start_time
-        if self.is_extending 
+        if self.is_extending:
             if elapsed_time < self.EXTEND_SPIN_TIME:
                 speed = self.EXTEND_SPIN_SPEED
             else: 

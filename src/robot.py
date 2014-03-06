@@ -37,7 +37,7 @@ class MyRobot(wpilib.SimpleRobot):
 
         while wpilib.IsDisabled():
             self.dog.Feed()
-
+            
             for type, component in self.components.items():
                 component.disabled_tick(wpilib.Timer.GetFPGATimestamp())
 
@@ -171,7 +171,7 @@ class MyRobot(wpilib.SimpleRobot):
                 self.components['shooter'].reset()
                 current_state = SECOND_SHOT
 
-            elif current_state == SECOND_SHOT
+            elif current_state == SECOND_SHOT:
                 self.components['shooter'].auto_shoot_tick(current_time)
                 if self.components['shooter'].is_auto_shoot_done():
                     current_state = STOP

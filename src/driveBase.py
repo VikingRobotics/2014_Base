@@ -63,7 +63,7 @@ class DriveBase:
         self.left_PID_controller.SetPID(p, i, d)
         self.right_PID_controller.SetPID(p, i, d)
 
-    def arcade_drive(self, rot, speed):
+    def ArcadeDrive(self, rot, speed):
         if speed > 0.0:
             if rot > 0.0:
                 l_speed = speed - rot

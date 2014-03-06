@@ -56,7 +56,8 @@ class Drive(common.ComponentBase):
         if self.pid_button.get():
             self.robot_drive.enable_pid()
 
-        self.robot_drive.arcade_drive(speed, rot)
+        # self.robot_drive.arcade_drive(speed, rot)
+        self.robot_drive.ArcadeDrive(speed, rot)
 
         if self.shift_switch.get():
             self.shift(self.high)
