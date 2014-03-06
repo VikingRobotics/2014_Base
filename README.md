@@ -75,6 +75,14 @@ THIS NEEDS TO BE FILLED OUT
 
 Get em working without PIDControl, then add PID
 
+# LiveWindow error 
+
+  File "/c/py/robot.py", line 19, in __init__
+    self.lw.AddActuator('subsystem', 'name', self.motor)
+TypeError: LiveWindow.AddActuator(): arguments did not match any overloaded call:
+  overload 1: argument 3 has unexpected type 'Talon'
+  overload 2: argument 2 has unexpected type 'str'
+
 # TODO
 
 today:
