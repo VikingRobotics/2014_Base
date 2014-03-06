@@ -79,16 +79,19 @@ Get em working without PIDControl, then add PID
 
 today:
 
+* Get latest RobotPy on comp robot
+* Get latest RobotPy on practice robot
 * After imaging the cRio, put LiveWindow code on the robot
+* Test autonomous with camera
 * Add two ball autonomous
-* Change align code so front photoswitches on, back photoswitches off.
+* Add a smartdashboard option to reload code
+* Remove photoswitch code
 
 later:
 
 * Create software lag so drivers get practice with it - use Fiddler!!!!
-* Get RobotPy on practice robot
-* Test autonomous with camera
-
 
 
 * Add [motor safety feature to shooter?](http://wpilib.screenstepslive.com/s/3120/m/7912/l/79730-using-the-motor-safety-feature)
+
+
