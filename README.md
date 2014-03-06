@@ -79,13 +79,15 @@ Get em working without PIDControl, then add PID
 
 today:
 
+* Fix syntax errors
 * Get latest RobotPy on comp robot
 * Get latest RobotPy on practice robot
-* After imaging the cRio, put LiveWindow code on the robot
+* Make PID Work
 * Test autonomous with camera
 * Add two ball autonomous
-* Add a smartdashboard option to reload code
 * Remove photoswitch code
+* Add a smartdashboard option to reload code
+* LiveWindow code on the robot
 
 later:
 
