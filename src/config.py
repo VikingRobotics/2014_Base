@@ -121,7 +121,6 @@ def components():
         pickup_fast_preset = Button(rightJoy, 10)
         pass_slow_preset = Button(rightJoy, 11)
         pickup_slow_preset = Button(rightJoy, 12)
-        pass_fast_preset = Button(rightJoy, 13)
 
 
     components['pickup'] = pickup.Pickup(PickupConfig)
