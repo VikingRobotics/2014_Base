@@ -80,7 +80,7 @@ class Shooter(common.ComponentBase):
 
         self.motors.Set(speed)
 
-    def auto_init(self):
+    def auto_init(self, auto_config):
         self.auto_state = self.RESET
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()

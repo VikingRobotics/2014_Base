@@ -64,40 +64,40 @@ def components():
         pid_button = Button(leftJoy, 6)
 
 
-    class PIDDriveConfig(object):
-        drive_joy = leftJoy
+    # class PIDDriveConfig(object):
+    #     drive_joy = leftJoy
 
-        # Buttons
-        pid_button = Button(leftJoy, 6)
-        shift_button = Button(leftJoy, 9)
+    #     # Buttons
+    #     pid_button = Button(leftJoy, 6)
+    #     shift_button = Button(leftJoy, 9)
 
-        left_motors = DriveConfig.left_motors
-        right_motors = DriveConfig.right_motors
-        # left_motors = wpilib.Talon(1)
-        # right_motors = wpilib.Talon(2)
+    #     left_motors = DriveConfig.left_motors
+    #     right_motors = DriveConfig.right_motors
+    #     # left_motors = wpilib.Talon(1)
+    #     # right_motors = wpilib.Talon(2)
 
-        left_encoder = wpilib.Encoder(2, 3)
-        # TODO: Is it better to use 
-        # left_encoder.SetPIDSourceParameter(wpilib.PIDSourceParameter.kDistance)?
-        # Should have the exact same effect, but less complicated code > more complicated code
-        left_PID_encoder = DistanceEncoder(left_encoder)
-        left_PID_controller = wpilib.PIDController(0, 0, 0, left_PID_encoder, left_motors)
+    #     left_encoder = wpilib.Encoder(2, 3)
+    #     # TODO: Is it better to use 
+    #     # left_encoder.SetPIDSourceParameter(wpilib.PIDSourceParameter.kDistance)?
+    #     # Should have the exact same effect, but less complicated code > more complicated code
+    #     left_PID_encoder = DistanceEncoder(left_encoder)
+    #     left_PID_controller = wpilib.PIDController(0, 0, 0, left_PID_encoder, left_motors)
 
-        right_encoder = wpilib.Encoder(4, 5)
-        right_PID_encoder = DistanceEncoder(right_encoder)
-        right_PID_controller = wpilib.PIDController(0, 0, 0, right_PID_encoder, right_motors)
+    #     right_encoder = wpilib.Encoder(4, 5)
+    #     right_PID_encoder = DistanceEncoder(right_encoder)
+    #     right_PID_controller = wpilib.PIDController(0, 0, 0, right_PID_encoder, right_motors)
         
-        robot_drive = DriveBase(left_motors, right_motors, True,
-                                left_encoder, right_encoder,
-                                left_PID_controller, right_PID_controller)
+    #     robot_drive = DriveBase(left_motors, right_motors, True,
+    #                             left_encoder, right_encoder,
+    #                             left_PID_controller, right_PID_controller)
 
-        left_shifter = DriveConfig.left_shifter
-        right_shifter = DriveConfig.right_shifter
-        # left_shifter = wpilib.DoubleSolenoid(1, 2)
-        # right_shifter = wpilib.DoubleSolenoid(3, 4)
+    #     left_shifter = DriveConfig.left_shifter
+    #     right_shifter = DriveConfig.right_shifter
+    #     # left_shifter = wpilib.DoubleSolenoid(1, 2)
+    #     # right_shifter = wpilib.DoubleSolenoid(3, 4)
         
-        forward = wpilib.DoubleSolenoid.kForward
-        reverse = wpilib.DoubleSolenoid.kReverse
+    #     forward = wpilib.DoubleSolenoid.kForward
+    #     reverse = wpilib.DoubleSolenoid.kReverse
         
     use_pid = False
     if(use_pid):

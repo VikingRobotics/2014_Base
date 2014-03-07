@@ -17,7 +17,6 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog = self.GetWatchdog()
         self.dog.SetExpiration(0.25)
         self.components = config.components()
-        self.auto_config = AutoConfig()
 
 
     # Called once when the robot is initialized
@@ -47,6 +46,9 @@ class MyRobot(wpilib.SimpleRobot):
 
     # Called once when the robot enters autonomous state
     def Autonomous(self):
+        # THE FOLLOWING LINE MAKES NETSIM HAPPY! DONT REMOVE IT, BUT
+        # DONT USE IT ON THE ACTUAL ROBOT!!!!!!!!!
+        # self.auto_config = AutoConfig()
 
         self.dog.SetEnabled(True)
 
@@ -64,12 +66,9 @@ class MyRobot(wpilib.SimpleRobot):
 
         # autonomous states
         START = 'start'
-        SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
+        SHOOTING = 'shooting'
         STOP = 'stop'
-        EXTEND = 'extend'
-        PICKUP = 'pickup'
-        SECOND_SHOT = 'second_shot'
         WAIT_FOR_HOT_GOAL = 'wait_for_hot_goal'
 
         # Initialization
@@ -99,8 +98,8 @@ class MyRobot(wpilib.SimpleRobot):
                     current_state = SHOOTING
 
             elif current_state == WAIT_FOR_HOT_GOAL:
-                if self.goal_is_hot() or elapsed_seconds > 5:
-                    current_state == SHOOTING
+                if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
+                    current_state = SHOOTING
                     
             elif current_state == SHOOTING:
                 self.components['shooter'].auto_shoot_tick(current_time)
@@ -117,17 +116,16 @@ class MyRobot(wpilib.SimpleRobot):
     def two_ball_autonomous(self):
 
         # autonomous states
-        START = 'start'
+        EXTENDING = 'extending'
         SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
-        STOP = 'stop'
-        EXTENDING = 'extending'
         PICKUP = 'pickup'
         WAIT_FOR_HOT_GOAL = 'wait_for_hot_goal'
         SECOND_SHOT = 'second_shot'
+        STOP = 'stop'
         
         # Initialization
-        current_state = EXTENDINGING
+        current_state = EXTENDING
         start_time = wpilib.Timer.GetFPGATimestamp()
         self.components['drive'].downshift()
 
@@ -154,7 +152,7 @@ class MyRobot(wpilib.SimpleRobot):
                     current_state = WAIT_FOR_HOT_GOAL
 
             elif current_state == WAIT_FOR_HOT_GOAL:
-                if self.goal_is_hot() or elapsed_seconds > 5:
+                if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
                     current_state = SHOOTING
 
             elif current_state == SHOOTING:
@@ -175,6 +173,8 @@ class MyRobot(wpilib.SimpleRobot):
                 self.components['shooter'].auto_shoot_tick(current_time)
                 if self.components['shooter'].is_auto_shoot_done():
                     current_state = STOP
+
+            wpilib.Wait(0.01)
 
 
     def OperatorControl(self):
@@ -203,19 +203,11 @@ class MyRobot(wpilib.SimpleRobot):
     # feed the dog
     def wait(self, wait_time):
         start_time = wpilib.Timer.GetFPGATimestamp()
-        elapsed_time = start_time
+        elapsed_time = 0
         while(elapsed_time < wait_time):
+            elapsed_time = wpilib.Timer.GetFPGATimestamp() - start_time
             self.dog.Feed()
             wpilib.Wait(0.01)
-
-    # Return whether or not the goal is hot
-    def goal_is_hot(self):
-        return True
-        # try:
-        #     hot_goal = self.smartdashboardNT.GetBoolean("HOT_GOAL")
-        #     return hot_goal
-        # except:
-        #     return False
 
 def run():
     robot = MyRobot()

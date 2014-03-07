@@ -7,7 +7,7 @@ class ComponentBase(object):
     def robot_init(self):
         pass
 
-    def auto_init(self):
+    def auto_init(self, auto_config):
         pass
 
     def auto_tick(self, time):
