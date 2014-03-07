@@ -50,7 +50,8 @@ class Shooter(common.ComponentBase):
     def op_tick(self, time):
         if self.op_state == self.RESET:
             speed = 0
-            if self.shoot_button.get() and components.pickup.is_extended():
+            # if self.shoot_button.get():
+            if self.shoot_button.get() and self.pickup.is_extended():
                 self.op_state = self.SHOOTING
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
@@ -118,6 +119,9 @@ class Shooter(common.ComponentBase):
 
     def reset(self):
         self.auto_state = self.RESET
+        self.low_shot_hall_effect_counter.Reset()
+        self.high_shot_hall_effect_counter.Reset()
+        self.reset_hall_effect_counter.Reset()
 
     def should_stop(self):
         # This could be compacted down, but it's understandable as is

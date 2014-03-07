@@ -28,8 +28,8 @@ class Drive(common.ComponentBase):
         self.left_shifter = config.left_shifter
         self.right_shifter = config.right_shifter
 
-        self.low = config.forward
-        self.high = config.reverse
+        self.low = config.reverse
+        self.high = config.forward
         self.align_button = config.align_button
         self.gear = None
 

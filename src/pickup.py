@@ -10,8 +10,8 @@ class Pickup(common.ComponentBase):
         self.motor = config.pickup_motor
         
         self.solenoid = config.solenoid
-        self.OUT = config.forward
-        self.IN = config.reverse
+        self.OUT = config.reverse
+        self.IN = config.forward
 
         self.pickup_switch = config.pickup_switch
         self.motor_button = config.motor_button
@@ -25,7 +25,11 @@ class Pickup(common.ComponentBase):
         self.is_extending = False
 
         self.EXTEND_SPIN_TIME = .3
-        self.EXTEND_SPIN_SPEED = .5
+        self.EXTEND_SPIN_SPEED = -.5
+
+        self.PICKUP_FAST_SPEED = -.8
+        self.DRAG_BALL_SPEED = -.25
+        self.SLOW_PASS_SPEED = .5
 
     def op_init(self):
         pass
@@ -51,14 +55,15 @@ class Pickup(common.ComponentBase):
 
         if self.motor_button.get():
             if self.pass_slow_preset.get():
-                speed = -.5
+                speed = self.SLOW_PASS_SPEED
             elif self.pickup_slow_preset.get():
-                speed = .25
+                speed = self.DRAG_BALL_SPEED
             elif self.pickup_fast_preset.get():
-                speed = .8
+                speed = self.PICKUP_FAST_SPEED
 
         self.motor.Set(speed)
         
+
         if self.pickup_switch.get():
             self.extend()
         else:
@@ -71,12 +76,15 @@ class Pickup(common.ComponentBase):
         self.solenoid.Set(self.IN)
 
     def is_extended(self):
-        return self.solenoid.Get() == self.self.OUT 
+        return self.solenoid.Get() == self.OUT 
 
     def pickup_slow(self):
         # TODO: make this value configurable
-        self.motor.Set(.25)
+        self.motor.Set(self.DRAG_BALL_SPEED)
 
     def pickup_fast(self):
         # TODO: make this value configurable
-        self.motor.Set(.8)
+        self.motor.Set(self.PICKUP_FAST_SPEED)
+
+    def pickup_stop(self):
+        self.motor.Set(0)
