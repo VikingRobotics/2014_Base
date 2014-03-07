@@ -33,7 +33,6 @@ class Drive(common.ComponentBase):
         self.align_button = config.align_button
         self.gear = None
 
-        self.align_button = config.align_button
         self.front_left_photo_switch = config.front_left_photo_switch
         self.front_right_photo_switch = config.front_right_photo_switch
         self.back_left_photo_switch = config.back_left_photo_switch
