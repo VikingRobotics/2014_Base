@@ -13,7 +13,7 @@ class AutoConfig(object):
     #       We probably want to change that.
     after_drive_pause_seconds = 1.5
     #drive_forward_seconds = 0.75 #HIGH SHOT PRESET
-    drive_forward_seconds = 1.3 #LOW SHOT PRESET
+    drive_forward_seconds = 1.5 #LOW SHOT PRESET
     second_drive_forward_seconds = 0
     #drive_forward_seconds = 2.5 #SHORT HIGH SHOT PRESET
     extending_seconds = 1.3

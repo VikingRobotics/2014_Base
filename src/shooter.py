@@ -38,8 +38,9 @@ class Shooter(common.ComponentBase):
 
         self.RESETTING_SPEED = -.2
 
-        self.SHOOTING_SPEED = .8
+        self.SHOOTING_SPEED = .85
         #self.SHOOTING_SPEED = 1
+
 
     def op_init(self):
         self.low_shot_hall_effect_counter.Reset()

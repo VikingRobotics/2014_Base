@@ -62,6 +62,7 @@ def components():
         # Buttons
         shift_button = Button(leftJoy, 9)
         pid_button = Button(leftJoy, 1)
+        print("non pid")
 
 
     # class PIDDriveConfig(object):
