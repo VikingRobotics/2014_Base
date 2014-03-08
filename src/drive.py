@@ -105,6 +105,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
+        # TODO: Fix this!
         self.shift(self.high)
 
     def align(self):

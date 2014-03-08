@@ -87,6 +87,7 @@ TypeError: LiveWindow.AddActuator(): arguments did not match any overloaded call
 
 today:
 
+* Fix the gear shifting so low and high are accurate
 * Fix syntax errors
 * Get latest RobotPy on comp robot
 * Get latest RobotPy on practice robot
