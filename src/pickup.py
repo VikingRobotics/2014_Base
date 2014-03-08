@@ -24,7 +24,7 @@ class Pickup(common.ComponentBase):
         self.start_time = 0
         self.is_extending = False
 
-        self.EXTEND_SPIN_TIME = .3
+        self.EXTEND_SPIN_TIME = .5
         self.EXTEND_SPIN_SPEED = -.5
 
         self.PICKUP_FAST_SPEED = -.8
