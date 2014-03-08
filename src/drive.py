@@ -54,6 +54,7 @@ class Drive(common.ComponentBase):
         # ALSO: This won't work when using standard arcade drive!
         # self.robot_drive.dissable_pid()
         # if self.pid_button.get():
+        
             # self.robot_drive.enable_pid()
 
         # self.robot_drive.arcade_drive(speed, rot)
@@ -93,6 +94,9 @@ class Drive(common.ComponentBase):
 
         wpilib.SmartDashboard.PutString('auto drive state', self.auto_state)
 
+    def reset(self):
+        self.auto_state = self.START
+
     def is_auto_drive_done(self):
         return self.auto_state == self.STOP
 
@@ -101,7 +105,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
-        self.shift(self.low)
+        self.shift(self.high)
 
     def align(self):
         motor_speed = .25

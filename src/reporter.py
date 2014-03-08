@@ -15,6 +15,7 @@ class Reporter(common.ComponentBase):
         self.pickup_config = pickup_config
         self.shooter_config = shooter_config
         self.util_config = util_config
+        self.i = 0
 
     def op_tick(self, time):
         self.update()
@@ -49,8 +50,8 @@ class Reporter(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("low hall effect", self.shooter_config.low_shot_hall_effect_counter.Get())
         wpilib.SmartDashboard.PutNumber("high hall effect", self.shooter_config.high_shot_hall_effect_counter.Get())
 
-        # for idx, stop_counter in enumerate(self.shooter_config.preset_hall_effect_counters):
-        #     wpilib.SmartDashboard.PutNumber("stop counter %d" % idx, stop_counter.Get())
+        self.i = (self.i + 1) % 10000000
+        wpilib.SmartDashboard.PutNumber('sanity check', self.i)
 
         # #util config
         # wpilib.SmartDashboard.PutNumber("pressure switch val", self.util_config.compressor.GetPressureSwitchValue())

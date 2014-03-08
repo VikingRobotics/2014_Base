@@ -36,9 +36,10 @@ class Shooter(common.ComponentBase):
 
         self.auto_state = self.RESET
 
-        self.RESETTING_SPEED = -.25
+        self.RESETTING_SPEED = -.2
 
-        self.SHOOTING_SPEED = 1
+        self.SHOOTING_SPEED = .8
+        #self.SHOOTING_SPEED = 1
 
     def op_init(self):
         self.low_shot_hall_effect_counter.Reset()
@@ -53,6 +54,7 @@ class Shooter(common.ComponentBase):
             # if self.shoot_button.get():
             if self.shoot_button.get() and self.pickup.is_extended():
                 self.op_state = self.SHOOTING
+                print("SHOOTING")
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
                 self.reset_hall_effect_counter.Reset()
@@ -61,12 +63,14 @@ class Shooter(common.ComponentBase):
             speed = self.SHOOTING_SPEED
             if self.should_stop():
                 speed = 0
+                print("RESETTING")
                 self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESETTING
 
         if self.op_state == self.RESETTING:
             speed = self.RESETTING_SPEED
             if self.reset_hall_effect_counter.Get():
+                print("RESET")
                 speed = 0
                 self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESET
@@ -78,6 +82,7 @@ class Shooter(common.ComponentBase):
 
 
         wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
+        wpilib.SmartDashboard.PutNumber("Shooter speed", speed)
 
         self.motors.Set(speed)
 
@@ -95,7 +100,9 @@ class Shooter(common.ComponentBase):
 
         elif self.auto_state == self.SHOOTING:
             speed = self.SHOOTING_SPEED
+
             if self.high_shot_hall_effect_counter.Get():
+            #if self.low_shot_hall_effect_counter.Get():
                 self.reset_hall_effect_counter.Reset()
                 self.auto_state = self.RESETTING
                 # wpilib.Wait(3)
