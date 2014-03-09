@@ -67,7 +67,6 @@ class MyRobot(wpilib.SimpleRobot):
         # autonomous states
         START = 'start'
         DRIVE_FORWARD = 'drive_forward'
-        SECOND_DRIVE_FORWARD = 'second_drive_forward'
         SHOOTING = 'shooting'
         STOP = 'stop'
         WAIT_FOR_HOT_GOAL = 'wait_for_hot_goal'
@@ -108,17 +107,8 @@ class MyRobot(wpilib.SimpleRobot):
                 if self.components['shooter'].is_auto_shoot_done():
                     self.components['drive'].reset()
                     self.wait(self.auto_config.after_shoot_seconds)
-                    current_state = SECOND_DRIVE_FORWARD
-
-            elif current_state == SECOND_DRIVE_FORWARD:
-                self.components['drive'].auto_drive_forward_tick(current_time)
-
-                # TODO: this isn't optimal. We should have an "extending" state and stick the goal_is_hot and
-                # elapsed_seconds check in the state transition for that
-                if self.components['drive'].is_auto_drive_done():
-                    #self.components['pickup'].extend()
-                    #self.wait(self.auto_config.after_drive_pause_seconds)
                     current_state = STOP
+
 
             # for type, component in self.components.items():
             #     component.auto_tick(wpilib.Timer.GetFPGATimestamp())
