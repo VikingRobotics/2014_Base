@@ -24,12 +24,28 @@ class Pickup(common.ComponentBase):
         self.start_time = 0
         self.is_extending = False
 
-        self.EXTEND_SPIN_TIME = .3
-        self.EXTEND_SPIN_SPEED = -.5
+        self.extend_spin_time = .3
+        self.extend_spin_speed = -.5
 
-        self.PICKUP_FAST_SPEED = -.8
-        self.DRAG_BALL_SPEED = -.25
-        self.SLOW_PASS_SPEED = .5
+        self.pickup_fast_speed = -.8
+        self.drag_ball_speed = -.25
+        self.slow_pass_speed = .5
+
+    def robot_init(self):
+        wpilib.SmartDashboard.PutNumber("extend_spin_time", self.extend_spin_time)
+        wpilib.SmartDashboard.PutNumber("extend_spin_speed", self.extend_spin_speed)
+        wpilib.SmartDashboard.PutNumber("pickup_fast_speed", self.pickup_fast_speed)
+        wpilib.SmartDashboard.PutNumber("drag_ball_speed", self.drag_ball_speed)
+        wpilib.SmartDashboard.PutNumber("slow_pass_speed", self.slow_pass_speed)
+
+    def update_smartdashboard_vars(self):
+        wpilib.SmartDashboard.GetNumber("extend_spin_time", self.extend_spin_time)
+        wpilib.SmartDashboard.GetNumber("extend_spin_speed", self.extend_spin_speed)
+        wpilib.SmartDashboard.GetNumber("pickup_fast_speed", self.pickup_fast_speed)
+        wpilib.SmartDashboard.GetNumber("drag_ball_speed", self.drag_ball_speed)
+        wpilib.SmartDashboard.GetNumber("slow_pass_speed", self.slow_pass_speed)
+            
+
 
     def op_init(self):
         pass
@@ -47,27 +63,27 @@ class Pickup(common.ComponentBase):
 
         elapsed_time = time - self.start_time
         if self.is_extending:
-            if elapsed_time < self.EXTEND_SPIN_TIME:
-                speed = self.EXTEND_SPIN_SPEED
+            if elapsed_time < self.extend_spin_time:
+                speed = self.extend_spin_speed
             else: 
                 # we're done extending
                 self.is_extending = False
 
         if self.motor_button.get():
             if self.pass_slow_preset.get():
-                speed = self.SLOW_PASS_SPEED
+                speed = self.slow_pass_speed
             elif self.pickup_slow_preset.get():
-                speed = self.DRAG_BALL_SPEED
+                speed = self.drag_ball_speed
             elif self.pickup_fast_preset.get():
-                speed = self.PICKUP_FAST_SPEED
+                speed = self.pickup_fast_speed
 
         self.motor.Set(speed)
+            self.retract()
         
 
         if self.pickup_switch.get():
             self.extend()
         else:
-            self.retract()
 
     def extend(self):
         self.solenoid.Set(self.OUT)
@@ -80,11 +96,11 @@ class Pickup(common.ComponentBase):
 
     def pickup_slow(self):
         # TODO: make this value configurable
-        self.motor.Set(self.DRAG_BALL_SPEED)
+        self.motor.Set(self.drag_ball_speed)
 
     def pickup_fast(self):
         # TODO: make this value configurable
-        self.motor.Set(self.PICKUP_FAST_SPEED)
+        self.motor.Set(self.pickup_fast_speed)
 
     def pickup_stop(self):
         self.motor.Set(0)
