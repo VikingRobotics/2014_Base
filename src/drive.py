@@ -22,8 +22,6 @@ class Drive(common.ComponentBase):
 
         self.joy = config.drive_joy
 
-        self.pid_button = config.pid_button
-
         self.shift_switch = config.shift_button
         self.left_shifter = config.left_shifter
         self.right_shifter = config.right_shifter
@@ -49,15 +47,6 @@ class Drive(common.ComponentBase):
         speed = self.joy.GetY()
         rot = self.joy.GetX()
 
-        # TODO: is it okay to enable and disable pid() on every
-        # tick? 
-        # ALSO: This won't work when using standard arcade drive!
-        # self.robot_drive.dissable_pid()
-        # if self.pid_button.get():
-        
-            # self.robot_drive.enable_pid()
-
-        # self.robot_drive.arcade_drive(speed, rot)
         self.robot_drive.ArcadeDrive(speed, rot)
 
         if self.shift_switch.get():
