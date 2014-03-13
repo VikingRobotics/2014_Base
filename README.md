@@ -87,22 +87,19 @@ TypeError: LiveWindow.AddActuator(): arguments did not match any overloaded call
 
 today:
 
-* Fix LiveWindow on RobotPy. This will help with tuning
-* Tune the shooter! Three variables we can change: power to motors,
-  hall effect positions, shape of arm (OR GRIPPIER STUFF ON THE ARM?). We need to optimize for consistency and for shooting range
-* Make PID Work, at least for autonomous. Use distance of encoders
-* Tune the pickup speed while lowering the arm. Sometimes it got weird
-* Add two ball autonomous. Dial it in
-* Get hot goal detection working
+* Make EVERYTHING that is configurable configurable in the smartdashboard
+* Fix autonomous:
+  + use low gear
+  + Use pid with encoders to make robot drive consistent distance
+  + Drive forward more
+  + Two ball (should work as is)
+  + Get real camera on robot. Test it working end-to-end
 * Remove photoswitch code - unused!
-* Add a smartdashboard option to reload code (use a button)
-* Make shooting parameters changeable in SmartDashboard (LiveWindow?)
-
-* Make it use commands?
+* Tune the pickup speed while lowering the arm. Sometimes it got weird
 
 later:
 
-* Create software lag so drivers get practice with it - use Fiddler!!!!
+* Fix LiveWindow on RobotPy. This will help with tuning
 
 
 

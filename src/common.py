@@ -25,3 +25,6 @@ class ComponentBase(object):
     def op_tick(self, time):
         pass
 
+    def update_smartdashboard_vars(self):
+        pass
+
