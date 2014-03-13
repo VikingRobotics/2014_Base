@@ -39,14 +39,12 @@ class Pickup(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("slow_pass_speed", self.slow_pass_speed)
 
     def update_smartdashboard_vars(self):
-        wpilib.SmartDashboard.GetNumber("extend_spin_time", self.extend_spin_time)
-        wpilib.SmartDashboard.GetNumber("extend_spin_speed", self.extend_spin_speed)
-        wpilib.SmartDashboard.GetNumber("pickup_fast_speed", self.pickup_fast_speed)
-        wpilib.SmartDashboard.GetNumber("drag_ball_speed", self.drag_ball_speed)
-        wpilib.SmartDashboard.GetNumber("slow_pass_speed", self.slow_pass_speed)
+        self.extend_spin_time = wpilib.SmartDashboard.GetNumber("extend_spin_time", self.extend_spin_time)
+        self.extend_spin_speed = wpilib.SmartDashboard.GetNumber("extend_spin_speed", self.extend_spin_speed)
+        self.pickup_fast_speed = wpilib.SmartDashboard.GetNumber("pickup_fast_speed", self.pickup_fast_speed)
+        self.drag_ball_speed = wpilib.SmartDashboard.GetNumber("drag_ball_speed", self.drag_ball_speed)
+        self.slow_pass_speed = wpilib.SmartDashboard.GetNumber("slow_pass_speed", self.slow_pass_speed)
             
-
-
     def op_init(self):
         pass
 
@@ -78,12 +76,11 @@ class Pickup(common.ComponentBase):
                 speed = self.pickup_fast_speed
 
         self.motor.Set(speed)
-            self.retract()
-        
 
         if self.pickup_switch.get():
             self.extend()
         else:
+            self.retract()
 
     def extend(self):
         self.solenoid.Set(self.OUT)
@@ -95,11 +92,9 @@ class Pickup(common.ComponentBase):
         return self.solenoid.Get() == self.OUT 
 
     def pickup_slow(self):
-        # TODO: make this value configurable
         self.motor.Set(self.drag_ball_speed)
 
     def pickup_fast(self):
-        # TODO: make this value configurable
         self.motor.Set(self.pickup_fast_speed)
 
     def pickup_stop(self):

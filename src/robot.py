@@ -33,13 +33,13 @@ class MyRobot(wpilib.SimpleRobot):
 
         for type, component in self.components.items():
             component.disabled_init()
-            component.update_smartdashboard_vars()
 
         while wpilib.IsDisabled():
             self.dog.Feed()
             
             for type, component in self.components.items():
                 component.disabled_tick(wpilib.Timer.GetFPGATimestamp())
+                component.update_smartdashboard_vars()
 
             wpilib.Wait(0.01)
 
@@ -52,6 +52,8 @@ class MyRobot(wpilib.SimpleRobot):
         # self.auto_config = AutoConfig()
 
         self.dog.SetEnabled(True)
+
+        self.auto_config.update_smartdashboard_vars()
 
         for type, component in self.components.items():
             component.auto_init(self.auto_config)
@@ -76,7 +78,7 @@ class MyRobot(wpilib.SimpleRobot):
         # Initialization
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
-        self.components['drive'].downshift()
+        
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
@@ -87,7 +89,8 @@ class MyRobot(wpilib.SimpleRobot):
             elapsed_seconds = current_time - start_time
 
             if current_state == START:
-                self.wait(.5)
+                self.components['drive'].downshift()
+                self.wait(self.auto_config.downshift_seconds)
                 current_state = DRIVE_FORWARD
             
             elif current_state == DRIVE_FORWARD:
@@ -96,8 +99,9 @@ class MyRobot(wpilib.SimpleRobot):
 
                 self.components['auto_drive'].auto_drive_forward_tick(current_time)
                 if self.components['auto_drive'].is_auto_drive_done():
+                    self.wait(self.after_drive_pause_seconds)
                     self.components['pickup'].extend()
-                    self.wait(self.auto_config.after_drive_pause_seconds)
+                    self.wait(self.auto_config.extending_seconds)
                     current_state = SHOOTING
 
             elif current_state == WAIT_FOR_HOT_GOAL:
@@ -150,10 +154,12 @@ class MyRobot(wpilib.SimpleRobot):
                 current_state = DRIVE_FORWARD
 
             elif current_state == DRIVE_FORWARD:
-                self.components['drive'].auto_drive_forward_tick(current_time)
                 self.components['pickup'].pickup_slow()
 
-                if self.components['drive'].is_auto_drive_done():
+                # self.components['drive'].auto_drive_forward_tick(current_time)
+                # if self.components['drive'].is_auto_drive_done():                
+                self.components['auto_drive'].auto_drive_forward_tick(current_time)
+                if self.components['auto_drive'].is_auto_drive_done():
                     self.wait(self.auto_config.after_drive_pause_seconds)
                     current_state = WAIT_FOR_HOT_GOAL
 
@@ -192,6 +198,7 @@ class MyRobot(wpilib.SimpleRobot):
 
         while self.IsOperatorControl() and self.IsEnabled():
             self.dog.Feed()
+
             for type, component in self.components.items():
                 component.op_tick(wpilib.Timer.GetFPGATimestamp())
                 component.update_smartdashboard_vars()

@@ -94,7 +94,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
-        self.shift(self.high)
+        self.shift(self.low)
 
     def align(self):
         motor_speed = .25

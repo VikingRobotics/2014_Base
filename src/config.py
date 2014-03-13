@@ -72,7 +72,7 @@ def components():
         left_encoder = wpilib.Encoder(2, 3)
         right_encoder = wpilib.Encoder(4, 5)
 
-    components['auto_drive'] = drive.AutoDrive(DriveConfig)
+    components['auto_drive'] = auto_drive.AutoDrive(AutoDriveConfig)
 
     class PickupConfig(object):
         pickup_motor = wpilib.Talon(4)
@@ -134,6 +134,6 @@ def components():
         compressor = wpilib.Compressor(1, 1)
 
     components['util'] = utilComponent.UtilComponent(UtilConfig)
-    components['reporter'] = reporter.Reporter(DriveConfig, PickupConfig, ShooterConfig, UtilConfig)
+    components['reporter'] = reporter.Reporter(DriveConfig, AutoDriveConfig, PickupConfig, ShooterConfig, UtilConfig)
 
     return components
