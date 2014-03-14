@@ -36,9 +36,10 @@ class Drive(common.ComponentBase):
         self.back_left_photo_switch = config.back_left_photo_switch
         self.back_right_photo_switch = config.back_right_photo_switch
 
+        self.left_encoder = config.left_encoder
+
         self.auto_state = self.START
         self.auto_drive_start_time = 0
-
 
     def op_init(self):
         self.robot_drive.StopMotor()
@@ -71,7 +72,8 @@ class Drive(common.ComponentBase):
         elif self.auto_state == self.DRIVE_FORWARD:
             speed = 1
             elapsed_time = time - self.auto_drive_start_time
-            if elapsed_time > self.auto_config.drive_seconds:
+            if self.left_encoder.GetDistance() > self.auto_config.drive_distance:
+            # if elapsed_time > self.auto_config.drive_seconds:
                 speed = 0
                 self.auto_state = self.STOP
 

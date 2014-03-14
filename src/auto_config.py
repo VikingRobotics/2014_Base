@@ -19,7 +19,7 @@ class AutoConfig(object):
     two_ball_drive_seconds = 4
 
     # Drive distance is unused until we get PIDControllers working
-    drive_distance = 1
+    drive_distance = 5
 
     pre_shot_pickup_stop = .3
     extending_seconds = 1.3
