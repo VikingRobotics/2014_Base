@@ -30,7 +30,7 @@ class Pickup(common.ComponentBase):
         self.is_extending = False
 
         self.extend_spin_time = .3
-        self.extend_spin_speed = -.5
+        self.extend_spin_speed = -.8
 
         self.pickup_fast_speed = -1
         self.drag_ball_speed = -.25

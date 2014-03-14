@@ -79,10 +79,10 @@ class Shooter(common.ComponentBase):
                 print("RESETTING")
 
                 # Logging code
-                voltage = self.ds.battery.GetVoltage()
-                shoot_seconds = time - self.shoot_start_time
-                preset = "low" if self.low_shot_preset_button.get() else "high"
-                print("SHOOTER_LOGGER,%s,%s,%s,%s" % (voltage, preset, shoot_seconds, self.shooting_speed))
+                # voltage = self.ds.Battery.GetVoltage()
+                # shoot_seconds = time - self.shoot_start_time
+                # preset = "low" if self.low_shot_preset_button.get() else "high"
+                # print("SHOOTER_LOGGER,%s,%s,%s,%s" % (voltage, preset, shoot_seconds, self.shooting_speed))
 
                 self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESETTING

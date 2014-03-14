@@ -72,7 +72,11 @@ def components():
         left_encoder = wpilib.Encoder(2, 3)
         right_encoder = wpilib.Encoder(4, 5)
 
-    components['auto_drive'] = auto_drive.AutoDrive(AutoDriveConfig)
+        left_encoder.SetDistancePerPulse(1/128)
+        right_encoder.SetDistancePerPulse(1/128)
+
+
+    # components['auto_drive'] = auto_drive.AutoDrive(AutoDriveConfig)
 
     class PickupConfig(object):
         pickup_motor = wpilib.Talon(4)
@@ -107,19 +111,22 @@ def components():
         high_shot_preset_button = Button(rightJoy, 7)
 
         reset_hall_effect_counter = wpilib.Counter()
-        reset_hall_effect_counter.SetUpSource(6)
+        # reset_hall_effect_counter.SetUpSource(6) # OLD CONFIG
+        reset_hall_effect_counter.SetUpSource(8)
         reset_hall_effect_counter.SetUpSourceEdge(False, True)
         reset_hall_effect_counter.Start() 
         # lw.AddSensor("Shooter", "reset hall effect", reset_hall_effect_counter)
 
         low_shot_hall_effect_counter = wpilib.Counter()
-        low_shot_hall_effect_counter.SetUpSource(7)
+        # low_shot_hall_effect_counter.SetUpSource(7) # Proper config
+        low_shot_hall_effect_counter.SetUpSource(6)
         low_shot_hall_effect_counter.SetUpSourceEdge(False, True)
         low_shot_hall_effect_counter.Start()
         # lw.AddSensor("Shooter", "low shot hall effect", low_shot_hall_effect_counter)        
 
         high_shot_hall_effect_counter = wpilib.Counter()
-        high_shot_hall_effect_counter.SetUpSource(8)
+        # high_shot_hall_effect_counter.SetUpSource(6) # Proper config
+        high_shot_hall_effect_counter.SetUpSource(7)
         high_shot_hall_effect_counter.SetUpSourceEdge(False, True)
         high_shot_hall_effect_counter.Start()
         # lw.AddSensor("Shooter" "high shot hall effect", high_shot_hall_effect_counter)

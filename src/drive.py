@@ -71,7 +71,7 @@ class Drive(common.ComponentBase):
         elif self.auto_state == self.DRIVE_FORWARD:
             speed = 1
             elapsed_time = time - self.auto_drive_start_time
-            if elapsed_time > self.auto_config.drive_forward_seconds:
+            if elapsed_time > self.auto_config.drive_seconds:
                 speed = 0
                 self.auto_state = self.STOP
 
@@ -94,7 +94,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
-        self.shift(self.low)
+        self.shift(self.high)
 
     def align(self):
         motor_speed = .25
