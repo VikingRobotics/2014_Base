@@ -89,16 +89,14 @@ today:
 
 * Make EVERYTHING that is configurable configurable in the smartdashboard
 * Fix autonomous:
-  + use low gear
-  + Use pid with encoders to make robot drive consistent distance
-  + Drive forward more
+  + Tune distance per pulse. It's just 1/128 right now, so 1 distance = 1 revolution. That should be fine...
   + Two ball (should work as is)
   + Get real camera on robot. Test it working end-to-end
-* Remove photoswitch code - unused!
 * Tune the pickup speed while lowering the arm. Sometimes it got weird
 
 later:
 
+* Remove photoswitch code - unused!
 * Fix LiveWindow on RobotPy. This will help with tuning
 
 

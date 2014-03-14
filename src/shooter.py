@@ -30,6 +30,8 @@ class Shooter(common.ComponentBase):
 
         self.reset_hall_effect_counter = config.reset_hall_effect_counter
 
+        self.ds = wpilib.DriverStation.GetInstance()
+
         self.pickup = config.pickup
     
         self.op_state = self.RESETTING
@@ -38,14 +40,16 @@ class Shooter(common.ComponentBase):
 
         self.resetting_speed = -.2
 
-        self.shooting_power = .85
+        self.shooting_speed = .85
+
+        self.shoot_start_time = 0
 
     def robot_init(self):
-        wpilib.SmartDashboard.PutNumber("shooting_speed", self.shooting_power)
+        wpilib.SmartDashboard.PutNumber("shooting_speed", self.shooting_speed)
         wpilib.SmartDashboard.PutNumber("resetting_speed", self.resetting_speed)
 
     def update_smartdashboard_vars(self):
-        self.shooting_power = wpilib.SmartDashboard.GetNumber("shooting_speed")
+        self.shooting_speed = wpilib.SmartDashboard.GetNumber("shooting_speed")
         self.resetting_speed = wpilib.SmartDashboard.GetNumber("resetting_speed")
 
     def op_init(self):
@@ -56,21 +60,30 @@ class Shooter(common.ComponentBase):
         self.op_state = self.RESET
 
     def op_tick(self, time):
+
         if self.op_state == self.RESET:
             speed = 0
             # if self.shoot_button.get():
             if self.shoot_button.get() and self.pickup.is_extended():
                 self.op_state = self.SHOOTING
                 print("SHOOTING")
+                self.shoot_start_time = time
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
                 self.reset_hall_effect_counter.Reset()
 
         if self.op_state == self.SHOOTING:
-            speed = self.shooting_power
+            speed = self.shooting_speed
             if self.should_stop():
                 speed = 0
                 print("RESETTING")
+
+                # Logging code
+                voltage = self.ds.battery.GetVoltage()
+                shoot_seconds = time - self.shoot_start_time
+                preset = "low" if self.low_shot_preset_button.get() else "high"
+                print("SHOOTER_LOGGER,%s,%s,%s,%s" % (voltage, preset, shoot_seconds, self.shooting_speed))
+
                 self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESETTING
 
@@ -106,7 +119,7 @@ class Shooter(common.ComponentBase):
             self.auto_state = self.SHOOTING
 
         elif self.auto_state == self.SHOOTING:
-            speed = self.shooting_power
+            speed = self.shooting_speed
 
             if self.low_shot_hall_effect_counter.Get():
                 self.reset_hall_effect_counter.Reset()
