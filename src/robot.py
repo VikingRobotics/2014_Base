@@ -91,7 +91,7 @@ class MyRobot(wpilib.SimpleRobot):
 
             if current_state == START:
                 self.components['drive'].downshift()
-                self.wait(self.auto_config.downshift_seconds)
+                self.wait(self.auto_config.shift_seconds)
                 current_state = DRIVE_FORWARD
             
             elif current_state == DRIVE_FORWARD:
@@ -140,7 +140,6 @@ class MyRobot(wpilib.SimpleRobot):
         # TODO: add downshift
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
-        self.components['drive'].downshift()
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
@@ -151,8 +150,8 @@ class MyRobot(wpilib.SimpleRobot):
             elapsed_seconds = current_time - start_time
 
             if current_state == START:
-                self.components['drive'].downshift()
-                self.wait(self.auto_config.downshift_seconds)
+                self.components['drive'].upshift()
+                self.wait(self.auto_config.shift_seconds)
                 current_state = EXTENDING
                 
             if current_state == EXTENDING:
@@ -187,7 +186,11 @@ class MyRobot(wpilib.SimpleRobot):
             elif current_state == PICKUP:
                 self.components['pickup'].pickup_fast()
                 self.wait(self.auto_config.pickup_seconds)
-                self.components['pickup'].pickup_stop()
+                self.components['pickup'].retract()
+                self.wait(1.2) # retract seconds
+                self.components['pickup'].extend()
+                self.wait(1.2) # extend seconds
+                # self.components['pickup'].pickup_stop()
                 # call shooter.reset() to knock it out of AUTO_SHOOT_DONE state
                 self.components['shooter'].reset()
                 current_state = SECOND_SHOT

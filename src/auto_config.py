@@ -8,7 +8,7 @@ class AutoConfig(object):
     ONE_BALL_AUTO = "one_ball_auto"
     TWO_BALL_AUTO = "two_ball_auto"
 
-    downshift_seconds = .3
+    shift_seconds = .3
     after_drive_pause_seconds = 1
 
     # drive_seconds is the only one that's used. It's set using
@@ -16,15 +16,16 @@ class AutoConfig(object):
     # depending on smart dashboard choice. This happens in robot.py
     drive_seconds = 0 
     one_ball_drive_seconds = 3
-    two_ball_drive_seconds = 4
+    # two_ball_drive_seconds = 4 # Low gear config
+    two_ball_drive_seconds = 1.8 # High gear config
 
     # Drive distance is unused until we get PIDControllers working
-    drive_distance = 5
+    drive_distance = 13
 
     pre_shot_pickup_stop = .3
     extending_seconds = 1.3
     after_shoot_seconds = .3
-    pickup_seconds = 1.5
+    pickup_seconds = .5
 
     def __init__(self):
         super().__init__()
@@ -36,7 +37,7 @@ class AutoConfig(object):
         
         wpilib.SmartDashboard.PutData("Autonomous mode chooser", self.auto_chooser)
 
-        wpilib.SmartDashboard.PutNumber("auto downshift_seconds", self.downshift_seconds)
+        wpilib.SmartDashboard.PutNumber("auto shift_seconds", self.shift_seconds)
         wpilib.SmartDashboard.PutNumber("auto one_ball_drive_seconds", self.one_ball_drive_seconds)
         wpilib.SmartDashboard.PutNumber("auto two_ball_drive_seconds", self.two_ball_drive_seconds)
         wpilib.SmartDashboard.PutNumber("auto drive_distance", self.drive_distance)
@@ -47,7 +48,7 @@ class AutoConfig(object):
         wpilib.SmartDashboard.PutNumber("auto pre_shot_pickup_stop", self.pre_shot_pickup_stop)
 
     def update_smartdashboard_vars(self):
-        self.downshift_seconds = wpilib.SmartDashboard.GetNumber("auto downshift_seconds")
+        self.shift_seconds = wpilib.SmartDashboard.GetNumber("auto shift_seconds")
         self.one_ball_drive_seconds = wpilib.SmartDashboard.GetNumber("auto one_ball_drive_seconds")
         self.two_ball_drive_seconds = wpilib.SmartDashboard.GetNumber("auto two_ball_drive_seconds")
         self.after_drive_pause_seconds = wpilib.SmartDashboard.GetNumber("auto after_drive_pause_seconds")

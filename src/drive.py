@@ -100,6 +100,9 @@ class Drive(common.ComponentBase):
     def downshift(self):
         self.shift(self.high)
 
+    def upshift(self):
+        self.shift(self.low)
+
     def align(self):
         motor_speed = .25
         reverse_speed = -.1
