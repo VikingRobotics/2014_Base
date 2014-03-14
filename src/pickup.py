@@ -1,3 +1,8 @@
+try:
+    import wpilib
+except ImportError:
+    from pyfrc import wpilib
+
 import common
 
 
@@ -27,7 +32,7 @@ class Pickup(common.ComponentBase):
         self.extend_spin_time = .3
         self.extend_spin_speed = -.5
 
-        self.pickup_fast_speed = -.8
+        self.pickup_fast_speed = -1
         self.drag_ball_speed = -.25
         self.slow_pass_speed = .5
 
@@ -39,11 +44,11 @@ class Pickup(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("slow_pass_speed", self.slow_pass_speed)
 
     def update_smartdashboard_vars(self):
-        self.extend_spin_time = wpilib.SmartDashboard.GetNumber("extend_spin_time", self.extend_spin_time)
-        self.extend_spin_speed = wpilib.SmartDashboard.GetNumber("extend_spin_speed", self.extend_spin_speed)
-        self.pickup_fast_speed = wpilib.SmartDashboard.GetNumber("pickup_fast_speed", self.pickup_fast_speed)
-        self.drag_ball_speed = wpilib.SmartDashboard.GetNumber("drag_ball_speed", self.drag_ball_speed)
-        self.slow_pass_speed = wpilib.SmartDashboard.GetNumber("slow_pass_speed", self.slow_pass_speed)
+        self.extend_spin_time = wpilib.SmartDashboard.GetNumber("extend_spin_time")
+        self.extend_spin_speed = wpilib.SmartDashboard.GetNumber("extend_spin_speed")
+        self.pickup_fast_speed = wpilib.SmartDashboard.GetNumber("pickup_fast_speed")
+        self.drag_ball_speed = wpilib.SmartDashboard.GetNumber("drag_ball_speed")
+        self.slow_pass_speed = wpilib.SmartDashboard.GetNumber("slow_pass_speed")
             
     def op_init(self):
         pass

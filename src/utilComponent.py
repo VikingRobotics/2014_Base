@@ -10,5 +10,7 @@ class UtilComponent(common.ComponentBase):
         self.compressor.Start()
 
     def disabled_tick(self, timestamp):
+        print('test')
         if self.reload_code_button.get():
-          raise SystemExit
+            print("reloading code")
+            raise SystemExit

@@ -40,6 +40,7 @@ def main():
             robot.run()
             #runpy.run_module("robot", run_name="__main__")
         except SystemExit:
+            print("System exit called")
             pass
         except:
             print("-"*60)

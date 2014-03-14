@@ -36,10 +36,9 @@ class MyRobot(wpilib.SimpleRobot):
 
         while wpilib.IsDisabled():
             self.dog.Feed()
-            
             for type, component in self.components.items():
                 component.disabled_tick(wpilib.Timer.GetFPGATimestamp())
-                component.update_smartdashboard_vars()
+                # component.update_smartdashboard_vars()
 
             wpilib.Wait(0.01)
 
@@ -53,11 +52,11 @@ class MyRobot(wpilib.SimpleRobot):
 
         self.dog.SetEnabled(True)
 
-        self.auto_config.update_smartdashboard_vars()
+        # self.auto_config.update_smartdashboard_vars()
 
         for type, component in self.components.items():
             component.auto_init(self.auto_config)
-            component.update_smartdashboard_vars()
+            # component.update_smartdashboard_vars()
 
         if self.auto_config.get_autonomous_mode() == AutoConfig.ONE_BALL_AUTO:
             self.one_ball_autonomous()
@@ -201,7 +200,7 @@ class MyRobot(wpilib.SimpleRobot):
 
             for type, component in self.components.items():
                 component.op_tick(wpilib.Timer.GetFPGATimestamp())
-                component.update_smartdashboard_vars()
+                # component.update_smartdashboard_vars()
 
             ## Debug & Tuning
             # ??

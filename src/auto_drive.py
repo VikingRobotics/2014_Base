@@ -29,8 +29,8 @@ class AutoDrive(common.ComponentBase):
         self.right_encoder.SetPIDSourceParameter(wpilib.PIDSource.kDistance)
         self.right_pid_controller = wpilib.PIDController(self.p, self.i, self.d, self.right_encoder, self.right_motors)
 
-        self.left_encoder.start()
-        self.right_encoder.start()
+        self.left_encoder.Start()
+        self.right_encoder.Start()
 
     def robot_init(self):
         wpilib.SmartDashboard.PutNumber("p", self.p)
@@ -62,11 +62,11 @@ class AutoDrive(common.ComponentBase):
         self.left_pid_controller.SetSetpoint(self.auto_config.drive_distance)
         self.right_pid_controller.SetSetpoint(self.auto_config.drive_distance)
 
-        self.left_encoder.reset()
-        self.right_encoder.reset()
+        self.left_encoder.Reset()
+        self.right_encoder.Reset()
 
-        self.left_encoder.start()
-        self.right_encoder.start()
+        self.left_encoder.Start()
+        self.right_encoder.Start()
 
     def auto_drive_forward_tick(self, time):
         self.left_pid_controller.Enable()
