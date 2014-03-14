@@ -61,6 +61,8 @@ class Drive(common.ComponentBase):
     def auto_init(self, auto_config):
         self.auto_state = self.START
         self.auto_config = auto_config
+        self.left_encoder.Reset()
+        self.left_encoder.Start()
 
     def auto_drive_forward_tick(self, time):
         speed = 0
