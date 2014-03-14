@@ -21,6 +21,7 @@ class AutoConfig(object):
     # Drive distance is unused until we get PIDControllers working
     drive_distance = 1
 
+    pre_shot_pickup_stop = .3
     extending_seconds = 1.3
     after_shoot_seconds = .3
     pickup_seconds = 1.5
@@ -43,6 +44,7 @@ class AutoConfig(object):
         wpilib.SmartDashboard.PutNumber("auto extending_seconds", self.extending_seconds)
         wpilib.SmartDashboard.PutNumber("auto after_shoot_seconds", self.after_shoot_seconds)
         wpilib.SmartDashboard.PutNumber("auto pickup_seconds", self.pickup_seconds)
+        wpilib.SmartDashboard.PutNumber("auto pre_shot_pickup_stop", self.pre_shot_pickup_stop)
 
     def update_smartdashboard_vars(self):
         self.downshift_seconds = wpilib.SmartDashboard.GetNumber("auto downshift_seconds")
@@ -53,6 +55,7 @@ class AutoConfig(object):
         self.extending_seconds = wpilib.SmartDashboard.GetNumber("auto extending_seconds")
         self.after_shoot_seconds = wpilib.SmartDashboard.GetNumber("auto after_shoot_seconds")
         self.pickup_seconds = wpilib.SmartDashboard.GetNumber("auto pickup_seconds")
+        self.pre_shot_pickup_stop = wpilib.SmartDashboard.GetNumber("auto pre_shot_pickup_stop")
     
     def get_autonomous_mode(self):
         return self.auto_chooser.GetSelected()

@@ -173,6 +173,8 @@ class MyRobot(wpilib.SimpleRobot):
 
             elif current_state == WAIT_FOR_HOT_GOAL:
                 if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
+                    self.components['pickup'].pickup_stop()
+                    self.wait(self.auto_config.pre_shot_pickup_stop)
                     current_state = SHOOTING
 
             elif current_state == SHOOTING:
