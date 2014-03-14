@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<workbook version='8.2' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <!-- build 8100.14.0213.2024                -->
+  <preferences>
+  </preferences>
+  <datasources>
+    <datasource caption='testout#csv (testout.csv)' inline='true' name='csv.41711.751784745371' version='8.2'>
+      <connection auto-extract='yes' character-set='65001' class='csv' directory='C:\Users\Viking4\Desktop\Code\2014_Base\support\' driver='' filename='testout.csv' force-character-set='no' force-header='no' force-separator='no' header='yes' separator=','>
+        <relation name='testout#csv' table='[testout#csv]' type='table' />
+      </connection>
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column aggregation='Sum' datatype='real' name='[shooting_speed]' role='dimension' type='ordinal'>
+      </column>
+      <layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.4' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Sheet 1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='testout#csv (testout.csv)' name='csv.41711.751784745371' />
+          </datasources>
+          <datasource-dependencies datasource='csv.41711.751784745371'>
+            <column datatype='real' name='[battery_voltage]' role='measure' type='quantitative'>
+            </column>
+            <column-instance column='[shooting_preset]' derivation='None' name='[none:shooting_preset:nk]' pivot='key' type='nominal' />
+            <column-instance column='[shooting_speed]' derivation='None' name='[none:shooting_speed:ok]' pivot='key' type='ordinal' />
+            <column datatype='real' name='[shoot_seconds]' role='measure' type='quantitative'>
+            </column>
+            <column datatype='string' name='[shooting_preset]' role='dimension' type='nominal'>
+            </column>
+            <column aggregation='Sum' datatype='real' name='[shooting_speed]' role='dimension' type='ordinal'>
+            </column>
+            <column-instance column='[battery_voltage]' derivation='Sum' name='[sum:battery_voltage:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[shoot_seconds]' derivation='Sum' name='[sum:shoot_seconds:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[csv.41711.751784745371].[none:shooting_preset:nk]'>
+            <groupfilter function='level-members' level='[none:shooting_preset:nk]' />
+          </filter>
+          <filter class='categorical' column='[csv.41711.751784745371].[none:shooting_speed:ok]'>
+            <groupfilter function='level-members' level='[none:shooting_speed:ok]' />
+          </filter>
+          <slices>
+            <column>[csv.41711.751784745371].[none:shooting_preset:nk]</column>
+            <column>[csv.41711.751784745371].[none:shooting_speed:ok]</column>
+          </slices>
+          <aggregation value='false' />
+        </view>
+        <style>
+        </style>
+        <panes>
+          <pane>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[csv.41711.751784745371].[sum:battery_voltage:qk]</rows>
+        <cols>[csv.41711.751784745371].[sum:shoot_seconds:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <windows>
+    <window class='schema' source-height='-1' />
+    <window auto-hidden='0' class='worksheet' maximized='1' name='Sheet 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='31'>
+            <card type='columns' />
+          </strip>
+          <strip size='31'>
+            <card type='rows' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[csv.41711.751784745371].[none:shooting_preset:nk]' type='filter' />
+            <card param='[csv.41711.751784745371].[none:shooting_speed:ok]' type='filter' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='Sheet 1' width='192'>
+      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
+      7aP/AGQgsalIsQ72AAAAAElFTkSuQmCC
+    </thumbnail>
+  </thumbnails>
+</workbook>

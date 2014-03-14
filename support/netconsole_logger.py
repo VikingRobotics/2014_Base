@@ -18,7 +18,7 @@ except ImportError:
 
 import os, datetime
 
-path = 'NetConsoleLogger/logs/'+str(datetime.date.today())
+path = '../logs/'+str(datetime.date.today())
 os.makedirs(path, 0o777, True)
 time = str(datetime.datetime.now().time())
 f = path+'/'+str(time[:2]+'.'+time[3:5]+'.'+time[6:8])+'.txt'
