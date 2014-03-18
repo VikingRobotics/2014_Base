@@ -22,7 +22,7 @@ class MyRobot(wpilib.SimpleRobot):
     # Called once when the robot is initialized
     def RobotInit(self):
         self.auto_config = AutoConfig()
-
+        wpilib.SmartDashboard.PutNumber("pickup_reverse_seconds", .3)
         # Initialize all robot components
         for type, component in self.components.items():
             component.robot_init()
@@ -131,6 +131,7 @@ class MyRobot(wpilib.SimpleRobot):
         EXTENDING = 'extending'
         SHOOTING = 'shooting'
         DRIVE_FORWARD = 'drive_forward'
+        PICKUP_REVERSE = 'pickup_reverse'
         PICKUP = 'pickup'
         WAIT_FOR_HOT_GOAL = 'wait_for_hot_goal'
         SECOND_SHOT = 'second_shot'
@@ -140,7 +141,6 @@ class MyRobot(wpilib.SimpleRobot):
         # TODO: add downshift
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
-
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
 
@@ -161,7 +161,7 @@ class MyRobot(wpilib.SimpleRobot):
                 current_state = DRIVE_FORWARD
 
             elif current_state == DRIVE_FORWARD:
-                self.components['pickup'].pickup_slow()
+                self.components['pickup'].pickup_drag_fast()
 
                 self.components['drive'].auto_drive_forward_tick(current_time)
                 if self.components['drive'].is_auto_drive_done():                
@@ -172,8 +172,19 @@ class MyRobot(wpilib.SimpleRobot):
 
             elif current_state == WAIT_FOR_HOT_GOAL:
                 if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
-                    self.components['pickup'].pickup_stop()
+                    self.components['pickup'].pickup_slow()
                     self.wait(self.auto_config.pre_shot_pickup_stop)
+                    self.pickup_reverse_start_time = current_time
+                    current_state = PICKUP_REVERSE
+
+            # This is intentionally not an elif. We have to immediately reverse the pickup
+            if current_state == PICKUP_REVERSE:
+                pickup_reverse_seconds = wpilib.SmartDashboard.GetNumber("pickup_reverse_seconds")
+                self.components['pickup'].pickup_reverse()
+                pickup_reverse_elapsed_seconds = current_time - self.pickup_reverse_start_time
+                if pickup_reverse_elapsed_seconds > pickup_reverse_seconds:
+                    self.components['pickup'].pickup_stop()
+                    self.wait(.5) # wait for ball to settle
                     current_state = SHOOTING
 
             elif current_state == SHOOTING:
@@ -187,12 +198,14 @@ class MyRobot(wpilib.SimpleRobot):
                 self.components['pickup'].pickup_fast()
                 self.wait(self.auto_config.pickup_seconds)
                 self.components['pickup'].retract()
-                self.wait(1.2) # retract seconds
+                self.components['pickup'].pickup_drag_fast()
+                self.wait(self.auto_config.extending_seconds)
                 self.components['pickup'].extend()
-                self.wait(1.2) # extend seconds
+                self.wait(self.auto_config.extending_seconds)
                 # self.components['pickup'].pickup_stop()
                 # call shooter.reset() to knock it out of AUTO_SHOOT_DONE state
                 self.components['shooter'].reset()
+                self.components['pickup'].pickup_stop()
                 current_state = SECOND_SHOT
 
             elif current_state == SECOND_SHOT:

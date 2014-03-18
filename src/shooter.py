@@ -102,7 +102,6 @@ class Shooter(common.ComponentBase):
 
 
         wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
-        wpilib.SmartDashboard.PutNumber("Shooter speed", speed)
 
         self.motors.Set(speed)
 

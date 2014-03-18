@@ -74,8 +74,8 @@ class Drive(common.ComponentBase):
         elif self.auto_state == self.DRIVE_FORWARD:
             speed = 1
             elapsed_time = time - self.auto_drive_start_time
-            if self.left_encoder.GetDistance() > self.auto_config.drive_distance:
-            # if elapsed_time > self.auto_config.drive_seconds:
+            # if self.left_encoder.GetDistance() > self.auto_config.drive_distance:
+            if elapsed_time > self.auto_config.drive_seconds:
                 speed = 0
                 self.auto_state = self.STOP
 
@@ -86,7 +86,7 @@ class Drive(common.ComponentBase):
         self.right_motors.Set(-speed)
 
         wpilib.SmartDashboard.PutString('auto drive state', self.auto_state)
-
+        
     def reset(self):
         self.auto_state = self.START
 
@@ -98,7 +98,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
-        self.shift(self.high)
+        self.shift(self.high)   
 
     def upshift(self):
         self.shift(self.low)

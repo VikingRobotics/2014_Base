@@ -16,16 +16,16 @@ class AutoConfig(object):
     # depending on smart dashboard choice. This happens in robot.py
     drive_seconds = 0 
     one_ball_drive_seconds = 3
-    # two_ball_drive_seconds = 4 # Low gear config
-    two_ball_drive_seconds = 1.8 # High gear config
+    # two_ball_drive_seconds = 3.2 # LOW GEAR
+    two_ball_drive_seconds = .75 # HIGH GEAR
 
-    # Drive distance is unused until we get PIDControllers working
-    drive_distance = 13
+    drive_distance = 11
 
     pre_shot_pickup_stop = .3
-    extending_seconds = 1.3
+    extending_seconds = 1.6
     after_shoot_seconds = .3
     pickup_seconds = .5
+    # two_ball_extend_retract_seconds = 1.2
 
     def __init__(self):
         super().__init__()
