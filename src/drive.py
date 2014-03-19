@@ -36,8 +36,6 @@ class Drive(common.ComponentBase):
         self.back_left_photo_switch = config.back_left_photo_switch
         self.back_right_photo_switch = config.back_right_photo_switch
 
-        self.left_encoder = config.left_encoder
-
         self.auto_state = self.START
         self.auto_drive_start_time = 0
 
@@ -61,8 +59,6 @@ class Drive(common.ComponentBase):
     def auto_init(self, auto_config):
         self.auto_state = self.START
         self.auto_config = auto_config
-        self.left_encoder.Reset()
-        self.left_encoder.Start()
 
     def auto_drive_forward_tick(self, time):
         speed = 0
@@ -74,7 +70,6 @@ class Drive(common.ComponentBase):
         elif self.auto_state == self.DRIVE_FORWARD:
             speed = 1
             elapsed_time = time - self.auto_drive_start_time
-            # if self.left_encoder.GetDistance() > self.auto_config.drive_distance:
             if elapsed_time > self.auto_config.drive_seconds:
                 speed = 0
                 self.auto_state = self.STOP

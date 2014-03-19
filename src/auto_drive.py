@@ -36,11 +36,11 @@ class AutoDrive(common.ComponentBase):
         self.left_encoder.SetPIDSourceParameter(wpilib.PIDSource.kDistance)
         # self.mockPIDSource = mockPIDSource()
         # self.mockPIDOutput = mockPIDOutput()
-        # self.left_pid_controller = wpilib.PIDController(self.p, self.i, self.d, self.left_encoder, self.left_motors)
+        self.left_pid_controller = wpilib.PIDController(self.p, self.i, self.d, self.left_encoder, self.left_motors)
 
         self.right_encoder = config.right_encoder
         self.right_encoder.SetPIDSourceParameter(wpilib.PIDSource.kDistance)
-        # self.right_pid_controller = wpilib.PIDController(self.p, self.i, self.d, self.right_encoder, self.right_motors)
+        self.right_pid_controller = wpilib.PIDController(self.p, self.i, self.d, self.right_encoder, self.right_motors)
 
         self.left_encoder.Start()
         self.right_encoder.Start()

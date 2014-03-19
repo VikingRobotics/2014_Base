@@ -39,10 +39,7 @@ def components():
         right_shifter = wpilib.DoubleSolenoid(3, 4)
         # lw.AddActuator("Drive", "right shifter", right_shifter)
 
-        left_encoder = wpilib.Encoder(2, 3)
 
-        left_encoder.SetDistancePerPulse(1/128)
-        
         # TODO: figure out which one is which. Is forward high gear or low gear? Once we know
         #       let's change the variable names to high_gear and low_gear instead of forward/reverse
         forward = wpilib.DoubleSolenoid.kForward
@@ -69,18 +66,18 @@ def components():
 
     components['drive'] = drive.Drive(DriveConfig)
 
-    # class AutoDriveConfig(object):
-    #     right_motors = DriveConfig.right_motors
-    #     left_motors = DriveConfig.left_motors
+    class AutoDriveConfig(object):
+        right_motors = DriveConfig.right_motors
+        left_motors = DriveConfig.left_motors
 
-    #     left_encoder = wpilib.Encoder(2, 3)
-    #     right_encoder = wpilib.Encoder(4, 5)
+        left_encoder = wpilib.Encoder(2, 3)
+        right_encoder = wpilib.Encoder(4, 5)
 
-    #     left_encoder.SetDistancePerPulse(1/128)
-    #     right_encoder.SetDistancePerPulse(1/128)
+        left_encoder.SetDistancePerPulse(1/128)
+        right_encoder.SetDistancePerPulse(1/128)
 
 
-    # components['auto_drive'] = auto_drive.AutoDrive(AutoDriveConfig)
+    components['auto_drive'] = auto_drive.AutoDrive(AutoDriveConfig)
 
     class PickupConfig(object):
         pickup_motor = wpilib.Talon(4)
