@@ -31,7 +31,7 @@ def components():
         left_motors = wpilib.Talon(2)
         # lw.AddActuator("Drive", "left motors", left_motors)
 
-        robot_drive = wpilib.RobotDrive(left_motors, right_motors)
+        robot_drive = wpilib.RobotDrive(right_motors, left_motors)
 
         left_shifter = wpilib.DoubleSolenoid(1, 2)
         # lw.AddActuator("Drive", "left shifter", left_shifter)
