@@ -43,8 +43,8 @@ class Drive(common.ComponentBase):
         self.robot_drive.StopMotor()
 
     def op_tick(self, bs):
-        speed = self.joy.GetY()
-        rot = self.joy.GetX()
+        speed = -1*self.joy.GetY()
+        rot = -1*self.joy.GetX()
 
         self.robot_drive.ArcadeDrive(speed, rot)
 
