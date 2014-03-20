@@ -47,21 +47,8 @@ def components():
         
         drive_joy = leftJoy
 
-        align_button = Button(leftJoy, 6)
-
-        front_left_photo_switch = wpilib.DigitalInput(14)
-        # lw.AddSensor("Drive", "front left photo switch", front_left_photo_switch)
-
-        front_right_photo_switch = wpilib.DigitalInput(12)
-        # lw.AddSensor("Drive", "front_right_photo_switch", front_right_photo_switch)
-        
-        back_left_photo_switch = wpilib.DigitalInput(13)
-        # lw.AddSensor("Drive", "back left photo switch", back_left_photo_switch)
-
-        back_right_photo_switch = wpilib.DigitalInput(11)
-        # lw.AddSensor("Drive," "back right photo switch", back_right_photo_switch)
-     
         # Buttons
+        align_button = Button(leftJoy, 6)
         shift_button = Button(leftJoy, 9)
 
     components['drive'] = drive.Drive(DriveConfig)
