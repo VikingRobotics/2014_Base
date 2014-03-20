@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 try:
     import wpilib
 except ImportError:
