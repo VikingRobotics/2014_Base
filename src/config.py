@@ -129,6 +129,6 @@ def components():
         compressor = wpilib.Compressor(1, 1)
 
     components['util'] = utilComponent.UtilComponent(UtilConfig)
-    components['reporter'] = reporter.Reporter(DriveConfig, PickupConfig, ShooterConfig, UtilConfig)
+    components['reporter'] = reporter.Reporter(DriveConfig, AutoDriveConfig, PickupConfig, ShooterConfig, UtilConfig)
 
     return components
