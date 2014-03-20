@@ -87,12 +87,10 @@ TypeError: LiveWindow.AddActuator(): arguments did not match any overloaded call
 
 today:
 
-* Make EVERYTHING that is configurable configurable in the smartdashboard
-* Fix autonomous:
-  + Tune distance per pulse. It's just 1/128 right now, so 1 distance = 1 revolution. That should be fine...
-  + Two ball (should work as is)
-  + Get real camera on robot. Test it working end-to-end
-* Tune the pickup speed while lowering the arm. Sometimes it got weird
+* Make Kinect work
+* Figure out PID. Why is it going backwards?
+* Make pickup motor spin while extending during one ball autonomous
+* Add catch preset
 
 later:
 
