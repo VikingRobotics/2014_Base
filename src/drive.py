@@ -31,11 +31,6 @@ class Drive(common.ComponentBase):
         self.align_button = config.align_button
         self.gear = None
 
-        self.front_left_photo_switch = config.front_left_photo_switch
-        self.front_right_photo_switch = config.front_right_photo_switch
-        self.back_left_photo_switch = config.back_left_photo_switch
-        self.back_right_photo_switch = config.back_right_photo_switch
-
         self.auto_state = self.START
         self.auto_drive_start_time = 0
 
@@ -97,25 +92,3 @@ class Drive(common.ComponentBase):
 
     def upshift(self):
         self.shift(self.low)
-
-    def align(self):
-        motor_speed = .25
-        reverse_speed = -.1
-        left = 0
-        right = 0
-        
-        if self.back_left_photo_switch.Get():
-            left = reverse_speed
-        elif self.front_left_photo_switch.Get():
-            left = 0
-        else:
-            left = motor_speed
-
-        if self.back_right_photo_switch.Get():
-            right = reverse_speed
-        elif self.front_right_photo_switch.Get():
-            right = 0
-        else:
-            right = motor_speed 
-
-        self.robot_drive.SetLeftRightMotorOutputs(left, right)
