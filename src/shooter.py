@@ -15,6 +15,7 @@ class Shooter(common.ComponentBase):
     RESET = 'reset'
     RESETTING = 'resetting'
     AUTO_SHOOT_DONE = 'auto_shoot_done'
+    CATCHING = 'catching'
 
     def __init__(self, config):
         self.motors = config.motors
@@ -24,11 +25,13 @@ class Shooter(common.ComponentBase):
 
         self.low_shot_preset_button = config.low_shot_preset_button
         self.high_shot_preset_button = config.high_shot_preset_button
+        self.catch_preset_button = config.catch_preset_button
         
         self.low_shot_hall_effect_counter = config.low_shot_hall_effect_counter
         self.high_shot_hall_effect_counter = config.high_shot_hall_effect_counter
 
         self.reset_hall_effect_counter = config.reset_hall_effect_counter
+        self.catch_hall_effect_counter = config.catch_hall_effect_counter
 
         self.ds = wpilib.DriverStation.GetInstance()
 
@@ -71,12 +74,13 @@ class Shooter(common.ComponentBase):
                 self.low_shot_hall_effect_counter.Reset()
                 self.high_shot_hall_effect_counter.Reset()
                 self.reset_hall_effect_counter.Reset()
+                self.catch_hall_effect_counter.Reset()
 
         if self.op_state == self.SHOOTING:
             speed = self.shooting_speed
             if self.should_stop():
                 speed = 0
-                print("RESETTING")
+                
 
                 # Logging code
                 # voltage = self.ds.Battery.GetVoltage()
@@ -85,7 +89,19 @@ class Shooter(common.ComponentBase):
                 # print("SHOOTER_LOGGER,%s,%s,%s,%s" % (voltage, preset, shoot_seconds, self.shooting_speed))
 
                 self.reset_hall_effect_counter.Reset()
-                self.op_state = self.RESETTING
+                if self.catch_preset_button.get():
+                    print("CATCHING")
+                    self.op_state = self.CATCHING
+                else:
+                    print("RESETTING")
+                    self.op_state = self.RESETTING
+
+        if self.op_state == self.CATCHING:
+            speed = 0
+            if self.reset_hall_effect_counter.Get():
+                print("RESET FROM CATCH")
+                self.reset_hall_effect_counter.Reset()
+                self.op_state = self.RESET
 
         if self.op_state == self.RESETTING:
             speed = self.resetting_speed
@@ -110,6 +126,8 @@ class Shooter(common.ComponentBase):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
         self.reset_hall_effect_counter.Reset()
+        self.catch_hall_effect_counter.Reset()
+
         wpilib.SmartDashboard.PutString('auto shooter state', self.auto_state)
 
     def auto_shoot_tick(self, time):
@@ -147,9 +165,12 @@ class Shooter(common.ComponentBase):
         self.low_shot_hall_effect_counter.Reset()
         self.high_shot_hall_effect_counter.Reset()
         self.reset_hall_effect_counter.Reset()
+        self.catch_hall_effect_counter.Reset()
 
     def should_stop(self):
         # This could be compacted down, but it's understandable as is
+        if self.catch_preset_button.get() and self.catch_hall_effect_counter.Get():
+            return True
         if self.low_shot_preset_button.get() and self.low_shot_hall_effect_counter.Get():
             return True
         # Always stop if the high shot hall effect is triggered

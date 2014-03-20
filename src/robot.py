@@ -83,6 +83,7 @@ class MyRobot(wpilib.SimpleRobot):
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
+            self.components['reporter'].update()
 
             wpilib.SmartDashboard.PutString('auto robot state', current_state)
 
@@ -90,16 +91,16 @@ class MyRobot(wpilib.SimpleRobot):
             elapsed_seconds = current_time - start_time
 
             if current_state == START:
-                self.components['drive'].downshift()
+                self.components['drive'].upshift()
                 self.wait(self.auto_config.shift_seconds)
                 current_state = DRIVE_FORWARD
             
             elif current_state == DRIVE_FORWARD:
-                # self.components['drive'].auto_drive_forward_tick(current_time)
-                # if self.components['drive'].is_auto_drive_done(): 
+                self.components['drive'].auto_drive_forward_tick(current_time)
+                if self.components['drive'].is_auto_drive_done(): 
 
-                self.components['auto_drive'].auto_drive_forward_tick(current_time)
-                if self.components['auto_drive'].is_auto_drive_done():
+                # self.components['auto_drive'].auto_drive_forward_tick(current_time)
+                # if self.components['auto_drive'].is_auto_drive_done():
                     self.wait(self.auto_config.after_drive_pause_seconds)
                     self.components['pickup'].extend()
                     self.wait(self.auto_config.extending_seconds)
@@ -143,7 +144,7 @@ class MyRobot(wpilib.SimpleRobot):
         start_time = wpilib.Timer.GetFPGATimestamp()
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
-
+            self.components['reporter'].update()
             wpilib.SmartDashboard.PutString('auto robot state', current_state)
 
             current_time = wpilib.Timer.GetFPGATimestamp()

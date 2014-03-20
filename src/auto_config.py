@@ -8,14 +8,15 @@ class AutoConfig(object):
     ONE_BALL_AUTO = "one_ball_auto"
     TWO_BALL_AUTO = "two_ball_auto"
 
-    shift_seconds = .3
+    shift_seconds = .2
     after_drive_pause_seconds = 1
 
     # drive_seconds is the only one that's used. It's set using
     # the one_ball_drive_seconds or two_ball_drive_seconds,
     # depending on smart dashboard choice. This happens in robot.py
     drive_seconds = 0 
-    one_ball_drive_seconds = 3
+    # one_ball_drive_seconds = 3 # LOW GEAR
+    one_ball_drive_seconds = .6 
     # two_ball_drive_seconds = 3.2 # LOW GEAR
     two_ball_drive_seconds = .75 # HIGH GEAR
 

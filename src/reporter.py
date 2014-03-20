@@ -54,6 +54,7 @@ class Reporter(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("reset hall effect", self.shooter_config.reset_hall_effect_counter.Get())
         wpilib.SmartDashboard.PutNumber("low hall effect", self.shooter_config.low_shot_hall_effect_counter.Get())
         wpilib.SmartDashboard.PutNumber("high hall effect", self.shooter_config.high_shot_hall_effect_counter.Get())
+        wpilib.SmartDashboard.PutNumber("catch hall effect", self.shooter_config.catch_hall_effect_counter.Get())
 
 
 

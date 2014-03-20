@@ -75,6 +75,8 @@ class AutoDrive(common.ComponentBase):
         self.left_pid_controller.SetSetpoint(self.auto_config.drive_distance)
         self.right_pid_controller.SetSetpoint(self.auto_config.drive_distance)
 
+        # self.left_pid_controller.SetOutputRange(-.2, .2)
+
         self.left_encoder.Reset()
         self.right_encoder.Reset()
 
@@ -86,6 +88,8 @@ class AutoDrive(common.ComponentBase):
         self.right_pid_controller.Enable()
 
         wpilib.SmartDashboard.PutNumber("left PID output", self.left_pid_controller.Get())
+        wpilib.SmartDashboard.PutNumber("left PID error", self.left_pid_controller.GetError())
+        wpilib.SmartDashboard.PutNumber("left PID setpoint", self.left_pid_controller.GetSetpoint())
         wpilib.SmartDashboard.PutNumber("right PID output", self.right_pid_controller.Get())
 
         if self.is_auto_drive_done():

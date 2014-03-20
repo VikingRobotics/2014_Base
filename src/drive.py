@@ -28,7 +28,6 @@ class Drive(common.ComponentBase):
 
         self.low = config.reverse
         self.high = config.forward
-        self.align_button = config.align_button
         self.gear = None
 
         self.auto_state = self.START
@@ -38,18 +37,15 @@ class Drive(common.ComponentBase):
         self.robot_drive.StopMotor()
 
     def op_tick(self, bs):
-        speed = -1*self.joy.GetY()
-        rot = -1*self.joy.GetX()
+        speed = self.joy.GetY()
+        rot = self.joy.GetX()
 
         self.robot_drive.ArcadeDrive(speed, rot)
 
         if self.shift_switch.get():
-            self.shift(self.high)
-        else:
             self.shift(self.low)
-
-        if self.align_button.get():
-            self.align()
+        else:
+            self.shift(self.high)
 
     def auto_init(self, auto_config):
         self.auto_state = self.START
@@ -88,7 +84,7 @@ class Drive(common.ComponentBase):
         self.right_shifter.Set(gear)
 
     def downshift(self):
-        self.shift(self.high)   
+        self.shift(self.low)   
 
     def upshift(self):
-        self.shift(self.low)
+        self.shift(self.high)
