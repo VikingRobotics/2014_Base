@@ -15,6 +15,7 @@ class Shooter(common.ComponentBase):
     RESET = 'reset'
     RESETTING = 'resetting'
     AUTO_SHOOT_DONE = 'auto_shoot_done'
+    CATCHING = 'catching'
 
     def __init__(self, config):
         self.motors = config.motors
@@ -85,7 +86,10 @@ class Shooter(common.ComponentBase):
                 # print("SHOOTER_LOGGER,%s,%s,%s,%s" % (voltage, preset, shoot_seconds, self.shooting_speed))
 
                 self.reset_hall_effect_counter.Reset()
-                self.op_state = self.RESETTING
+                if self.op_state = self.SHOOTING and self.catching_button.get() and self.shoot_button.get():
+                    self.op_state = self.CATCHING
+                else:
+                    self.op_state = self.RESETTING
 
         if self.op_state == self.RESETTING:
             speed = self.resetting_speed
@@ -94,11 +98,21 @@ class Shooter(common.ComponentBase):
                 speed = 0
                 self.reset_hall_effect_counter.Reset()
                 self.op_state = self.RESET
+
+        if self.op_state == self.CATCHING 
+            speed = self.shooting_speed
+            if self.should_stop():
+                speed = 0 
+                if self.manual_reset_button.get() and self.shoot_button.get():
+                    self.op_state = self.RESETTING
+
+
         
         #This is not part of the normal state machine,
         #this is for manual reset.
         if self.op_state != self.RESET and self.manual_reset_button.get() and self.shoot_button.get():
             self.op_state = self.RESETTING
+
 
 
         wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
@@ -150,10 +164,12 @@ class Shooter(common.ComponentBase):
 
     def should_stop(self):
         # This could be compacted down, but it's understandable as is
-        if self.low_shot_preset_button.get() and self.low_shot_hall_effect_counter.Get():
+        if self.low_shot_preset_button.get() or self.catching_button.get() and self.low_shot_hall_effect_counter.Get():
             return True
         # Always stop if the high shot hall effect is triggered
         elif self.high_shot_hall_effect_counter.Get(): 
             return True
 
         return False
+
+

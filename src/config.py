@@ -94,6 +94,7 @@ def components():
         # lw.AddActuator("Shooter", "shooter motors", motors)
         shoot_button = Button(rightJoy, 1)
         manual_reset_button = Button(rightJoy, 4)
+        catch_preset_button = Button(rightJoy, 8)
 
         low_shot_preset_button = Button(rightJoy, 8)
         high_shot_preset_button = Button(rightJoy, 7)
