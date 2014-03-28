@@ -197,14 +197,14 @@ class MyRobot(wpilib.SimpleRobot):
                     current_state = PICKUP
            
             elif current_state == PICKUP:
-                self.components['pickup'].pickup_fast()
+                self.components['pickup'].pickup_auto_fast()
                 self.wait(self.auto_config.pickup_seconds)
-                self.components['pickup'].retract()
-                self.components['pickup'].pickup_drag_fast()
-                self.wait(self.auto_config.extending_seconds)
-                self.components['pickup'].extend()
-                self.wait(self.auto_config.extending_seconds)
-                # self.components['pickup'].pickup_stop()
+                # self.components['pickup'].retract()
+                # self.components['pickup'].pickup_drag_fast()
+                # self.wait(self.auto_config.extending_seconds)
+                # self.components['pickup'].extend()
+                # self.wait(self.auto_config.extending_seconds)
+
                 # call shooter.reset() to knock it out of AUTO_SHOOT_DONE state
                 self.components['shooter'].reset()
                 self.components['pickup'].pickup_stop()
