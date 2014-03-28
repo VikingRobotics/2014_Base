@@ -1,129 +1,148 @@
 <xml version="1.0">
 <dashboard>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
+		<location x="165" y="273"/>
+		<property name="Text" value="Kinect"/>
+	</static-widget>
+	<widget field="kinect peeps" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="111" y="343"/>
+	</widget>
+	<widget field="hot goal" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="132" y="362"/>
+	</widget>
+	<widget field="catch hall effect" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="93" y="240"/>
+	</widget>
+	<widget field="auto pickup speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="83" y="224"/>
+	</widget>
+	<widget field="Right arm" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="125" y="325"/>
+	</widget>
+	<widget field="Left arm" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="131" y="306"/>
+	</widget>
 	<widget field="right encoder distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="260"/>
-	</widget>
-	<widget field="delta_time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="115"/>
-	</widget>
-	<widget field="auto downshift_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="94"/>
-	</widget>
-	<widget field="Shooter speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="0" y="0"/>
+		<location x="63" y="176"/>
 	</widget>
 	<widget field="auto shift_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="58" y="146"/>
+		<location x="79" y="92"/>
 	</widget>
 	<widget field="pickup_reverse_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="272" y="284"/>
+		<location x="352" y="219"/>
 	</widget>
 	<widget field="pickup_reverse_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="263" y="262"/>
+		<location x="342" y="200"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="599" y="62"/>
+		<location x="657" y="150"/>
+		<height>14</height>
 		<property name="Text" value="Pickup Config"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="375" y="129"/>
+		<location x="384" y="64"/>
+		<height>14</height>
 		<property name="Text" value="One Ball Auto Config"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="572" y="-1"/>
+		<location x="656" y="64"/>
+		<height>14</height>
 		<property name="Text" value="Shooter Config"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="144" y="127"/>
+		<location x="131" y="64"/>
 		<property name="Text" value="Shared Auto Config"/>
 	</static-widget>
 	<widget field="Shooter Op State" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="286" y="87"/>
+		<location x="376" y="286"/>
+		<width>171</width>
 	</widget>
 	<widget field="high hall effect" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="299" y="65"/>
+		<location x="618" y="301"/>
+		<width>157</width>
 	</widget>
 	<widget field="low hall effect" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="303" y="42"/>
+		<location x="622" y="281"/>
+		<width>153</width>
 	</widget>
 	<widget field="reset hall effect" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="295" y="20"/>
+		<location x="613" y="263"/>
+		<width>162</width>
 	</widget>
 	<widget field="slow_pass_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="505" y="169"/>
+		<location x="605" y="245"/>
 		<height>20</height>
 	</widget>
 	<widget field="extend_spin_time" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="504" y="146"/>
+		<location x="604" y="228"/>
 	</widget>
 	<widget field="extend_spin_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="495" y="123"/>
+		<location x="595" y="209"/>
 	</widget>
 	<widget field="drag_ball_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="510" y="100"/>
-	</widget>
-	<widget field="auto drive state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="505" y="209"/>
+		<location x="610" y="173"/>
+		<width>165</width>
 	</widget>
 	<widget field="auto shooter state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="492" y="232"/>
+		<location x="370" y="305"/>
+		<width>177</width>
 	</widget>
 	<widget field="auto robot state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="512" y="283"/>
+		<location x="381" y="323"/>
+		<width>166</width>
 	</widget>
 	<widget field="sanity check" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
-		<location x="541" y="347"/>
+		<location x="401" y="343"/>
+		<width>146</width>
+		<height>18</height>
 		<property name="Foreground" value="153.153.153.255"/>
 		<property name="Font Size" value="8"/>
 	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="366" y="180"/>
+		<location x="381" y="123"/>
 		<property name="Text" value="Two Ball Auto Config"/>
 	</static-widget>
 	<widget field="auto pre_shot_pickup_stop" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="251" y="218"/>
+		<location x="329" y="163"/>
 	</widget>
 	<widget field="auto two_ball_drive_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="242" y="195"/>
+		<location x="320" y="144"/>
 	</widget>
 	<widget field="auto one_ball_drive_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="243" y="146"/>
+		<location x="320" y="92"/>
 	</widget>
 	<widget field="shooting_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="491" y="37"/>
+		<location x="610" y="110"/>
 	</widget>
 	<widget field="resetting_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="489" y="14"/>
+		<location x="608" y="92"/>
 	</widget>
 	<widget field="pickup_fast_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="499" y="77"/>
+		<location x="599" y="191"/>
 	</widget>
 	<widget field="left encoder distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="279" y="319"/>
+		<location x="359" y="238"/>
 	</widget>
 	<widget field="auto pickup_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="281" y="240"/>
+		<location x="360" y="181"/>
 		<height>20</height>
 	</widget>
 	<widget field="auto extending_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="30" y="239"/>
-	</widget>
-	<widget field="auto drive_forward_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="10" y="216"/>
-		<height>20</height>
+		<location x="52" y="160"/>
 	</widget>
 	<widget field="auto drive_distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="285" y="341"/>
+		<location x="365" y="256"/>
 	</widget>
 	<widget field="auto after_shoot_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="21" y="192"/>
-		<height>21</height>
+		<location x="43" y="124"/>
+		<height>20</height>
 	</widget>
 	<widget field="auto after_drive_pause_seconds" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="-10" y="169"/>
+		<location x="11" y="108"/>
+		<height>20</height>
 	</widget>
 	<widget field="Autonomous mode chooser" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
-		<location x="34" y="27"/>
+		<location x="4" y="0"/>
 	</widget>
 </dashboard>
 <live-window>
