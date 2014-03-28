@@ -66,8 +66,8 @@ class AutoConfig(object):
         return self.auto_chooser.GetSelected()
 
     def is_goal_hot(self):
-        if self.kinect_left.GetY() <= -.5 and self.kinect_right.GetY() <= -.5
-            return True
+        return self.kinect_left.GetY() <= -.5 and self.kinect_right.GetY() <= -.5
+            
         # try:
         #     hot_goal = wpilib.SmartDashboard.GetBoolean("HOT_GOAL")
         #     return hot_goal

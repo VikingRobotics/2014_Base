@@ -17,6 +17,7 @@ class Reporter(common.ComponentBase):
         self.shooter_config = shooter_config
         self.util_config = util_config
         self.i = 0
+        self.auto_config = None
 
     def op_tick(self, time):
         self.update()
@@ -26,6 +27,8 @@ class Reporter(common.ComponentBase):
 
     def disabled_tick(self, time):
         self.update()
+        
+
 
     def update(self):
         # TODO: once this code is on the robot, we can work with the drivers to change the outputs
@@ -55,7 +58,7 @@ class Reporter(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("low hall effect", self.shooter_config.low_shot_hall_effect_counter.Get())
         wpilib.SmartDashboard.PutNumber("high hall effect", self.shooter_config.high_shot_hall_effect_counter.Get())
         wpilib.SmartDashboard.PutNumber("catch hall effect", self.shooter_config.catch_hall_effect_counter.Get())
-
+        wpilib.SmartDashboard.PutBoolean("hot goal", self.auto_config.is_goal_hot())
 
 
 

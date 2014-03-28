@@ -22,6 +22,7 @@ class MyRobot(wpilib.SimpleRobot):
     # Called once when the robot is initialized
     def RobotInit(self):
         self.auto_config = AutoConfig()
+        self.components["reporter"].auto_config = self.auto_config
         wpilib.SmartDashboard.PutNumber("pickup_reverse_seconds", .3)
         # Initialize all robot components
         for type, component in self.components.items():
@@ -172,7 +173,7 @@ class MyRobot(wpilib.SimpleRobot):
                     current_state = WAIT_FOR_HOT_GOAL
 
             elif current_state == WAIT_FOR_HOT_GOAL:
-                if self.auto_config.is_goal_hot() or elapsed_seconds > 6:
+                if self.auto_config.is_goal_hot() or elapsed_seconds > 7:
                     self.components['pickup'].pickup_slow()
                     self.wait(self.auto_config.pre_shot_pickup_stop)
                     self.pickup_reverse_start_time = current_time
