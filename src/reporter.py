@@ -10,14 +10,14 @@ __all__ = ['Reporter']
 
 class Reporter(common.ComponentBase):
 
-    def __init__(self, drive_config, auto_drive_config, pickup_config, shooter_config, util_config):
+    def __init__(self, drive_config, auto_drive_config, pickup_config, shooter_config, util_config, auto_config):
         self.drive_config = drive_config
         self.auto_drive_config = auto_drive_config
         self.pickup_config = pickup_config
         self.shooter_config = shooter_config
         self.util_config = util_config
         self.i = 0
-        self.auto_config = None
+        self.auto_config = auto_config
 
     def op_tick(self, time):
         self.update()

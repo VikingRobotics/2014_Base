@@ -9,6 +9,7 @@ import shooter
 import utilComponent
 import reporter
 import auto_drive
+import auto_config
 
 from utils import Button
 from utils import Axis
@@ -124,14 +125,20 @@ def components():
 
         pickup = components['pickup']
 
-
     components['shooter'] = shooter.Shooter(ShooterConfig)
 
     class UtilConfig(object):
         reload_code_button = Button(leftJoy, 8)
         compressor = wpilib.Compressor(1, 1)
 
+    components['auto_config'] = auto_config.AutoConfig()
+
     components['util'] = utilComponent.UtilComponent(UtilConfig)
-    components['reporter'] = reporter.Reporter(DriveConfig, AutoDriveConfig, PickupConfig, ShooterConfig, UtilConfig)
+    components['reporter'] = reporter.Reporter(DriveConfig,
+                                               AutoDriveConfig, 
+                                               PickupConfig, 
+                                               ShooterConfig, 
+                                               UtilConfig,
+                                               components['auto_config'])
 
     return components

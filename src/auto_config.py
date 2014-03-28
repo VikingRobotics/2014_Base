@@ -3,8 +3,11 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
+import common
 
-class AutoConfig(object):
+__all__ = ['AutoConfig']
+
+class AutoConfig(common.ComponentBase):
     ONE_BALL_AUTO = "one_ball_auto"
     TWO_BALL_AUTO = "two_ball_auto"
 
@@ -16,7 +19,7 @@ class AutoConfig(object):
     # depending on smart dashboard choice. This happens in robot.py
     drive_seconds = 0 
     # one_ball_drive_seconds = 3 # LOW GEAR
-    one_ball_drive_seconds = .6 
+    one_ball_drive_seconds = .6
     # two_ball_drive_seconds = 3.2 # LOW GEAR
     two_ball_drive_seconds = .75 # HIGH GEAR
 
@@ -28,11 +31,10 @@ class AutoConfig(object):
     pickup_seconds = .5
     # two_ball_extend_retract_seconds = 1.2
 
-    def __init__(self):
+    def robot_init(self):
         super().__init__()
         self.kinect_left = wpilib.KinectStick(1)
         self.kinect_right = wpilib.KinectStick(2)
-
 
         # Smartdashboard code to choose autonomous mode
         self.auto_chooser = wpilib.SendableChooser()
@@ -61,7 +63,7 @@ class AutoConfig(object):
         self.after_shoot_seconds = wpilib.SmartDashboard.GetNumber("auto after_shoot_seconds")
         self.pickup_seconds = wpilib.SmartDashboard.GetNumber("auto pickup_seconds")
         self.pre_shot_pickup_stop = wpilib.SmartDashboard.GetNumber("auto pre_shot_pickup_stop")
-    
+
     def get_autonomous_mode(self):
         return self.auto_chooser.GetSelected()
 

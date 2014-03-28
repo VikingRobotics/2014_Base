@@ -3,11 +3,7 @@ try:
 except ImportError:
     from pyfrc import wpilib
 
-from auto_config import *
-
 import config
-
-
 
 class MyRobot(wpilib.SimpleRobot):
 
@@ -17,12 +13,10 @@ class MyRobot(wpilib.SimpleRobot):
         self.dog = self.GetWatchdog()
         self.dog.SetExpiration(0.25)
         self.components = config.components()
-
+        self.auto_config = self.components['auto_config']
 
     # Called once when the robot is initialized
     def RobotInit(self):
-        self.auto_config = AutoConfig()
-        self.components["reporter"].auto_config = self.auto_config
         wpilib.SmartDashboard.PutNumber("pickup_reverse_seconds", .3)
         # Initialize all robot components
         for type, component in self.components.items():
@@ -47,13 +41,7 @@ class MyRobot(wpilib.SimpleRobot):
 
     # Called once when the robot enters autonomous state
     def Autonomous(self):
-        # THE FOLLOWING LINE MAKES NETSIM HAPPY! DONT REMOVE IT, BUT
-        # DONT USE IT ON THE ACTUAL ROBOT!!!!!!!!!
-        # self.auto_config = AutoConfig()
-
         self.dog.SetEnabled(True)
-
-        self.auto_config.update_smartdashboard_vars()
 
         for type, component in self.components.items():
             component.auto_init(self.auto_config)
@@ -80,7 +68,6 @@ class MyRobot(wpilib.SimpleRobot):
         # Initialization
         current_state = START
         start_time = wpilib.Timer.GetFPGATimestamp()
-        
 
         while wpilib.IsAutonomous() and wpilib.IsEnabled():
             self.dog.Feed()
@@ -118,13 +105,10 @@ class MyRobot(wpilib.SimpleRobot):
                     self.wait(self.auto_config.after_shoot_seconds)
                     current_state = STOP
 
-
             # for type, component in self.components.items():
             #     component.auto_tick(wpilib.Timer.GetFPGATimestamp())
 
             wpilib.Wait(0.01)
-
-        
 
     def two_ball_autonomous(self):
 
