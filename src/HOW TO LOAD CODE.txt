@@ -1,17 +1,18 @@
-* connect to robot
-* go to network and sharing center
-* click on the hyperlinked section of the network you are using to connect to the robot with (that is, LAN or Wireless)
-* go to "Properties", down closer to the bottom
-* double click on Internet Protocol Version 4 (TCP/IPv4) Properties
-* put in an ip address of 10.29.28.7
+* Connect to robot
+* Go to network and sharing center
+* Click on the hyperlinked section of the network you are using to connect to the robot with (that is, LAN or Wireless)
+* Go to "Properties", down closer to the bottom
+* Double click on Internet Protocol Version 4 (TCP/IPv4) Properties
+* Put in an ip address of 10.29.28.7
 * Tab through the rest of the fields
 * Hit ok
 
 * Open up a new windows explorer window
-* go to "ftp://10.29.28.2/py"
-* copy all of the files from the folder this document is in into the window you just opened
-* click "Yes to All" in regard to overwriting the files that are already there
-* disable the robot
-* press button 8 on Morgan's joystick
+* Go to "ftp://10.29.28.2/py"
+* Copy all of the files from the folder this document is in into the window you just opened
+* Click "Yes to All" in regard to overwriting the files that are already there
+* Disable the robot
+* Press button 8 on Morgan's joystick
 
 You've Done It!!!!!!!!!!!
+  (Now go tell the programmers of your awesome accomplishment)

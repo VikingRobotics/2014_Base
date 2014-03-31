@@ -22,6 +22,7 @@ class Shooter(common.ComponentBase):
 
         self.shoot_button = config.shoot_button
         self.manual_reset_button = config.manual_reset_button
+        self.e_reset_button = config.e_reset_button
 
         self.low_shot_preset_button = config.low_shot_preset_button
         self.high_shot_preset_button = config.high_shot_preset_button
@@ -63,6 +64,8 @@ class Shooter(common.ComponentBase):
         self.op_state = self.RESET
 
     def op_tick(self, time):
+        # TODO - Make sure catch is properly implemented
+        #    Talk to Elaine and make sure the switches do what she wants
 
         if self.op_state == self.RESET:
             speed = 0
@@ -116,6 +119,11 @@ class Shooter(common.ComponentBase):
         if self.op_state != self.RESET and self.manual_reset_button.get() and self.shoot_button.get():
             self.op_state = self.RESETTING
 
+        # This sets the state to RESET regardless of where the arm thinks it is.
+        # This should only be used to recover from a missed reset hall effect or similar
+        if self.e_reset_button.get() and self.shoot_button.get():
+            self.op_state = self.RESET
+            print("***************** EMERGENCY RESET *****************")
 
         wpilib.SmartDashboard.PutString("Shooter Op State", self.op_state)
 

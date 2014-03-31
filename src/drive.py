@@ -51,6 +51,8 @@ class Drive(common.ComponentBase):
         self.auto_state = self.START
         self.auto_config = auto_config
 
+    # We're using this, not the auto_drive, right?
+    #   Should we migrate this to the auto_drive?
     def auto_drive_forward_tick(self, time):
         speed = 0
 

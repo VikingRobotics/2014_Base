@@ -96,8 +96,10 @@ def components():
         shoot_button = Button(rightJoy, 1)
 
         low_shot_preset_button = Button(rightJoy, 8)
-        high_shot_preset_button = Button(rightJoy, 7)
-        catch_preset_button = Button(rightJoy, 5)
+        catch_preset_button = Button(rightJoy, 7)
+        high_shot_preset_button = Button(rightJoy, 6)
+        # Elaine might want these two flipped (I can't remember)
+        e_reset_button = Button(rightJoy, 5)
         manual_reset_button = Button(rightJoy, 4)
 
         reset_hall_effect_counter = wpilib.Counter()

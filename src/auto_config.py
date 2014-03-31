@@ -32,7 +32,6 @@ class AutoConfig(common.ComponentBase):
     # two_ball_extend_retract_seconds = 1.2
 
     def robot_init(self):
-        super().__init__()
         self.kinect_left = wpilib.KinectStick(1)
         self.kinect_right = wpilib.KinectStick(2)
 
