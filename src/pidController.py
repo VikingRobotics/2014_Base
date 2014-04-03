@@ -13,7 +13,7 @@ class PIDController(object):
 
     def compute(self, delta_time, in_var):
         self.error = self.setpoint - in_var()
-        self.error_sum = self.error * delta_time
+        self.error_sum += self.error * delta_time
 
         d_error = (self.error - self.p_error) / delta_time
 
