@@ -53,9 +53,10 @@ class AutoDrive(common.ComponentBase):
         wpilib.SmartDashboard.PutNumber("encoder_distance_per_pulse", self.encoder_distance_per_pulse)
 
     def update_smartdashboard_vars(self):
-        self.p = wpilib.SmartDashboard.GetNumber("p")
-        self.i = wpilib.SmartDashboard.GetNumber("i")
-        self.d = wpilib.SmartDashboard.GetNumber("d")
+        pass
+        #self.p = wpilib.SmartDashboard.GetNumber("p")
+        #self.i = wpilib.SmartDashboard.GetNumber("i")
+        #self.d = wpilib.SmartDashboard.GetNumber("d")
 
         self.encoder_distance_per_pulse = wpilib.SmartDashboard.GetNumber("encoder_distance_per_pulse")
 

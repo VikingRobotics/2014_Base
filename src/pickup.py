@@ -32,18 +32,19 @@ class Pickup(common.ComponentBase):
         self.extend_spin_time = .3
         self.extend_spin_speed = -.8
 
-        self.pickup_fast_speed = -1
+        self.pickup_fast_speed = -.85
         self.drag_ball_speed = -.25
         self.slow_pass_speed = .5
         self.pickup_drag_fast_speed = -.5
 
-        self.auto_pickup_speed = .5
+        self.auto_pickup_speed = -.65
 
     def robot_init(self):
         wpilib.SmartDashboard.PutNumber("extend_spin_time", self.extend_spin_time)
         wpilib.SmartDashboard.PutNumber("extend_spin_speed", self.extend_spin_speed)
         wpilib.SmartDashboard.PutNumber("pickup_fast_speed", self.pickup_fast_speed)
         wpilib.SmartDashboard.PutNumber("drag_ball_speed", self.drag_ball_speed)
+        wpilib.SmartDashboard.PutNumber("pickup_drag_fast_speed", self.pickup_drag_fast_speed)
         wpilib.SmartDashboard.PutNumber("slow_pass_speed", self.slow_pass_speed)
         wpilib.SmartDashboard.PutNumber("pickup_reverse_speed", 1)
         wpilib.SmartDashboard.PutNumber("auto pickup speed", self.auto_pickup_speed)
@@ -56,6 +57,7 @@ class Pickup(common.ComponentBase):
         self.slow_pass_speed = wpilib.SmartDashboard.GetNumber("slow_pass_speed")
         self.auto_pickup_speed = wpilib.SmartDashboard.GetNumber("auto pickup speed")
         self.pickup_reverse_speed = wpilib.SmartDashboard.GetNumber("pickup_reverse_speed")   
+        self.pickup_drag_fast_speed = wpilib.SmartDashboard.GetNumber("pickup_drag_fast_speed")   
     def op_init(self):
         pass
 

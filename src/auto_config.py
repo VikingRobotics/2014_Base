@@ -28,7 +28,7 @@ class AutoConfig(common.ComponentBase):
     pre_shot_pickup_stop = .3
     extending_seconds = 1.6
     after_shoot_seconds = .3
-    pickup_seconds = .5
+    pickup_seconds = 1.8
     # two_ball_extend_retract_seconds = 1.2
 
     def robot_init(self):

@@ -1,7 +1,19 @@
 <xml version="1.0">
 <dashboard>
+	<widget field="auto drive state" type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="387" y="295"/>
+		<width>164</width>
+	</widget>
+	<widget field="pickup_drag_fast_speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="570" y="268"/>
+	</widget>
+	<widget field="hot goal" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="135" y="375"/>
+		<width>81</width>
+		<height>24</height>
+	</widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="432" y="288"/>
+		<location x="440" y="278"/>
 		<property name="Text" value="Auto State"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
@@ -9,27 +21,15 @@
 		<property name="Text" value="Shooter State"/>
 	</static-widget>
 	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.Label">
-		<location x="163" y="288"/>
+		<location x="162" y="341"/>
 		<property name="Text" value="Kinect"/>
 	</static-widget>
-	<widget field="kinect peeps" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="116" y="354"/>
-	</widget>
-	<widget field="hot goal" type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="137" y="373"/>
-	</widget>
 	<widget field="catch hall effect" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="611" y="361"/>
 		<property name="Editable" value="false"/>
 	</widget>
 	<widget field="auto pickup speed" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="377" y="251"/>
-	</widget>
-	<widget field="Right arm" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="130" y="335"/>
-	</widget>
-	<widget field="Left arm" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
-		<location x="136" y="316"/>
 	</widget>
 	<widget field="right encoder distance" type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
 		<location x="357" y="380"/>
@@ -160,4 +160,8 @@
 </dashboard>
 <live-window>
 </live-window>
+	<hidden field="HOT GOAL!!!!!"/>
+	<hidden field="Right arm"/>
+	<hidden field="Left arm"/>
+	<hidden field="kinect peeps"/>
 </xml>

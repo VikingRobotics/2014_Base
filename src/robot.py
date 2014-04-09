@@ -47,7 +47,7 @@ class MyRobot(wpilib.SimpleRobot):
             component.auto_init(self.auto_config)
             component.update_smartdashboard_vars()
 
-        if self.auto_config.get_autonomous_mode() == AutoConfig.ONE_BALL_AUTO:
+        if self.auto_config.get_autonomous_mode() == self.auto_config.ONE_BALL_AUTO:
             self.auto_config.drive_seconds = self.auto_config.one_ball_drive_seconds
             self.one_ball_autonomous()
         else:
@@ -73,7 +73,6 @@ class MyRobot(wpilib.SimpleRobot):
             self.dog.Feed()
             self.components['reporter'].update()
 
-            wpilib.SmartDashboard.PutString('auto robot state', current_state)
 
             current_time = wpilib.Timer.GetFPGATimestamp()
             elapsed_seconds = current_time - start_time
@@ -92,10 +91,10 @@ class MyRobot(wpilib.SimpleRobot):
                     self.wait(self.auto_config.after_drive_pause_seconds)
                     self.components['pickup'].extend()
                     self.wait(self.auto_config.extending_seconds)
-                    current_state = SHOOTING
+                    current_state = WAIT_FOR_HOT_GOAL
 
             elif current_state == WAIT_FOR_HOT_GOAL:
-                if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
+                if self.auto_config.is_goal_hot() or elapsed_seconds > 7:
                     current_state = SHOOTING
                     
             elif current_state == SHOOTING:
@@ -157,7 +156,7 @@ class MyRobot(wpilib.SimpleRobot):
                     current_state = WAIT_FOR_HOT_GOAL
 
             elif current_state == WAIT_FOR_HOT_GOAL:
-                if self.auto_config.is_goal_hot() or elapsed_seconds > 7:
+                if self.auto_config.is_goal_hot() or elapsed_seconds > 5:
                     self.components['pickup'].pickup_slow()
                     self.wait(self.auto_config.pre_shot_pickup_stop)
                     self.pickup_reverse_start_time = current_time
